@@ -1,10 +1,5 @@
-import { AnyOps, Expression, Exprs } from 'expangine-runtime';
+import { Expression, Exprs } from 'expangine-runtime';
 
-
-export function asBoolean(value: Expression): Expression
-{
-  return Exprs.op(AnyOps.asBoolean, { value });
-}
 
 export function ifConst(path: string[], value: any): Expression
 {

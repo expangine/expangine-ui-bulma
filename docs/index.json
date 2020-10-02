@@ -1,0 +1,95 @@
+{
+  "components": {
+    "bulma/container": {
+      "description": "",
+      "attributes": {
+        "type": ""
+      },
+      "computed": {
+        "containerClass": ""
+      },
+      "slots": {
+        "default": ""
+      }
+    },
+    "bulma/level": {
+      "description": "",
+      "attributes": {
+        "centered": "",
+        "mobile": ""
+      },
+      "computed": {
+        "itemClass": {},
+        "levelClass": {}
+      },
+      "slots": {
+        "left": "",
+        "right": "",
+        "default": ""
+      }
+    },
+    "bulma/media": {
+      "description": "",
+      "slots": {
+        "left": "",
+        "default": "",
+        "right": ""
+      }
+    },
+    "bulma/hero": {
+      "description": "",
+      "attributes": {
+        "type": "",
+        "size": "",
+        "gradient": ""
+      },
+      "computed": {
+        "heroClass": ""
+      },
+      "slots": {
+        "header": "",
+        "footer": "",
+        "default": ""
+      }
+    },
+    "bulma/columns": {
+      "description": "",
+      "attributes": {
+        "gap": "",
+        "multiline": "",
+        "verticalAlign": "",
+        "centered": "",
+        "mobile": ""
+      },
+      "computed": {
+        "columnsClass": ""
+      },
+      "slots": {
+        "default": ""
+      }
+    },
+    "bulma/column": {
+      "description": "",
+      "attributes": {
+        "width": "",
+        "offset": "",
+        "narrow": "",
+        "narrowBreakpoints": ""
+      },
+      "computed": {
+        "columnClass": ""
+      },
+      "slots": {
+        "default": ""
+      }
+    },
+    "__EXAMPLE__": {
+      "description": "",
+      "attributes": {},
+      "state": {},
+      "computed": {},
+      "events": {},
+      "slots": {}
+    }
+  }
+}

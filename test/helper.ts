@@ -41,3 +41,14 @@ export function increment(path: string[], by: number = 1)
     }))
   ;
 }
+
+export function triggerFileChange(e: HTMLElement, files: File[])
+{
+  const ev = document.createEvent('UIEvents');
+  ev.initEvent('change', true, true);
+  Object.defineProperty(e, 'files', {
+    writable: false,
+    value: files,
+  });
+  e.dispatchEvent(ev);
+}

@@ -2,7 +2,7 @@ import { AnyOps, Exprs, ListOps, Types } from 'expangine-runtime';
 import { addComponent, createFor, createIf, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { Status, Size } from '../Types';
-import { asBoolean, ifConst, ifTemplate } from '../helpers';
+import { ifConst, ifTemplate } from '../helpers';
 
 
 
@@ -141,7 +141,7 @@ export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, 
           c.trigger('update', e);
         },
       }, [
-        createIf(asBoolean(Exprs.get('emptyText')), [
+        createIf(Exprs.get('emptyText'), [
           ['option', {}, {}, [
             Exprs.get('emptyText'),
           ]],

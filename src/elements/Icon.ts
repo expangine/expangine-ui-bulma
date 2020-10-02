@@ -6,18 +6,6 @@ import { FieldState, FieldStateType } from '../form/Field';
 import { GetOverride } from '../helpers';
 
 
-export const Icons = Types.enumForText([
-  ['fa-ban', 'Ban'],
-]);
-
-export const IconStyle = Types.enumForText([
-  ['far', 'Regular'],
-  ['fas', 'Solid'],
-  ['fal', 'Light'],
-  ['fad', 'Duotone'],
-  ['fab', 'Brands']
-]);
-
 export interface IconType
 {
   style: string;
@@ -32,6 +20,30 @@ export interface IconType
   square?: boolean;
 }
 
+export interface IconAttributes
+{
+  icon: IconType;
+  fieldState: FieldStateType;
+}
+
+export interface IconComputed
+{
+  classes: object;
+}
+
+export const Icons = Types.enumForText([
+  ['fa-ban', 'Ban'],
+]);
+
+export const IconStyle = Types.enumForText([
+  ['far', 'Regular'],
+  ['fas', 'Solid'],
+  ['fal', 'Light'],
+  ['fad', 'Duotone'],
+  ['fab', 'Brands']
+]);
+
+
 export const IconObject = Types.object({
   style: IconStyle,
   name: Icons,
@@ -45,10 +57,10 @@ export const IconObject = Types.object({
   square: Types.bool(),
 });
 
-export const IconClasses = (attr: string, overrides?: Record<string, Expression>) =>
+export const IconClasses = (attr: string, overrides?: Record<string, Expression>, iconClass: string = 'icon') =>
   Exprs.object({
     span: Exprs.tuple(
-      'icon',
+      iconClass,
       GetOverride([attr, 'size'], 'size', overrides),
       GetOverride([attr, 'side'], 'side', overrides),
       Exprs.if(
@@ -70,18 +82,14 @@ export const IconClasses = (attr: string, overrides?: Record<string, Expression>
     ),
   });
 
-
-export interface IconAttributes
-{
-  icon: IconType;
-  fieldState: FieldStateType;
-}
-
-export interface IconComputed
-{
-  classes: object;
-}
-
+export const IconRender = (classes: string): NodeTemplate => 
+  ['span', { class: Exprs.get(classes, 'span') }, {}, [
+    ['i', { 
+      class: Exprs.get(classes, 'i'), 
+      dataFaTransform: Exprs.get(classes, 'transform'),
+    }],
+  ]];
+  
 export const Icon = addComponent<IconAttributes, never, never, never, IconComputed>({
   collection: COLLECTION,
   name: 'icon',
@@ -97,12 +105,3 @@ export const Icon = addComponent<IconAttributes, never, never, never, IconComput
   },
   render: (c) => IconRender('classes'),
 })
-
-export const IconRender = (classes: string): NodeTemplate => 
-  ['span', { class: Exprs.get(classes, 'span') }, {}, [
-    ['i', { 
-      class: Exprs.get(classes, 'i'), 
-      dataFaTransform: Exprs.get(classes, 'transform'),
-    }],
-  ]];
-  

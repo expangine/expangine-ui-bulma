@@ -2,7 +2,7 @@ import { Types, Exprs } from 'expangine-runtime';
 import { addComponent, createIf, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { Status, Size } from '../Types';
-import { asBoolean, ifConst, ifTemplate } from '../helpers';
+import { ifConst, ifTemplate } from '../helpers';
 
 
 export interface FieldStateType 
@@ -74,7 +74,7 @@ export const Field = addComponent<FieldAttributes, never, FieldSlots, never, Fie
         : Exprs.get('fieldClass') 
     }, {}, [
       c.whenSlot('label', 
-        () => createIf(asBoolean(Exprs.get('label')), [
+        () => createIf(Exprs.get('label'), [
           ['label', { class: 'label' }, {}, [
             Exprs.get('label')
           ]],
@@ -85,7 +85,7 @@ export const Field = addComponent<FieldAttributes, never, FieldSlots, never, Fie
       ),
       createSlot({ scope: { fieldState: Exprs.get('fieldState') }}),
       c.whenSlot('message', 
-        () => createIf(asBoolean(Exprs.get('message')), [
+        () => createIf(Exprs.get('message'), [
           ['p', { class: Exprs.get('messageClass') }, {}, [
             Exprs.get('message'),
           ]]   

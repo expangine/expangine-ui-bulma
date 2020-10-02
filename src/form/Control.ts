@@ -2,7 +2,7 @@ import { Types, Exprs } from 'expangine-runtime';
 import { addComponent, createSlot, createIf } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { Status } from '../Types';
-import { asBoolean, ifConst } from '../helpers';
+import { ifConst } from '../helpers';
 import { FieldState, FieldStateType } from './Field';
 import { IconObject, IconType, IconClasses, IconRender } from '../elements/Icon';
 
@@ -72,10 +72,10 @@ export const Control = addComponent<ControlAttributes, never, ControlSlots, neve
   render: (c) =>
     ['div', { class: Exprs.get('controlClass') }, {}, [
       createSlot({ scope: { fieldState: Exprs.get('fieldState') }}),
-      createIf(asBoolean(Exprs.get('leftIcon')), [
+      createIf(Exprs.get('leftIcon'), [
         IconRender('leftIconClasses'),
       ]),
-      createIf(asBoolean(Exprs.get('rightIcon')), [
+      createIf(Exprs.get('rightIcon'), [
         IconRender('rightIconClasses'),
       ]),
     ]],

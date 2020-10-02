@@ -16,6 +16,31 @@ export const Status = Types.enumForText([
   ['info', 'Info'],
 ]);
 
+export const Colors = Types.enumForText([
+  ['', 'None'],
+  ['primary', 'Primary'],
+  ['danger', 'Error'],
+  ['success', 'Success'],
+  ['warning', 'Warning'],
+  ['info', 'Info'],
+
+  ['white', 'White'],
+  ['light', 'Light'],
+  ['dark', 'Dark'],
+  ['black', 'Black'],
+  ['text', 'Text'],
+  ['link', 'Link'],
+
+  ['orange', 'Orange'],
+  ['yellow', 'Yellow'],
+  ['green', 'Green'],
+  ['turquoise', 'Turquoise'],
+  ['cyan', 'Cyan'],
+  ['blue', 'Blue'],
+  ['purple', 'Purple'],
+  ['red', 'Red'],
+]);
+
 export const Flip = Types.enumForText([
   ['', 'None'],
   ['flip-h', 'Horizontally'],
@@ -33,6 +58,12 @@ export const Side = Types.enumForText([
   ['', 'Default'],
   ['is-left', 'Left'],
   ['is-right', 'Right'],
+]);
+
+export const Alignment = Types.enumForText([
+  ['', 'Left'],
+  ['is-right', 'Right'],
+  ['is-centered', 'Center'],
 ]);
 
 export const InputKind = Types.enumForText([
@@ -53,3 +84,8 @@ export const UpdateOn = Types.enumForText([
   ['keydown', 'Keydown'],
 ])
 
+export const BaseEventType = Types.object({
+  nativeEvent: Types.any(),
+  stop: Types.bool(),
+  prevent: Types.bool(),
+});
