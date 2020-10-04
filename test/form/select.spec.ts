@@ -33,7 +33,6 @@ describe('form/select', () =>
       `<div class="select">
         <select>
           <!--if-->
-          <!--for-->
           <option value="0">A</option>
           <option value="1">B</option>
           <option value="2">C</option>
@@ -53,7 +52,6 @@ describe('form/select', () =>
       `<div class="select">
         <select>
           <!--if-->
-          <!--for-->
           <option value="0">A</option>
           <option value="1">B</option>
           <option value="2">C</option>
@@ -93,7 +91,6 @@ describe('form/select', () =>
       `<div class="select">
         <select>
           <!--if-->
-          <!--for-->
           <option value="0">A</option>
           <option value="1">B</option>
           <option value="2">C</option>
@@ -113,7 +110,6 @@ describe('form/select', () =>
       `<div class="select">
         <select>
           <!--if-->
-          <!--for-->
           <option value="0">A</option>
           <option value="1">B</option>
           <option value="2">C</option>
@@ -157,7 +153,6 @@ describe('form/select', () =>
       `<div class="select">
         <select multiple="">
           <!--if-->
-          <!--for-->
           <option value="0">A</option>
           <option value="1">B</option>
           <option value="2">C</option>

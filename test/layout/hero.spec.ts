@@ -19,7 +19,7 @@ describe('layout/hero', () =>
 
   it('type primary', () =>
   {
-    const i = mount({}, createComponent(Hero, { type: 'is-primary' }));
+    const i = mount({}, createComponent(Hero, { color: 'is-primary' }));
 
     expectHTML(i, [
       `<section class="hero is-primary">

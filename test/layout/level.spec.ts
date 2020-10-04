@@ -36,7 +36,6 @@ describe('layout/level', () =>
     expectHTML(i, [
       `<div class="level">
         <div class="level-left">
-          <!--for-->
           <div class="level-item">A</div>
           <div class="level-item">B</div>
         </div>
@@ -56,7 +55,6 @@ describe('layout/level', () =>
     expectHTML(i, [
       `<div class="level">
         <div class="level-right">
-          <!--for-->
           <div class="level-item">A</div>
           <div class="level-item">B</div>
         </div>
@@ -75,7 +73,6 @@ describe('layout/level', () =>
 
     expectHTML(i, [
       `<div class="level">
-        <!--for-->
         <div class="level-item">A</div>
         <div class="level-item">B</div>
       </div>`
@@ -93,7 +90,6 @@ describe('layout/level', () =>
 
     expectHTML(i, [
       `<div class="level is-mobile">
-        <!--for-->
         <div class="level-item">A</div>
         <div class="level-item">B</div>
       </div>`
@@ -111,7 +107,6 @@ describe('layout/level', () =>
 
     expectHTML(i, [
       `<div class="level">
-        <!--for-->
         <div class="level-item has-text-centered">A</div>
         <div class="level-item has-text-centered">B</div>
       </div>`
@@ -137,15 +132,12 @@ describe('layout/level', () =>
     expectHTML(i, [
       `<div class="level is-mobile">
         <div class="level-left">
-          <!--for-->
           <div class="level-item has-text-centered">A</div>
           <div class="level-item has-text-centered">B</div>
         </div>
-        <!--for-->
         <div class="level-item has-text-centered">C</div>
         <div class="level-item has-text-centered">D</div>
         <div class="level-right">
-          <!--for-->
           <div class="level-item has-text-centered">E</div>
         </div>
       </div>`

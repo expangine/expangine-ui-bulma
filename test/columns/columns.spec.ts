@@ -87,7 +87,6 @@ describe('layout/columns', () =>
 
     expectHTML(i, [
       `<div class="columns">
-        <!--for-->
         <div class="column">A</div>
         <div class="column is-4">B</div>
       </div>`

@@ -66,6 +66,13 @@ export const Alignment = Types.enumForText([
   ['is-centered', 'Center'],
 ]);
 
+export const TextAlignment = Types.enumForText([
+  ['', 'Left'],
+  ['has-text-right', 'Right'],
+  ['has-text-centered', 'Center'],
+  ['has-text-justified', 'Justify'],
+]);
+
 export const InputKind = Types.enumForText([
   ['text', 'Text'],
   ['password', 'Password'],

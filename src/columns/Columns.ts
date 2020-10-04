@@ -34,22 +34,10 @@ export const Columns = addComponent<ColumnsAttributes, never, ColumnsSlots, neve
       type: Types.number(COLUMN_GAP_MIN, COLUMN_GAP_MAX, true),
       default: Exprs.const(COLUMN_DEFAULT_GAP),
     },
-    multiline: {
-      type: Types.bool(),
-      default: Exprs.const(false),
-    },
-    verticalAlign: {
-      type: Types.bool(),
-      default: Exprs.const(false),
-    },
-    centered: {
-      type: Types.bool(),
-      default: Exprs.const(false),
-    },
-    mobile: {
-      type: Types.bool(),
-      default: Exprs.const(false),
-    },
+    multiline: Types.bool(),
+    verticalAlign: Types.bool(),
+    centered: Types.bool(),
+    mobile: Types.bool(),
   },
   computed: {
     columnsClass: Exprs.tuple(

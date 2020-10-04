@@ -1,4 +1,4 @@
-import { AnyOps, Exprs, ListOps, Types } from 'expangine-runtime';
+import { AnyOps, Exprs, ListOps, ListType, Type, Types } from 'expangine-runtime';
 import { addComponent, createFor, createIf, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { Status, Size } from '../Types';
@@ -47,42 +47,57 @@ export interface SelectUpdateEvent
   option: any;
 }
 
-export const SelectUpdateEventType = Types.object({
-  nativeEvent: Types.any(),
-  stop: Types.bool(),
-  prevent: Types.bool(),
-  value: Types.any(),
-  values: Types.list(Types.any()),
-  option: Types.any(),
-  options: Types.list(Types.any()),
-});
+const Any = Types.any();
+const ListAny = Types.list(Any);
+
+const getListType = (type?: Type): Type => 
+  type instanceof ListType
+    ? type
+    : ListAny;
+
+const getListItemType = (type?: Type): Type =>
+  type instanceof ListType
+    ? type.options.item
+    : Any;
 
 export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, never, SelectComputed>({
   collection: COLLECTION,
   name: 'select',
   attributes: {
-    options: Types.list(Types.any()),
+    value: {
+      type: (a) => a.getValue
+        ? a.multiple
+          ? Types.many(a.getValue, Types.list(a.getValue))
+          : a.getValue
+        : a.value || Types.any(),
+      required: true,
+    },
+    options: {
+      type: (a) => getListType(a.options),
+      required: true,
+    },
     getValue: {
-      type: Types.any(),
+      type: (a) => a.getValue 
+        ? a.getValue
+        : getListItemType(a.options),
       default: Exprs.get('option'),
-      callable: Types.object({
-        option: Types.any(),
+      callable: (a) => Types.object({
+        option: getListItemType(a.options),
       }),
     },
     getText: {
       type: Types.text(),
       default: Exprs.get('option', 'text'),
-      callable: Types.object({
-        option: Types.any(),
+      callable: (a) => Types.object({
+        option: getListItemType(a.options),
       }),
     },
+    status: Status,
+    size: Size,
     emptyText: Types.text(),
-    value: Types.optional(Types.text()),
-    status: Types.optional(Status),
-    size: Types.optional(Size),
-    placeholder: Types.optional(Types.text()),
+    placeholder: Types.text(),
     multiple: Types.bool(),
-    multipleSize: Types.optional(Types.number(0, undefined, true)),
+    multipleSize: Types.number(0, undefined, true),
     rounded: Types.bool(),
     disabled: Types.bool(),
     readonly: Types.bool(),
@@ -104,12 +119,22 @@ export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, 
     }),
   },
   slots: {
-    text: Types.object({
-      option: Types.any(),
+    text: (a) => Types.object({
+      option: getListItemType(a.options),
     }),
   },
   events: {
-    update: SelectUpdateEventType,
+    update: (a) => Types.object({
+      nativeEvent: Types.any(),
+      stop: Types.bool(),
+      prevent: Types.bool(),
+      value: a.getValue || Types.any(),
+      values: a.getValue 
+        ? Types.list(a.getValue)
+        : Types.list(Types.any()),
+      option: getListItemType(a.options),
+      options: getListType(a.options),
+    }),
   },
   render: (c) => 
     ['div', {

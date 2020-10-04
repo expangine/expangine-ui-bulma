@@ -30,13 +30,13 @@ export const Control = addComponent<ControlAttributes, never, ControlSlots, neve
   name: 'control',
   attributes: {
     status: Status,
-    loading: Types.bool(),
-    leftIcon: Types.optional(IconObject),
-    rightIcon: Types.optional(IconObject),
+    leftIcon: IconObject,
+    rightIcon: IconObject,
     fieldState: {
-      type: Types.optional(FieldState),
+      type: FieldState,
       default: Exprs.get('fieldState'),
     },
+    loading: Types.bool(),
   },
   computed: {
     controlClass: Exprs.tuple(

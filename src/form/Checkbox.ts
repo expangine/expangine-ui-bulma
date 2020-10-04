@@ -4,7 +4,6 @@ import { COLLECTION } from '../constants';
 
 
 
-
 export interface CheckboxAttributes
 {
   value: any;
@@ -29,31 +28,32 @@ export interface CheckboxUpdateEvent
 
 export type CheckboxSlots = 'default';
 
-export const CheckboxUpdateEventType = Types.object({
-  nativeEvent: Types.any(),
-  stop: Types.bool(),
-  prevent: Types.bool(),
-  value: Types.any(),
-});
-
 export const Checkbox = addComponent<CheckboxAttributes, CheckboxEvents, CheckboxSlots>({
   collection: COLLECTION,
   name: 'checkbox',
   attributes: {
-    value: Types.any(),
+    value: {
+      type: (a) => a.value || Types.any(),
+      required: true,
+    },
     label: Types.text(),
     checkedValue: {
-      type: Types.any(),
+      type: (a) => a.value || Types.any(),
       default: Exprs.true(),
     },
     uncheckedValue: {
-      type: Types.any(),
+      type: (a) => a.value || Types.any(),
       default: Exprs.false(),
     },
     disabled: Types.bool(),
   },  
   events: {
-    update: CheckboxUpdateEventType,
+    update: (a) => Types.object({
+      nativeEvent: Types.any(),
+      stop: Types.bool(),
+      prevent: Types.bool(),
+      value: a.value || Types.any(),
+    }),
   },
   slots: {
     default: Types.object(),

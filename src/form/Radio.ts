@@ -40,14 +40,25 @@ export const Radio = addComponent<RadioAttributes, RadioEvents, RadioSlots>({
   collection: COLLECTION,
   name: 'radio',
   attributes: {
-    value: Types.any(),
-    label: Types.optional(Types.text()),
+    value: {
+      type: (a) => a.value || Types.any(),
+      required: true,
+    },
+    checkedValue: {
+      type: (a) => a.value || Types.any(),
+      required: true,
+    },
+    label: Types.text(),
     name: Types.text(),
-    checkedValue: Types.any(),
     disabled: Types.bool(),
   },
   events: {
-    update: RadioUpdateEventType,
+    update: (a) => Types.object({
+      nativeEvent: Types.any(),
+      stop: Types.bool(),
+      prevent: Types.bool(),
+      value: a.value || Types.any(),
+    }),
   },
   slots: {
     default: Types.object(),

@@ -18,6 +18,8 @@ export interface IconType
   spins?: boolean;
   bordered?: boolean;
   square?: boolean;
+  decorative?: boolean;
+  title?: boolean;
 }
 
 export interface IconAttributes
@@ -52,9 +54,9 @@ export const IconObject = Types.object({
   side: Types.optional(Side),
   rotate: Types.optional(Rotate),
   flip: Types.optional(Flip),
-  spins: Types.bool(),
-  bordered: Types.bool(),
-  square: Types.bool(),
+  spins: Types.optional(Types.bool()),
+  bordered: Types.optional(Types.bool()),
+  square: Types.optional(Types.bool()),
 });
 
 export const IconClasses = (attr: string, overrides?: Record<string, Expression>, iconClass: string = 'icon') =>
@@ -80,6 +82,8 @@ export const IconClasses = (attr: string, overrides?: Record<string, Expression>
       GetOverride([attr, 'rotate'], 'rotate', overrides),
       GetOverride([attr, 'flip'], 'flip', overrides),
     ),
+    decorative: GetOverride([attr, 'decorative'], 'decorative', overrides),
+    title: GetOverride([attr, 'title'], 'title', overrides),
   });
 
 export const IconRender = (classes: string): NodeTemplate => 
@@ -87,6 +91,8 @@ export const IconRender = (classes: string): NodeTemplate =>
     ['i', { 
       class: Exprs.get(classes, 'i'), 
       dataFaTransform: Exprs.get(classes, 'transform'),
+      ariaHidden: Exprs.get(classes, 'decorative'),
+      title: Exprs.get(classes, 'title'),
     }],
   ]];
   
@@ -94,7 +100,10 @@ export const Icon = addComponent<IconAttributes, never, never, never, IconComput
   collection: COLLECTION,
   name: 'icon',
   attributes: {
-    icon: IconObject,
+    icon: {
+      type: IconObject,
+      required: true,
+    },
     fieldState: FieldState,
   },
   computed: {

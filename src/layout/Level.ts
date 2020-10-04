@@ -22,14 +22,8 @@ export const Level = addComponent<LevelAttributes, never, LevelSlots, never, Lev
   collection: COLLECTION,
   name: 'level',
   attributes: {
-    centered: {
-      type: Types.bool(),
-      default: Exprs.false(),
-    },
-    mobile: {
-      type: Types.bool(),
-      default: Exprs.false(),
-    },
+    centered: Types.bool(),
+    mobile: Types.bool(),
   },
   computed: {
     itemClass: Exprs.tuple(

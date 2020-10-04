@@ -6,15 +6,9 @@ import { BaseEventType, Colors, Size } from '../Types';
 import { IconClasses, IconObject, IconRender, IconType } from './Icon';
 
 
-export const ButtonType = Types.enumForText([
-  ['a', 'Link'],
-  ['button', 'Button'],
-  ['submit', 'Form Submit'],
-  ['reset', 'Form Reset'],
-]);
-
 export interface ButtonAttributes
 {
+  text: string;
   type: string;
   color: string;
   light: boolean;
@@ -25,6 +19,7 @@ export interface ButtonAttributes
   rounded: boolean;
   loading: boolean;
   disabled: boolean;
+  selected: boolean;
   leftIcon: IconType;
   rightIcon: IconType;
   title: string;
@@ -45,27 +40,38 @@ export interface ButtonEvents
   click: void;
 }
 
-export const Button = createComponent<ButtonAttributes, ButtonEvents, never, never, ButtonComputed>({
+export type ButtonSlots = 'default';
+
+export const ButtonType = Types.enumForText([
+  ['a', 'Link'],
+  ['button', 'Button'],
+  ['submit', 'Form Submit'],
+  ['reset', 'Form Reset'],
+]);
+
+export const Button = createComponent<ButtonAttributes, ButtonEvents, ButtonSlots, never, ButtonComputed>({
   collection: COLLECTION,
   name: 'button',
   attributes: {
     type: {
-      type: Types.optional(ButtonType),
+      type: ButtonType,
       default: Exprs.const('button'),
     },
-    color: Types.optional(Colors),
-    size: Types.optional(Size),
-    leftIcon: Types.optional(IconObject),
-    rightIcon: Types.optional(IconObject),
-    title: Types.optional(Types.text()),
-    href: Types.optional(Types.text()),
-    light: Types.optional(Types.bool()),
-    fullWidth: Types.optional(Types.bool()),
-    outlined: Types.optional(Types.bool()),
-    inverted: Types.optional(Types.bool()),
-    rounded: Types.optional(Types.bool()),
-    loading: Types.optional(Types.bool()),
-    disabled: Types.optional(Types.bool()),
+    text: Types.text(),
+    color: Colors,
+    size: Size,
+    leftIcon: IconObject,
+    rightIcon: IconObject,
+    title: Types.text(),
+    href: Types.text(),
+    light: Types.bool(),
+    fullWidth: Types.bool(),
+    outlined: Types.bool(),
+    inverted: Types.bool(),
+    rounded: Types.bool(),
+    loading: Types.bool(),
+    disabled: Types.bool(),
+    selected: Types.bool(),
   },
   computed: {
     classes: Exprs.tuple(
@@ -78,6 +84,7 @@ export const Button = createComponent<ButtonAttributes, ButtonEvents, never, nev
       ifConst(['inverted'], 'is-inverted'),
       ifConst(['rounded'], 'is-rounded'),
       ifConst(['loading'], 'is-loading'),
+      ifConst(['selected'], 'is-selected'),
     ),
     tagName: Exprs.switch(Exprs.get('type'), TextOps.isEqual)
       .case('a')
@@ -104,6 +111,11 @@ export const Button = createComponent<ButtonAttributes, ButtonEvents, never, nev
   events: {
     click: BaseEventType,
   },
+  slots: {
+    default: Types.object({
+      text: Types.text(),
+    }),
+  },
   render: (c) => 
     [Exprs.get('tagName'), {
       class: Exprs.get('classes'),
@@ -117,19 +129,37 @@ export const Button = createComponent<ButtonAttributes, ButtonEvents, never, nev
       createIfs([
         [Exprs.and(Exprs.get('leftIcon'), Exprs.get('rightIcon')), [
           IconRender('leftIconClasses'),
-          ['span', {}, {}, [createSlot()]],
+          ['span', {}, {}, [
+            c.whenSlot('default',
+              () => Exprs.get('text'), 
+              () => createSlot({ scope: { text: Exprs.get('text') } })
+            ),
+          ]],
           IconRender('rightIconClasses'),
         ]],
         [Exprs.get('leftIcon'), [
           IconRender('leftIconClasses'),
-          ['span', {}, {}, [createSlot()]],
+          ['span', {}, {}, [
+            c.whenSlot('default',
+              () => Exprs.get('text'), 
+              () => createSlot({ scope: { text: Exprs.get('text') } })
+            ),
+          ]],
         ]],
         [Exprs.get('rightIcon'), [
-          ['span', {}, {}, [createSlot()]],
+          ['span', {}, {}, [
+            c.whenSlot('default',
+              () => Exprs.get('text'), 
+              () => createSlot({ scope: { text: Exprs.get('text') } })
+            ),
+          ]],
           IconRender('rightIconClasses'),
         ]],
       ], [
-        createSlot()
+        c.whenSlot('default',
+          () => Exprs.get('text'), 
+          () => createSlot({ scope: { text: Exprs.get('text') } })
+        ),
       ]),
     ]]
 })

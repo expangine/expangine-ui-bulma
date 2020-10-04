@@ -27,7 +27,7 @@ export const Column = addComponent<ColumnAttributes, never, never, never, Column
   name: 'column',
   attributes: {
     width: {
-      type: Types.optional(Types.number(COLUMN_MIN, COLUMN_MAX, true)),
+      type: Types.number(COLUMN_MIN, COLUMN_MAX, true),
     },
     offset: {
       type: Types.number(COLUMN_MIN, COLUMN_MAX, true),

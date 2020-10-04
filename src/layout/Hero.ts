@@ -2,15 +2,14 @@ import { Exprs, Types } from 'expangine-runtime';
 import { addComponent, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { ifConst } from '../helpers';
+import { Colors } from '../Types';
 
-
-export type HeroType = 'is-primary' | 'is-info' | 'is-success' | 'is-link' | 'is-warning' | 'is-danger' | 'is-light' | 'is-dark';
 
 export type HeroSize = '' | 'is-medium' | 'is-large' | 'is-fullheight' | 'is-fullheight-with-navbar';
 
 export interface HeroAttributes
 { 
-  type: HeroType;
+  color: string;
   size: HeroSize;
   gradient: boolean; 
 }
@@ -22,36 +21,26 @@ export interface HeroComputed
   heroClass: string 
 }
 
+export const HeroSizeType = Types.optional(Types.enumForText([
+  ['', 'Default'],
+  ['is-medium', 'Medium'],
+  ['is-large', 'Large'],
+  ['is-fullheight', 'Fullheight'],
+  ['is-fullheight-with-navbar', 'Fullheight with Navbar'],
+]));
+
 export const Hero = addComponent<HeroAttributes, never, HeroSlots, never, HeroComputed>({
   collection: COLLECTION,
   name: 'hero',
   attributes: {
-    type: Types.optional(Types.enumForText([
-      ['is-primary', 'Primary'],
-      ['is-info', 'Info'],
-      ['is-success', 'Success'],
-      ['is-link', 'Link'],
-      ['is-warning', 'Warning'],
-      ['is-danger', 'Danger'],
-      ['is-light', 'Light'],
-      ['is-dark', 'Dark'],
-    ])),
-    size: Types.optional(Types.enumForText([
-      ['', 'Default'],
-      ['is-medium', 'Medium'],
-      ['is-large', 'Large'],
-      ['is-fullheight', 'Fullheight'],
-      ['is-fullheight-with-navbar', 'Fullheight with Navbar'],
-    ])),
-    gradient: {
-      type: Types.bool(),
-      default: Exprs.false(),
-    },
+    color: Colors,
+    size: HeroSizeType,
+    gradient: Types.bool(),
   },
   computed: {
     heroClass: Exprs.tuple(
       'hero', 
-      Exprs.get('type'), 
+      Exprs.get('color'), 
       Exprs.get('size'), 
       ifConst(['gradient'], 'is-bold'),
     ),
