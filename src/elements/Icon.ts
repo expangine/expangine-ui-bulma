@@ -60,30 +60,33 @@ export const IconObject = Types.object({
 });
 
 export const IconClasses = (attr: string, overrides?: Record<string, Expression>, iconClass: string = 'icon') =>
-  Exprs.object({
+  Exprs.object(IconClassesObject([attr], overrides, iconClass));
+
+export const IconClassesObject = (attr: string[], overrides?: Record<string, Expression>, iconClass: string = 'icon') =>
+  ({
     span: Exprs.tuple(
       iconClass,
-      GetOverride([attr, 'size'], 'size', overrides),
-      GetOverride([attr, 'side'], 'side', overrides),
+      GetOverride([...attr, 'size'], 'size', overrides),
+      GetOverride([...attr, 'side'], 'side', overrides),
       Exprs.if(
-        GetOverride([attr, 'status'], 'status', overrides)
+        GetOverride([...attr, 'status'], 'status', overrides)
       ).than(
-        Exprs.template('has-text-{status}', { status: GetOverride([attr, 'status'], 'status', overrides) }),
+        Exprs.template('has-text-{status}', { status: GetOverride([...attr, 'status'], 'status', overrides) }),
       )
     ),
     i: Exprs.tuple(
-      GetOverride([attr, 'style'], 'style', overrides),
-      Exprs.get(attr, 'name'),
-      Exprs.if(GetOverride([attr, 'spins'], 'spins', overrides)).than(Exprs.const('fa-spinner')),
-      Exprs.if(GetOverride([attr, 'bordered'], 'bordered', overrides)).than(Exprs.const('fa-border')),
-      Exprs.if(GetOverride([attr, 'square'], 'square', overrides)).than(Exprs.const('fa-fw')),
+      GetOverride([...attr, 'style'], 'style', overrides),
+      Exprs.get(...attr, 'name'),
+      Exprs.if(GetOverride([...attr, 'spins'], 'spins', overrides)).than(Exprs.const('fa-spinner')),
+      Exprs.if(GetOverride([...attr, 'bordered'], 'bordered', overrides)).than(Exprs.const('fa-border')),
+      Exprs.if(GetOverride([...attr, 'square'], 'square', overrides)).than(Exprs.const('fa-fw')),
     ),
     transform: Exprs.tuple(
-      GetOverride([attr, 'rotate'], 'rotate', overrides),
-      GetOverride([attr, 'flip'], 'flip', overrides),
+      GetOverride([...attr, 'rotate'], 'rotate', overrides),
+      GetOverride([...attr, 'flip'], 'flip', overrides),
     ),
-    decorative: GetOverride([attr, 'decorative'], 'decorative', overrides),
-    title: GetOverride([attr, 'title'], 'title', overrides),
+    decorative: GetOverride([...attr, 'decorative'], 'decorative', overrides),
+    title: GetOverride([...attr, 'title'], 'title', overrides),
   });
 
 export const IconRender = (classes: string): NodeTemplate => 
@@ -93,6 +96,16 @@ export const IconRender = (classes: string): NodeTemplate =>
       dataFaTransform: Exprs.get(classes, 'transform'),
       ariaHidden: Exprs.get(classes, 'decorative'),
       title: Exprs.get(classes, 'title'),
+    }],
+  ]];
+
+export const IconRenderObject = (classes: any): NodeTemplate => 
+  ['span', { class: classes.span }, {}, [
+    ['i', { 
+      class: classes.i, 
+      dataFaTransform: classes.transform,
+      ariaHidden: classes.decorative,
+      title: classes.title,
     }],
   ]];
   
