@@ -3,7 +3,7 @@ import { addComponent, NodeTemplate } from 'expangine-ui';
 import { Flip, Rotate, Side, Size, Status } from '../Types';
 import { COLLECTION } from '../constants';
 import { FieldState, FieldStateType } from '../form/Field';
-import { GetOverride } from '../helpers';
+import { GetOverride } from '../util';
 
 
 export interface IconType
@@ -34,15 +34,15 @@ export interface IconComputed
 }
 
 export const Icons = Types.enumForText([
-  ['fa-ban', 'Ban'],
+  ['Ban', 'fa-ban'],
 ]);
 
 export const IconStyle = Types.enumForText([
-  ['far', 'Regular'],
-  ['fas', 'Solid'],
-  ['fal', 'Light'],
-  ['fad', 'Duotone'],
-  ['fab', 'Brands']
+  ['Regular', 'far'],
+  ['Solid', 'fas'],
+  ['Light', 'fal'],
+  ['Duotone', 'fad'],
+  ['Brands', 'fab']
 ]);
 
 

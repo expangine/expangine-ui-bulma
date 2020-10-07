@@ -41,7 +41,7 @@ describe('layout/columns', () =>
 
   it('with verticalAlign', () =>
   {
-    const i = mount({}, createComponent(Columns, { verticalAlign: true }));
+    const i = mount({}, createComponent(Columns, { verticalCenter: true }));
 
     expectHTML(i, [
       `<div class="columns is-vcentered">

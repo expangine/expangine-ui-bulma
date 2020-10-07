@@ -2,7 +2,7 @@ import { AnyOps, Exprs, Types } from 'expangine-runtime';
 import { addComponent, ComponentInstance } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { Status, Size, Autocomplete, UpdateOn } from '../Types';
-import { ifConst, ifTemplate } from '../helpers';
+import { ifConst, ifTemplate } from '../util';
 
 
 

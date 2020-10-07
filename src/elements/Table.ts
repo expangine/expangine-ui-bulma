@@ -1,7 +1,7 @@
 import { defs, Exprs, ListType, Type, Types } from 'expangine-runtime';
 import { addComponent, ComponentInstance, createFor, createIf, createIfElse, createSlot, NodeTemplate } from 'expangine-ui';
 import { COLLECTION } from '../constants';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 import { TextAlignment } from '../Types';
 
 

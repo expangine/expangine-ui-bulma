@@ -2,7 +2,7 @@ import { Exprs, Types } from 'expangine-runtime';
 import { addComponent, ComponentInstance, createIf, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { IconType, IconObject, IconClasses, IconRender } from '../elements/Icon';
-import { ifConst, ifTemplate } from '../helpers';
+import { ifConst, ifTemplate } from '../util';
 import { Size, Alignment, Colors } from '../Types';
 
 

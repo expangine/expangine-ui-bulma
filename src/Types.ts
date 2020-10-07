@@ -2,93 +2,119 @@ import { Types } from 'expangine-runtime';
 
 export const Size = Types.enumForText([
   ['', 'Default'],
-  ['is-small', 'Small'],
-  ['is-medium', 'Medium'],
-  ['is-large', 'Large'],
+  ['Small', 'is-small'],
+  ['Medium', 'is-medium'],
+  ['Large', 'is-large'],
 ]);
 
 export const Status = Types.enumForText([
-  ['', 'None'],
-  ['primary', 'Primary'],
-  ['danger', 'Error'],
-  ['success', 'Success'],
-  ['warning', 'Warning'],
-  ['info', 'Info'],
+  ['None', ''],
+  ['Primary', 'primary'],
+  ['Error', 'danger'],
+  ['Success', 'success'],
+  ['Warning', 'warning'],
+  ['Info', 'info'],
 ]);
 
 export const Colors = Types.enumForText([
-  ['', 'None'],
-  ['primary', 'Primary'],
-  ['danger', 'Error'],
-  ['success', 'Success'],
-  ['warning', 'Warning'],
-  ['info', 'Info'],
+  ['None', ''],
+  ['Primary', 'primary'],
+  ['Error', 'danger'],
+  ['Success', 'success'],
+  ['Warning', 'warning'],
+  ['Info', 'info'],
 
-  ['white', 'White'],
-  ['light', 'Light'],
-  ['dark', 'Dark'],
-  ['black', 'Black'],
-  ['text', 'Text'],
-  ['link', 'Link'],
+  ['White', 'white'],
+  ['Light', 'light'],
+  ['Dark', 'dark'],
+  ['Black', 'black'],
+  ['Text', 'text'],
+  ['Link', 'link'],
 
-  ['orange', 'Orange'],
-  ['yellow', 'Yellow'],
-  ['green', 'Green'],
-  ['turquoise', 'Turquoise'],
-  ['cyan', 'Cyan'],
-  ['blue', 'Blue'],
-  ['purple', 'Purple'],
-  ['red', 'Red'],
+  ['Orange', 'orange'],
+  ['Yellow', 'yellow'],
+  ['Green', 'green'],
+  ['Turquoise', 'turquoise'],
+  ['Cyan', 'cyan'],
+  ['Blue', 'blue'],
+  ['Purple', 'purple'],
+  ['Red', 'red'],
 ]);
 
 export const Flip = Types.enumForText([
-  ['', 'None'],
-  ['flip-h', 'Horizontally'],
-  ['flip-v', 'Vertically'],
+  ['None', ''],
+  ['Horizontally', 'flip-h'],
+  ['Vertically', 'flip-v'],
 ]);
 
 export const Rotate = Types.enumForText([
-  ['', 'None'],
-  ['rotate-90', 'Rotate Right'],
-  ['rotate-180', 'Rotate 180'],
-  ['rotate-270', 'Rotate Left'],
+  ['None', ''],
+  ['Rotate Right', 'rotate-90'],
+  ['Rotate 180', 'rotate-180'],
+  ['Rotate Left', 'rotate-270'],
 ]);
 
 export const Side = Types.enumForText([
-  ['', 'Default'],
-  ['is-left', 'Left'],
-  ['is-right', 'Right'],
+  ['Default', ''],
+  ['Left', 'is-left'],
+  ['Right', 'is-right'],
 ]);
 
 export const Alignment = Types.enumForText([
-  ['', 'Left'],
-  ['is-right', 'Right'],
-  ['is-centered', 'Center'],
+  ['Left', ''],
+  ['Right', 'is-right'],
+  ['Center', 'is-centered'],
 ]);
 
 export const TextAlignment = Types.enumForText([
-  ['', 'Left'],
-  ['has-text-right', 'Right'],
-  ['has-text-centered', 'Center'],
-  ['has-text-justified', 'Justify'],
+  ['Left', ''],
+  ['Right', 'has-text-right'],
+  ['Center', 'has-text-centered'],
+  ['Justify', 'has-text-justified'],
+]);
+
+export const TextTransform = Types.enumForText([
+  ['None', ''],
+  ['Capitalized', 'is-capitalized'],
+  ['Lowercase', 'is-lowercase'],
+  ['Uppercase', 'is-uppercase'],
+  ['Italic', 'is-italic'],
+]);
+
+export const TextWeight = Types.enumForText([
+  ['Default', ''],
+  ['Light', 'has-text-weight-light'],
+  ['Normal', 'has-text-weight-normal'],
+  ['Medium', 'has-text-weight-medium'],
+  ['Semibold', 'has-text-weight-semibold'],
+  ['Bold', 'has-text-weight-bold'],
+]);
+
+export const FontFamily = Types.enumForText([
+  ['Default', ''],
+  ['Sans Serif', 'is-family-sans-serif'],
+  ['Monospace', 'is-family-monospace'],
+  ['Primary', 'is-family-primary'],
+  ['Secondary', 'is-family-secondary'],
+  ['Code', 'is-family-code'],
 ]);
 
 export const InputKind = Types.enumForText([
-  ['text', 'Text'],
-  ['password', 'Password'],
-  ['email', 'Email'],
-  ['tel', 'Telephone'],
+  ['Text', 'text'],
+  ['Password', 'password'],
+  ['Email', 'email'],
+  ['Telephone', 'tel'],
 ]);
 
 export const Autocomplete = Types.enumForText([
-  ['new-password', 'None'],
+  ['None', 'new-password'],
 ]);
 
 export const UpdateOn = Types.enumForText([
-  ['input', 'Input'],
-  ['change', 'Change'],
-  ['blur', 'Blur'],
-  ['keydown', 'Keydown'],
+  ['Input', 'input'],
+  ['Change', 'change'],
+  ['Blur', 'blur'],
+  ['Keydown', 'keydown'],
 ])
 
 export const BaseEventType = Types.object({

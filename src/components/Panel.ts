@@ -36,8 +36,13 @@ export const Panel = addComponent<PanelAttributes, never, PanelSlots, never, Pan
       heading: Types.text(),
     })),
     default: {
-      array: true,
       scope: Types.object(),
+      array: true,
+      only: [
+        `${COLLECTION}/panel-block`,
+        `${COLLECTION}/panel-item`,
+        `${COLLECTION}/panel-tabs`,
+      ],
     },
   },
   render: (c) => 

@@ -29,10 +29,10 @@ export interface BreadcrumbComputed
 export type BreadcrumbSlots = 'default';
 
 export const BreadcrumbSeparator = Types.enumForText([
-  ['has-arrow-separator', 'Arrow'],
-  ['has-bullet-separator', 'Bullet'],
-  ['has-dot-separator', 'Dot'],
-  ['has-succeeds-separator', 'Succeeds'],
+  ['Arrow', 'has-arrow-separator'],
+  ['Bullet', 'has-bullet-separator'],
+  ['Dot', 'has-dot-separator'],
+  ['Succeeds', 'has-succeeds-separator'],
 ]);
 
 const Any = Types.any();

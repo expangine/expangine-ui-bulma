@@ -22,31 +22,30 @@ export interface ColumnComputed
   columnClass: string;
 }
 
-export const Column = addComponent<ColumnAttributes, never, never, never, ColumnComputed>({
+export type ColumnSlots = 'default';
+
+export const ColumnNarrowBreakpoint = Types.enumForText([
+  ['None', 'is-narrow'],
+  ['Mobile', 'is-narrow-mobile'],
+  ['Tablet', 'is-narrow-tablet'],
+  ['Touch', 'is-narrow-touch'],
+  ['Desktop', 'is-narrow-desktop'],
+  ['Widescreen', 'is-narrow-widescreen'],
+  ['Full HD', 'is-narrow-fullhd'],
+]);
+
+export const Column = addComponent<ColumnAttributes, never, ColumnSlots, never, ColumnComputed>({
   collection: COLLECTION,
   name: 'column',
   attributes: {
-    width: {
-      type: Types.number(COLUMN_MIN, COLUMN_MAX, true),
-    },
+    width: Types.number(COLUMN_MIN, COLUMN_MAX, true),
     offset: {
       type: Types.number(COLUMN_MIN, COLUMN_MAX, true),
       default: Exprs.const(COLUMN_DEFAULT_OFFSET),
     },
-    narrow: {
-      type: Types.bool(),
-      default: Exprs.const(false),
-    },
+    narrow: Types.bool(),
     narrowBreakpoint: {
-      type: Types.enumForText([
-        ['is-narrow', 'None'],
-        ['is-narrow-mobile', 'Mobile'],
-        ['is-narrow-tablet', 'Tablet'],
-        ['is-narrow-touch', 'Touch'],
-        ['is-narrow-desktop', 'Desktop'],
-        ['is-narrow-widescreen', 'Widescreen'],
-        ['is-narrow-fullhd', 'Full HD'],
-      ]),
+      type: ColumnNarrowBreakpoint,
       default: Exprs.const('is-narrow'),
     },
   },
@@ -78,6 +77,9 @@ export const Column = addComponent<ColumnAttributes, never, never, never, Column
         Exprs.get('narrowBreakpoint')
       ),
     ),
+  },
+  slots: {
+    default: Types.object(),
   },
   render: (c) => 
     ['div', { class: Exprs.get('columnClass') }, {}, [

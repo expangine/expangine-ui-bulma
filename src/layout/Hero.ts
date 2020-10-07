@@ -1,32 +1,30 @@
 import { Exprs, Types } from 'expangine-runtime';
 import { addComponent, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 import { Colors } from '../Types';
 
-
-export type HeroSize = '' | 'is-medium' | 'is-large' | 'is-fullheight' | 'is-fullheight-with-navbar';
 
 export interface HeroAttributes
 { 
   color: string;
-  size: HeroSize;
+  size: string;
   gradient: boolean; 
 }
-
-export type HeroSlots = 'default' | 'footer' | 'header';
 
 export interface HeroComputed
 { 
   heroClass: string 
 }
 
-export const HeroSizeType = Types.optional(Types.enumForText([
-  ['', 'Default'],
-  ['is-medium', 'Medium'],
-  ['is-large', 'Large'],
-  ['is-fullheight', 'Fullheight'],
-  ['is-fullheight-with-navbar', 'Fullheight with Navbar'],
+export type HeroSlots = 'default' | 'footer' | 'header';
+
+export const HeroSize = Types.optional(Types.enumForText([
+  ['Default', ''],
+  ['Medium', 'is-medium'],
+  ['Large', 'is-large'],
+  ['Fullheight', 'is-fullheight'],
+  ['Fullheight with Navbar', 'is-fullheight-with-navbar'],
 ]));
 
 export const Hero = addComponent<HeroAttributes, never, HeroSlots, never, HeroComputed>({
@@ -34,7 +32,7 @@ export const Hero = addComponent<HeroAttributes, never, HeroSlots, never, HeroCo
   name: 'hero',
   attributes: {
     color: Colors,
-    size: HeroSizeType,
+    size: HeroSize,
     gradient: Types.bool(),
   },
   computed: {

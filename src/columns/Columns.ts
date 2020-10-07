@@ -1,7 +1,7 @@
 import { Exprs, NumberOps, Types } from 'expangine-runtime';
 import { addComponent, createFor, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 
 
 export const COLUMN_DEFAULT_GAP = 3;
@@ -14,7 +14,7 @@ export interface ColumnsAttributes
 { 
   gap: number;
   multiline: boolean;
-  verticalAlign: boolean;
+  verticalCenter: boolean;
   centered: boolean;
   mobile: boolean;
 }
@@ -35,7 +35,7 @@ export const Columns = addComponent<ColumnsAttributes, never, ColumnsSlots, neve
       default: Exprs.const(COLUMN_DEFAULT_GAP),
     },
     multiline: Types.bool(),
-    verticalAlign: Types.bool(),
+    verticalCenter: Types.bool(),
     centered: Types.bool(),
     mobile: Types.bool(),
   },
@@ -53,7 +53,7 @@ export const Columns = addComponent<ColumnsAttributes, never, ColumnsSlots, neve
         }),
       ),
       ifConst(['multiline'], 'is-multiline'),
-      ifConst(['verticalAlign'], 'is-vcentered'),
+      ifConst(['verticalCenter'], 'is-vcentered'),
       ifConst(['centered'], 'is-centered'),
       ifConst(['mobile'], 'is-mobile'),
     ),

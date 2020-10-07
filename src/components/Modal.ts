@@ -1,7 +1,7 @@
 import { Exprs, Types } from 'expangine-runtime';
 import { addComponent, createIf, createIfElse, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 import { BaseEventType, Size } from '../Types';
 
 

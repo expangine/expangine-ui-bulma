@@ -17,7 +17,10 @@ export const Content = addComponent<ContentAttributes>({
   },
   render: (c) =>
     ['div', {
-      class: Exprs.tuple('content', Exprs.get('size')),
+      class: Exprs.tuple(
+        'content', 
+        Exprs.get('size')
+      ),
     }, {}, [
       createSlot()
     ]],

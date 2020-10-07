@@ -2,7 +2,7 @@ import { Exprs, TextOps, Types } from 'expangine-runtime';
 import { addComponent, createFor, createIf, createIfElse, createIfs, createSlot, NodeTemplateChild, Scope } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { IconClasses, IconClassesObject, IconObject, IconRender, IconRenderObject, IconType } from '../elements';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 import { BaseEventType } from '../Types';
 
 
@@ -33,11 +33,11 @@ export interface DropdownEvents
 export type DropdownSlots = 'trigger' | 'default';
 
 export const DropdownTriggerEvents = Types.enumForText([
-  ['toggle', 'Toggle'],
-  ['focus', 'Focus / Blur'],
-  ['click', 'Click / Click Out'],
-  ['hover', 'Hover'],
-  ['none', 'None'],
+  ['Toggle', 'toggle'],
+  ['Focus / Blur', 'focus'],
+  ['Click / Click Out', 'click'],
+  ['Hover', 'hover'],
+  ['None', 'none'],
 ]);
 
 export const DropdownItem = Types.object({

@@ -11,3 +11,4 @@ export * from './Progress';
 export * from './Table';
 export * from './Tag';
 export * from './Tags';
+export * from './Title';

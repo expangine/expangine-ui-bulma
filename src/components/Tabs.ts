@@ -2,7 +2,7 @@ import { Exprs, ListType, ObjectType, Type, Types } from 'expangine-runtime';
 import { addComponent, createComponent, createFor } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { IconObject } from '../elements';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 import { Alignment, Size } from '../Types';
 import { Tab } from './Tab';
 
@@ -35,10 +35,10 @@ export interface TabsEvents
 }
 
 export const TabsType = Types.enumForText([
-  ['', 'Default'],
-  ['is-boxed', 'Borders'],
-  ['is-toggle', 'Toggle'],
-  ['is-toggle is-toggle-rounded', 'Toggle Rounded'],
+  ['Default', ''],
+  ['Borders', 'is-boxed'],
+  ['Toggle', 'is-toggle'],
+  ['Toggle Rounded', 'is-toggle is-toggle-rounded'],
 ]);
 
 const DefaultTab = Types.text();

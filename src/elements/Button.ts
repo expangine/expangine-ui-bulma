@@ -1,7 +1,7 @@
 import { Exprs, TextOps, Types } from 'expangine-runtime';
 import { createComponent, createIfs, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
-import { ifConst, ifTemplate } from '../helpers';
+import { ifConst, ifTemplate } from '../util';
 import { BaseEventType, Colors, Size } from '../Types';
 import { IconClasses, IconObject, IconRender, IconType } from './Icon';
 
@@ -43,10 +43,10 @@ export interface ButtonEvents
 export type ButtonSlots = 'default';
 
 export const ButtonType = Types.enumForText([
-  ['a', 'Link'],
-  ['button', 'Button'],
-  ['submit', 'Form Submit'],
-  ['reset', 'Form Reset'],
+  ['Link', 'a'],
+  ['Button', 'button'],
+  ['Form Submit', 'submit'],
+  ['Form Reset', 'reset'],
 ]);
 
 export const Button = createComponent<ButtonAttributes, ButtonEvents, ButtonSlots, never, ButtonComputed>({

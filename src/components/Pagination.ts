@@ -1,7 +1,7 @@
 import { Expression, Exprs, NumberOps, Types } from 'expangine-runtime';
 import { addComponent, createFor, createIf, createIfs, NodeTemplateChild, Scope } from 'expangine-ui';
 import { COLLECTION } from '../constants';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 import { Alignment, Size } from '../Types';
 
 

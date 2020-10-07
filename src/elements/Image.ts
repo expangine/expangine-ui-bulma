@@ -1,7 +1,7 @@
 import { Exprs, Types } from 'expangine-runtime';
 import { addComponent, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
-import { ifConst } from '../helpers';
+import { ifConst } from '../util';
 import { BaseEventType } from '../Types';
 
 
@@ -26,31 +26,31 @@ export interface ImageComputed
 }
 
 export const ImageSquareSizes = Types.enumForText([
-  ['is-16x16', '16px'],
-  ['is-24x24', '24px'],
-  ['is-32x32', '32px'],
-  ['is-48x48', '48px'],
-  ['is-64x64', '64px'],
-  ['is-96x96', '96px'],
-  ['is-128x128', '128px'],
+  ['16px', 'is-16x16'],
+  ['24px', 'is-24x24'],
+  ['32px', 'is-32x32'],
+  ['48px', 'is-48x48'],
+  ['64px', 'is-64x64'],
+  ['96px', 'is-96x96'],
+  ['128px', 'is-128x128'],
 ]);
 
 export const ImageRatios = Types.enumForText([
-  ['is-1by1', 'Square'],
-  ['is-5by4', '5 x 4'],
-  ['is-4by3', '4 x 3'],
-  ['is-3by2', '3 x 2'],
-  ['is-5by3', '5 x 3'],
-  ['is-16by9', '16 x 9'],
-  ['is-2by1', '2 x 1'],
-  ['is-3by1', '3 x 1'],
-  ['is-4by5', '4 x 5'],
-  ['is-3by4', '3 x 4'],
-  ['is-2by3', '2 x 3'],
-  ['is-3by5', '3 x 5'],
-  ['is-9by16', '9 x 16'],
-  ['is-1by2', '1 x 2'],
-  ['is-1by3', '1 x 3'],
+  ['Square', 'is-1by1'],
+  ['5 x 4', 'is-5by4'],
+  ['4 x 3', 'is-4by3'],
+  ['3 x 2', 'is-3by2'],
+  ['5 x 3', 'is-5by3'],
+  ['16 x 9', 'is-16by9'],
+  ['2 x 1', 'is-2by1'],
+  ['3 x 1', 'is-3by1'],
+  ['4 x 5', 'is-4by5'],
+  ['3 x 4', 'is-3by4'],
+  ['2 x 3', 'is-2by3'],
+  ['3 x 5', 'is-3by5'],
+  ['9 x 16', 'is-9by16'],
+  ['1 x 2', 'is-1by2'],
+  ['1 x 3', 'is-1by3'],
 ]);
 
 export const Image = addComponent<ImageAttributes, ImageEvents, never, never, ImageComputed>({

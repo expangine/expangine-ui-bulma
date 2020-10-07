@@ -1,5 +1,54 @@
 {
+  "name": "Bulma",
+  "description": "Bulma is a modern & responsive framework",
+  "category": {
+    "helpers": "Apply helper components, in order to alter their style",
+    "columns": "The power of Flexbox in a simple interface",
+    "layout": "Design the structure of your webpage with these components",
+    "form": "The indispensable form components, designed for maximum clarity",
+    "elements": "Essential interface elements",
+    "components": "Advanced multi-part components with lots of possibilities"
+  },
   "components": {
+
+    "bulma/column": {
+      "category": "columns",
+      "description": "",
+      "attributes": {
+        "width": {
+          "description": ""
+        },
+        "offset": {
+          "description": "",
+          "default": "None"
+        },
+        "narrow": {
+          "description": "",
+          "default": "false"
+        },
+        "narrowBreakpoint": {
+          "description": "",
+          "default": "None"
+        }
+      }
+    },
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     "bulma/container": {
       "description": "",
       "attributes": {
@@ -68,28 +117,38 @@
         "default": ""
       }
     },
-    "bulma/column": {
+
+
+
+
+    "__EXAMPLE__": {
+      "category": "",
       "description": "",
       "attributes": {
-        "width": "",
-        "offset": "",
-        "narrow": "",
-        "narrowBreakpoints": ""
+        "[attr]": {
+          "description": "",
+          "default": "",
+          "callable": {
+            "[var]": ""
+          }
+        }
       },
-      "computed": {
-        "columnClass": ""
+      "events": {
+        "[event]": {
+          "description": "",
+          "scope": {
+            "[var]": ""
+          }
+        }
       },
       "slots": {
-        "default": ""
+        "[slot]": {
+          "description": "",
+          "scope": {
+            "[var]": ""
+          }
+        }
       }
-    },
-    "__EXAMPLE__": {
-      "description": "",
-      "attributes": {},
-      "state": {},
-      "computed": {},
-      "events": {},
-      "slots": {}
     }
   }
 }
