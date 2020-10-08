@@ -34,7 +34,7 @@ module.exports = {
     externals: {
       'expangine-runtime': 'expangine-runtime',
       'expangine-runtime-live': 'expangine-runtime-live',
-      'expangine-runtime-ui': 'expangine-runtime-ui',
+      'expangine-ui': 'expangine-ui',
     },
 
     module: {
