@@ -7,7 +7,7 @@ module.exports = {
     context: ROOT,
 
     entry: {
-      'expangine-ui': './index.ts'
+      'expangine-ui-bulma': './index.ts'
     },
     
     output: {
@@ -34,6 +34,7 @@ module.exports = {
     externals: {
       'expangine-runtime': 'expangine-runtime',
       'expangine-runtime-live': 'expangine-runtime-live',
+      'expangine-runtime-ui': 'expangine-runtime-ui',
     },
 
     module: {
