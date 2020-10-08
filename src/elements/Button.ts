@@ -1,5 +1,5 @@
 import { Exprs, TextOps, Types } from 'expangine-runtime';
-import { createComponent, createIfs, createSlot } from 'expangine-ui';
+import { addComponent, createIfs, createSlot } from 'expangine-ui';
 import { COLLECTION } from '../constants';
 import { ifConst, ifTemplate } from '../util';
 import { BaseEventType, Colors, Size } from '../Types';
@@ -49,7 +49,7 @@ export const ButtonType = Types.enumForText([
   ['Form Reset', 'reset'],
 ]);
 
-export const Button = createComponent<ButtonAttributes, ButtonEvents, ButtonSlots, never, ButtonComputed>({
+export const Button = addComponent<ButtonAttributes, ButtonEvents, ButtonSlots, never, ButtonComputed>({
   collection: COLLECTION,
   name: 'button',
   attributes: {

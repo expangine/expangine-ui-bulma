@@ -29,4 +29,4 @@ export interface ButtonEvents {
 }
 export declare type ButtonSlots = 'default';
 export declare const ButtonType: import("expangine-runtime").EnumType;
-export declare const Button: import("expangine-ui").NodeTemplate;
+export declare const Button: import("expangine-ui").Component<ButtonAttributes, ButtonEvents, "default", never, ButtonComputed>;
