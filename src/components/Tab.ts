@@ -1,5 +1,6 @@
 import { AnyOps, Exprs, Types } from 'expangine-runtime';
-import { addComponent, createIfElse } from 'expangine-ui';
+import { createIfElse } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconClasses, IconObject, IconRender, IconType } from '../elements';
 

@@ -1,5 +1,5 @@
 import { Exprs, NumberOps, Types } from 'expangine-runtime';
-import { addComponent } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { Colors, Size } from '../Types';
 

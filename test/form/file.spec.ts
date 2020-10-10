@@ -1,12 +1,13 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { FileComponent } from '../../src';
+import { FileComponent, registerComponents } from '../../src';
 import { expectHTML, triggerFileChange } from '../helper';
 
 // tslint:disable no-magic-numbers
 
 describe('form/file', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

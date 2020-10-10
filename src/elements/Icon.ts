@@ -1,5 +1,6 @@
 import { Expression, Exprs, Types } from 'expangine-runtime';
-import { addComponent, NodeTemplate } from 'expangine-ui';
+import { NodeTemplate } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { Flip, Rotate, Side, Size, Status } from '../Types';
 import { COLLECTION } from '../constants';
 import { FieldState, FieldStateType } from '../form/Field';

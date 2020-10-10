@@ -1,11 +1,12 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Menu } from '../../src';
+import { Menu, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('components/menu', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

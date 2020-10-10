@@ -1,10 +1,11 @@
 import { createComponent, mount } from 'expangine-ui';
-import { Column } from '../../src';
+import { Column, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('layout/column', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

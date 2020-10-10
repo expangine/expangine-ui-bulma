@@ -1,5 +1,6 @@
 import { AnyOps, Exprs, ListOps, ListType, Type, Types } from 'expangine-runtime';
-import { addComponent, createFor, createIf, createSlot } from 'expangine-ui';
+import { createFor, createIf, createSlot } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { Status, Size } from '../Types';
 import { ifConst, ifTemplate } from '../util';

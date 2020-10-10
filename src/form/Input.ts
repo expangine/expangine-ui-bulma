@@ -1,5 +1,6 @@
 import { Exprs, Types } from 'expangine-runtime';
-import { addComponent, ComponentInstance } from 'expangine-ui';
+import { ComponentInstance } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { InputKind, Status, Size, Autocomplete, UpdateOn } from '../Types';
 import { ifConst, ifTemplate } from '../util';

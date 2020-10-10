@@ -1,6 +1,7 @@
 import { Exprs, NumberOps, Types } from 'expangine-runtime';
-import { addComponent, createSlot } from 'expangine-ui';
+import { createSlot } from 'expangine-ui';
 import { Breakpoint, COLLECTION } from '../constants';
+import { addComponent } from '../ComponentRegistry';
 
 
 export const COLUMN_MIN = 1;

@@ -1,5 +1,6 @@
 import { Exprs, Types } from 'expangine-runtime';
-import { addComponent, ComponentInstance, createIf, createSlot } from 'expangine-ui';
+import { ComponentInstance, createIf, createSlot } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconType, IconObject, IconClasses, IconRender } from '../elements/Icon';
 import { ifConst, ifTemplate } from '../util';

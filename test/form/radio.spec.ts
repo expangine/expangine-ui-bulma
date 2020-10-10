@@ -1,12 +1,13 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Control, Radio } from '../../src';
+import { Control, Radio, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 // tslint:disable no-magic-numbers
 
 describe('form/radio', () => 
 {
+  registerComponents();
 
   it('value number', () =>
   {

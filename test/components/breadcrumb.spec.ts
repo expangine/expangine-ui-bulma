@@ -1,11 +1,12 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Breadcrumb } from '../../src';
+import { Breadcrumb, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('components/breadcrumb', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

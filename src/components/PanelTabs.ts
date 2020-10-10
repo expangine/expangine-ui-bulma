@@ -1,5 +1,6 @@
 import { Exprs, TextOps, Types } from 'expangine-runtime';
-import { addComponent, createFor, Scope } from 'expangine-ui';
+import { createFor, Scope } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 
 

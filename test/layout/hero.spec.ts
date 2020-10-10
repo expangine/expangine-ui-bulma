@@ -1,10 +1,11 @@
 import { createComponent, mount } from 'expangine-ui';
-import { Hero } from '../../src';
+import { Hero, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('layout/hero', () => 
 {
+  registerComponents();
 
   it('empty', () =>
   {

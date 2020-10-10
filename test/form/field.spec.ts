@@ -1,11 +1,12 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Control, Field } from '../../src';
+import { Control, Field, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('form/field', () => 
 {
+  registerComponents();
 
   it('empty', () =>
   {

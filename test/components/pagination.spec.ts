@@ -1,6 +1,6 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Pagination } from '../../src';
+import { Pagination, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
@@ -8,6 +8,7 @@ import { expectHTML } from '../helper';
 
 describe('components/pagination', () => 
 {
+  registerComponents();
 
   it('1', () =>
   {

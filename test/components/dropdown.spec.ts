@@ -1,11 +1,12 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Dropdown } from '../../src';
+import { Dropdown, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('components/dropdown', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

@@ -1,12 +1,13 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Tabs } from '../../src';
+import { registerComponents, Tabs } from '../../src';
 import { expectHTML } from '../helper';
 
 // tslint:disable: no-magic-numbers
 
 describe('components/tabs', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

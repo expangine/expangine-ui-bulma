@@ -1,12 +1,13 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Checkbox } from '../../src';
+import { Checkbox, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 // tslint:disable no-magic-numbers
 
 describe('form/checkbox', () => 
 {
+  registerComponents();
 
   it('value boolean', () =>
   {

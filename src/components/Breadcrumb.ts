@@ -1,5 +1,6 @@
 import { Exprs, ListType, NumberOps, ObjectType, Type, Types } from 'expangine-runtime';
-import { addComponent, createFor, createSlot, createIfElse, createComponent } from 'expangine-ui';
+import { createFor, createSlot, createIfElse, createComponent } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconObject, IconType, Icon } from '../elements/Icon';
 import { Alignment, Size } from '../Types';

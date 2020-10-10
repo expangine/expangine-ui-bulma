@@ -1,10 +1,11 @@
 import { createComponent, mount } from 'expangine-ui';
-import { Level } from '../../src';
+import { Level, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('layout/level', () => 
 {
+  registerComponents();
 
   it('empty', () =>
   {

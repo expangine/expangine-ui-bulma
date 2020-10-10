@@ -1,10 +1,11 @@
 import { createComponent, mount } from 'expangine-ui';
-import { Card } from '../../src';
+import { Card, registerComponents } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('components/card', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

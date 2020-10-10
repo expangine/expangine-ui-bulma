@@ -1,5 +1,6 @@
 import { AnyOps, Expression, Exprs, ListOps, ListType, Type, Types } from 'expangine-runtime';
-import { addComponent, createFor, createIf, createIfElse, createSlot, NodeTemplate } from 'expangine-ui';
+import { createFor, createIf, createIfElse, createSlot, NodeTemplate } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 
 

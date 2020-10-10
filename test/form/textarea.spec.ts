@@ -1,11 +1,12 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Textarea } from '../../src';
+import { registerComponents, Textarea } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('form/textarea', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

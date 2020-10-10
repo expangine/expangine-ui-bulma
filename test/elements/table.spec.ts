@@ -1,11 +1,12 @@
 import { Exprs, NumberOps } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Table } from '../../src';
+import { registerComponents, Table } from '../../src';
 import { expectHTML } from '../helper';
 
 
 describe('elements/table', () => 
 {
+  registerComponents();
 
   it('default', () =>
   {

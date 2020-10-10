@@ -1,4 +1,4 @@
-import { addComponent } from 'expangine-ui';
+import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 
 

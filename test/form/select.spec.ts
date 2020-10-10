@@ -1,12 +1,13 @@
 import { Exprs } from 'expangine-runtime';
 import { createComponent, mount } from 'expangine-ui';
-import { Select } from '../../src';
+import { registerComponents, Select } from '../../src';
 import { expectHTML } from '../helper';
 
 // tslint:disable no-magic-numbers
 
 describe('form/select', () => 
 {
+  registerComponents();
 
   it('value number', () =>
   {
