@@ -1,4 +1,4 @@
-import { Exprs, TextOps, Types } from 'expangine-runtime';
+import { AnyOps, Exprs, Types } from 'expangine-runtime';
 import { createIfs, createSlot } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
@@ -87,13 +87,13 @@ export const Button = addComponent<ButtonAttributes, ButtonEvents, ButtonSlots, 
       ifConst(['loading'], 'is-loading'),
       ifConst(['selected'], 'is-selected'),
     ),
-    tagName: Exprs.switch(Exprs.get('type'), TextOps.isEqual)
+    tagName: Exprs.switch(Exprs.get('type'), AnyOps.isEqual)
       .case('a')
         .than('a')
       .case('button')
         .than('button')
       .default('input'),
-    inputType: Exprs.switch(Exprs.get('type'), TextOps.isEqual)
+    inputType: Exprs.switch(Exprs.get('type'), AnyOps.isEqual)
       .case('submit')
         .than('submit')
       .case('reset')
