@@ -11,6 +11,7 @@ export interface ModalEvents {
 }
 export interface ModalComputed {
     classes: string;
+    closeActualSize: string;
     closeClasses: string;
 }
 export declare type ModalSlots = 'default' | 'footer' | 'title';

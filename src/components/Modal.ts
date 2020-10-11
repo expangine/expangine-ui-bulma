@@ -24,6 +24,7 @@ export interface ModalEvents
 export interface ModalComputed
 {
   classes: string;
+  closeActualSize: string;
   closeClasses: string;
 }
 
@@ -38,10 +39,7 @@ export const Modal = addComponent<ModalAttributes, ModalEvents, ModalSlots, neve
       required: true,
     },
     hideClose: Types.bool(),
-    closeSize: {
-      type: Size,
-      default: Exprs.const('is-large'),
-    },
+    closeSize: Size,
     clipped: Types.bool(),
     card: Types.bool(),
     title: Types.text(),
@@ -52,6 +50,15 @@ export const Modal = addComponent<ModalAttributes, ModalEvents, ModalSlots, neve
       ifConst(['open'], 'is-active'),
       ifConst(['clipped'], 'is-clipped'),
     ),
+    closeActualSize: Exprs.if(
+      Exprs.get('closeSize')
+    ).than(
+      Exprs.get('closeSize')
+    ).elseif(
+      Exprs.not(Exprs.get('card'))
+    ).than(
+      Exprs.const('is-large')
+    ),
     closeClasses: Exprs.tuple(
       Exprs.if(
         Exprs.get('card')
@@ -60,7 +67,7 @@ export const Modal = addComponent<ModalAttributes, ModalEvents, ModalSlots, neve
       ).else(
         Exprs.const('modal-close'),
       ), 
-      Exprs.get('closeSize')
+      Exprs.get('closeActualSize')
     ),
   },
   events: {
