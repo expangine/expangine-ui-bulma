@@ -7,4 +7,4 @@ export interface LevelComputed {
     itemClass: string[];
     levelClass: string[];
 }
-export declare const Level: import("expangine-ui").Component<LevelAttributes, never, LevelSlots, never, LevelComputed>;
+export declare const Level: import("expangine-ui").Component<LevelAttributes, never, import("./Media").MediaSlots, never, LevelComputed>;
