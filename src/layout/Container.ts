@@ -33,6 +33,12 @@ export const Container = addComponent<ContainerAttributes, never, never, never, 
       Exprs.get('type')
     ),
   },
+  slots: {
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
+  },
   render: (c) => ['div', {
     class: Exprs.get('containerClass'),
   }, {}, [

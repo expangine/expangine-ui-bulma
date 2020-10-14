@@ -10,7 +10,10 @@ export const Footer = addComponent<never, never, FooterSlots>({
   collection: COLLECTION,
   name: 'footer',
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) =>
     ['footer', {

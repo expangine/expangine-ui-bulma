@@ -27,7 +27,10 @@ export const Typography = addComponent({
     family: FontFamily,
   },
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) => 
     ['div', {

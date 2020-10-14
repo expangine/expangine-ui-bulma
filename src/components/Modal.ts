@@ -12,6 +12,7 @@ export interface ModalAttributes
   clipped: boolean;
   hideClose: boolean;
   closeSize: string;
+  closeOnBackdrop: boolean;
   card: boolean;
   title: string;
 }
@@ -19,6 +20,7 @@ export interface ModalAttributes
 export interface ModalEvents
 {
   close: void;
+  backdrop: void;
 }
 
 export interface ModalComputed
@@ -40,6 +42,7 @@ export const Modal = addComponent<ModalAttributes, ModalEvents, ModalSlots, neve
     },
     hideClose: Types.bool(),
     closeSize: Size,
+    closeOnBackdrop: Types.bool(),
     clipped: Types.bool(),
     card: Types.bool(),
     title: Types.text(),
@@ -72,9 +75,13 @@ export const Modal = addComponent<ModalAttributes, ModalEvents, ModalSlots, neve
   },
   events: {
     close: BaseEventType,
+    backdrop: BaseEventType,
   },
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
     footer: Types.object(),
     title: Types.object({
       title: Types.text(),
@@ -84,7 +91,15 @@ export const Modal = addComponent<ModalAttributes, ModalEvents, ModalSlots, neve
     ['div', {
       class: Exprs.get('classes'),
     }, {}, [
-      ['div', { class: 'modal-background' }],
+      ['div', { class: 'modal-background' }, {
+        click: (e: any) => {
+          c.trigger('backdrop', e);
+
+          if (!e.prevent && !e.stop && c.scope.get('closeOnBackdrop')) {
+            c.trigger('close', e);
+          }
+        },
+      }],
       createIfElse(Exprs.get('card'), [
         ['div', { class: 'modal-card' }, {}, [
           ['header', { class: 'modal-card-head' }, {}, [

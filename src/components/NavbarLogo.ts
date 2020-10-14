@@ -1,12 +1,12 @@
 import { Exprs, Types } from 'expangine-runtime';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
-import { BaseEventType } from '../Types';
+import { BaseEventType, LinkOptions } from '../Types';
 
 
 export interface NavbarLogoAttributes
 {
-  href: string;
+  options: any;
   src: string;
   height: number;
   alt: string;
@@ -21,7 +21,7 @@ export const NavbarLogo = addComponent<NavbarLogoAttributes, NavbarLogoEvents>({
   collection: COLLECTION,
   name: 'navbar-logo',
   attributes: {
-    href: Types.text(),
+    options: LinkOptions,
     src: Types.text(),
     alt: Types.text(),
     height: Types.number(),
@@ -32,7 +32,22 @@ export const NavbarLogo = addComponent<NavbarLogoAttributes, NavbarLogoEvents>({
   render: (c) =>
     ['a', {
       class: 'navbar-item',
-      href: Exprs.get('href'),
+      href: Exprs.get('options', 'href'),
+      download: Exprs.if(
+        Exprs.get('options', 'download')
+      ).than(
+        Exprs.true()
+      ),
+      rel: Exprs.if(
+        Exprs.get('options', 'external')
+      ).than(
+        Exprs.const('noreferrer noopener')
+      ),
+      target: Exprs.if(
+        Exprs.get('options', 'tab')
+      ).than(
+        Exprs.const('_blank')
+      ),
     }, {
       click: (e: any) => c.trigger('click', e),
     }, [

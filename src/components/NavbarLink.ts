@@ -3,13 +3,13 @@ import { createSlot } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { ifConst } from '../util';
-import { BaseEventType } from '../Types';
+import { BaseEventType, LinkOptions } from '../Types';
 
 
 export interface NavbarLinkAttributes
 {
   text: string;
-  href: string;
+  options: any;
   tab: boolean;
   active: boolean;
 }
@@ -26,7 +26,7 @@ export const NavbarLink = addComponent<NavbarLinkAttributes, NavbarLinkEvents, N
   name: 'navbar-link',
   attributes: {
     text: Types.text(),
-    href: Types.text(),
+    options: LinkOptions,
     tab: Types.bool(),
     active: Types.bool(),
   },
@@ -45,7 +45,22 @@ export const NavbarLink = addComponent<NavbarLinkAttributes, NavbarLinkEvents, N
         ifConst(['tab'], 'is-tab'), 
         ifConst(['active'], 'is-active'),
       ),
-      href: Exprs.get('href'),
+      href: Exprs.get('options', 'href'),
+      download: Exprs.if(
+        Exprs.get('options', 'download')
+      ).than(
+        Exprs.true()
+      ),
+      rel: Exprs.if(
+        Exprs.get('options', 'external')
+      ).than(
+        Exprs.const('noreferrer noopener')
+      ),
+      target: Exprs.if(
+        Exprs.get('options', 'tab')
+      ).than(
+        Exprs.const('_blank')
+      ),
     }, {
       click: (e: any) => c.trigger('click', e),
     }, [

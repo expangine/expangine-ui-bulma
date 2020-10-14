@@ -31,6 +31,12 @@ export const Buttons = addComponent<ButtonsAttributes, never, never, never, Butt
       ifConst(['attached'], 'has-addons'),
     ),
   },
+  slots: {
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
+  },
   render: (c) =>
     ['div', {
       class: Exprs.get('classes'),

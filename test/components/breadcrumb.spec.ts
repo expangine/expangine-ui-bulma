@@ -42,7 +42,9 @@ describe('components/breadcrumb', () =>
         { text: 'Breadcrumb', link: 'https://bulma.io/documentation/components/breadcrumb/' },
       ],
       getText: Exprs.get('crumb', 'text'),
-      getHref: Exprs.get('crumb', 'link'),
+      getOptions: Exprs.object({
+        href: Exprs.get('crumb', 'link')
+      }),
     }));
 
     expectHTML(i, [

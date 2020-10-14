@@ -30,7 +30,10 @@ export const Visibility = addComponent({
     screenReaderOnly: Types.bool(),
   },
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) => 
     ['div', {

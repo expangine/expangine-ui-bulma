@@ -3,11 +3,13 @@ export interface ModalAttributes {
     clipped: boolean;
     hideClose: boolean;
     closeSize: string;
+    closeOnBackdrop: boolean;
     card: boolean;
     title: string;
 }
 export interface ModalEvents {
     close: void;
+    backdrop: void;
 }
 export interface ModalComputed {
     classes: string;

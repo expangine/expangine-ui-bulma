@@ -2,6 +2,7 @@ import { Exprs, Types } from 'expangine-runtime';
 import { createSlot } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
+import { BaseEventType } from '../Types';
 import { ifConst } from '../util';
 
 
@@ -11,9 +12,14 @@ export interface NavbarItemAttributes
   active: boolean;
 }
 
+export interface NavbarItemClick
+{
+  click: void;
+}
+
 export type NavbarItemSlots = 'default';
 
-export const NavbarItem = addComponent<NavbarItemAttributes, never, NavbarItemSlots>({
+export const NavbarItem = addComponent<NavbarItemAttributes, NavbarItemClick, NavbarItemSlots>({
   collection: COLLECTION,
   name: 'navbar-item',
   attributes: {
@@ -23,6 +29,9 @@ export const NavbarItem = addComponent<NavbarItemAttributes, never, NavbarItemSl
   slots: {
     default: Types.object(),
   },
+  events: {
+    click: BaseEventType,
+  },
   render: (c) =>
     ['div', {
       class: Exprs.tuple(
@@ -30,7 +39,9 @@ export const NavbarItem = addComponent<NavbarItemAttributes, never, NavbarItemSl
         ifConst(['tab'], 'is-tab'), 
         ifConst(['active'], 'is-active'),
       ),
-    }, {}, [
+    }, {
+      click: (e: any) => c.trigger("click", e),
+    }, [
       createSlot(),
     ]],
 })

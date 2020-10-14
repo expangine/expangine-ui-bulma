@@ -45,7 +45,10 @@ export const Message = addComponent<MessageAttributes, MessageEvents, MessageSlo
     deleted: BaseEventType,
   },
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) => 
     ['article', {

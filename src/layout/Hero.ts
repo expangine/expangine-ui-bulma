@@ -47,7 +47,10 @@ export const Hero = addComponent<HeroAttributes, never, HeroSlots, never, HeroCo
   slots: {
     header: Types.object(),
     footer: Types.object(),
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) => 
     ['section', { class: Exprs.get('heroClass') }, {}, [

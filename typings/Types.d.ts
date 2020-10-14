@@ -15,3 +15,6 @@ export declare const UpdateOn: import("expangine-runtime").EnumType;
 export declare const BaseEventType: import("expangine-runtime").ObjectType<{
     props: Record<string, import("expangine-runtime").Type<any>>;
 }>;
+export declare const LinkOptions: import("expangine-runtime").ObjectType<{
+    props: Record<string, import("expangine-runtime").Type<any>>;
+}>;

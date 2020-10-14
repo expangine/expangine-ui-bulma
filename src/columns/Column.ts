@@ -80,7 +80,10 @@ export const Column = addComponent<ColumnAttributes, never, ColumnSlots, never, 
     ),
   },
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) => 
     ['div', { class: Exprs.get('columnClass') }, {}, [

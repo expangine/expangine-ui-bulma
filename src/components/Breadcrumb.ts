@@ -1,9 +1,9 @@
-import { Exprs, ListType, NumberOps, ObjectType, Type, Types } from 'expangine-runtime';
+import { Exprs, ListOps, ListType, NumberOps, ObjectType, Type, Types } from 'expangine-runtime';
 import { createFor, createSlot, createIfElse, createComponent } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconObject, IconType, Icon } from '../elements/Icon';
-import { Alignment, Size } from '../Types';
+import { Alignment, LinkOptions, Size } from '../Types';
 
 
 export interface BreadcrumbAttributes
@@ -11,7 +11,7 @@ export interface BreadcrumbAttributes
   crumbs: any[];
   getIcon: IconType;  
   getText: string;
-  getHref: string;
+  getOptions: string;
   separator: string;
   align: string;
   size: string;
@@ -25,6 +25,7 @@ export interface BreadcrumbEvents
 export interface BreadcrumbComputed
 {
   classes: string;
+  crumbsMapped: any[];
 }
 
 export type BreadcrumbSlots = 'default';
@@ -65,7 +66,7 @@ const isLastCrumb = Exprs.op(NumberOps.isEqual, {
 });
 
 const getCrumbScope = {
-  crumb: Exprs.get('crumb'),
+  crumb: Exprs.get('crumb', 'data'),
   crumbIndex: Exprs.get('crumbIndex'),
 };
 
@@ -85,8 +86,8 @@ export const Breadcrumb = addComponent<BreadcrumbAttributes, BreadcrumbEvents, B
       type: IconObject,
       callable: (a) => getListItemScope(a.crumbs),
     },
-    getHref: {
-      type: Types.text(),
+    getOptions: {
+      type: LinkOptions,
       callable: (a) => getListItemScope(a.crumbs),
     },
     separator: BreadcrumbSeparator,
@@ -100,6 +101,18 @@ export const Breadcrumb = addComponent<BreadcrumbAttributes, BreadcrumbEvents, B
       Exprs.get('align'),
       Exprs.get('separator'),
     ),
+    crumbsMapped: (c) => Exprs.op(ListOps.map, {
+      list: Exprs.get('crumbs'),
+      transform: Exprs.object({
+        data: Exprs.get('crumb'),
+        text: c.getAttributeExpression('getText'),
+        icon: c.getAttributeExpression('getIcon'),
+        options: c.getAttributeExpression('getOptions'),
+      }),
+    }, {
+      item: 'crumb',
+      index: 'crumbIndex',
+    }),
   },
   events: {
     click: (a) => getListItemScope(a.crumbs),
@@ -113,7 +126,7 @@ export const Breadcrumb = addComponent<BreadcrumbAttributes, BreadcrumbEvents, B
       ariaLabel: 'breadcrumbs',
     }, {}, [
       ['ul', {}, {}, [
-        createFor(Exprs.get('crumbs'), [
+        createFor(Exprs.get('crumbsMapped'), [
           ['li', {
             class: Exprs.if(
               isLastCrumb
@@ -123,28 +136,47 @@ export const Breadcrumb = addComponent<BreadcrumbAttributes, BreadcrumbEvents, B
           }, {}, [
             ['a', {
               href: Exprs.or(
-                c.call('getHref', getCrumbScope),
+                Exprs.get('crumb', 'options', 'href'),
                 Exprs.const('#'),
+              ),
+              download: Exprs.if(
+                Exprs.get('crumb', 'options', 'download'),
+              ).than(
+                Exprs.true()
+              ),
+              rel: Exprs.if(
+                Exprs.get('crumb', 'options', 'external')
+              ).than(
+                Exprs.const('noreferrer noopener')
+              ),
+              target: Exprs.if(
+                Exprs.get('crumb', 'options', 'tab')
+              ).than(
+                Exprs.const('_blank')
               ),
               ariaCurrent: Exprs.if(
                 isLastCrumb
               ).than(
                 Exprs.const('page')
               ),
-            }, {}, [
-              createIfElse(c.call('getIcon', getCrumbScope), [
+            }, {
+              click: Exprs.get('emit', 'click').set(
+                Exprs.object(getCrumbScope)
+              ),
+            }, [
+              createIfElse(Exprs.get('crumb', 'icon'), [
                 createComponent(Icon, {
-                  icon: c.call('getIcon', getCrumbScope),
+                  icon: Exprs.get('crumb', 'icon'),
                 }),
                 ['span', {}, {}, [
                   c.whenSlot('default', 
-                    () => c.call('getText', getCrumbScope), 
+                    () => Exprs.get('crumb', 'text'), 
                     () => createSlot({ scope: getCrumbScope })
                   ),
                 ]]
               ], [
                 c.whenSlot('default', 
-                  () => c.call('getText', getCrumbScope), 
+                  () => Exprs.get('crumb', 'text'), 
                   () => createSlot({ scope: getCrumbScope })
                 ),
               ]),

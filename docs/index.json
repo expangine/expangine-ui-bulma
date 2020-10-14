@@ -2,121 +2,660 @@
   "name": "Bulma",
   "description": "Bulma is a modern & responsive framework",
   "category": {
-    "helpers": "Apply helper components, in order to alter their style",
-    "columns": "The power of Flexbox in a simple interface",
-    "layout": "Design the structure of your webpage with these components",
-    "form": "The indispensable form components, designed for maximum clarity",
-    "elements": "Essential interface elements",
-    "components": "Advanced multi-part components with lots of possibilities"
+    "Helpers": "Apply helper components, in order to alter their style",
+    "Columns": "The power of Flexbox in a simple interface",
+    "Layout": "Design the structure of your webpage with these components",
+    "Form": "The indispensable form components, designed for maximum clarity",
+    "Elements": "Essential interface elements",
+    "Components": "Advanced multi-part components with lots of possibilities"
+  },
+  "types": {
+    "icon": {
+      "style": "The icon style.",
+      "name": "The icon to use.",
+      "size": "The size of the icon.",
+      "status": "The status of the icon.",
+      "side": "Which side the icon belongs on.",
+      "rotate": "How the icon should be rotated.",
+      "flip": "How the icon should be flipped.",
+      "spins": "If the icon spins around.",
+      "bordered": "If the icon is bordered.",
+      "square": "If the icon is a square"
+    },
+    "image": {
+      "src": "The URL of the image.",
+      "alt": "Text which describes the image.",
+      "rounded": "If the image is round.",
+      "squareSize": "If the image is a square, and what size.",
+      "ratio": "The image ratio to use."
+    },
+    "base-event": {
+      "stop": "If the click event should stop other components from receiving a click event.",
+      "prevent": "If the client event should stop the default behavior of the browser."
+    },
+    "dropdown-item": {
+      "text": "The text to display in the dropdown item.",
+      "html": "HTML to display in the dropdwn item.",
+      "href": "The URL to go to if the dropdown item is chosen.",
+      "divider": "If this dropdown item is just a divider.",
+      "active": "If the dropdown item should be displayed as active.",
+      "leftIcon": "An icon to display on the left side of the dropdown item.",
+      "rightIcon": "An icon to display on the right side of the dropdown item."
+    },
+    "link-options": {
+      "href": "URL of the page the link goes to.",
+      "tab": "If the URL should open in a new tab.",
+      "download": "If the target should be downloaded when clicked.",
+      "external": "If the URL could be external and should be blocked from accessing data on this page."
+    }
   },
   "components": {
 
     "bulma/column": {
-      "category": "columns",
-      "description": "",
+      "category": "Columns",
+      "description": "A column that goes in a Columns container.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Column"]],
+      "template": ["bulma/column"],
       "attributes": {
         "width": {
-          "description": ""
+          "label": "Width",
+          "description": "The width in the column in a 12 column layout.",
+          "default": "Equal width to other widthless columns"
         },
         "offset": {
-          "description": "",
+          "label": "Offset",
+          "description": "The offset of the column in a 12 column layout.",
           "default": "None"
         },
         "narrow": {
-          "description": "",
-          "default": "false"
+          "label": "Is Narrow",
+          "description": "The column will only take up the space it needs.",
+          "default": "No"
         },
         "narrowBreakpoint": {
-          "description": "",
+          "label": "Narrow Breakpoint",
+          "description": "The breakpoint for when the column is narrow or not.",
           "default": "None"
         }
       }
     },
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-    "bulma/container": {
-      "description": "",
-      "attributes": {
-        "type": ""
-      },
-      "computed": {
-        "containerClass": ""
-      },
-      "slots": {
-        "default": ""
-      }
-    },
-    "bulma/level": {
-      "description": "",
-      "attributes": {
-        "centered": "",
-        "mobile": ""
-      },
-      "computed": {
-        "itemClass": {},
-        "levelClass": {}
-      },
-      "slots": {
-        "left": "",
-        "right": "",
-        "default": ""
-      }
-    },
-    "bulma/media": {
-      "description": "",
-      "slots": {
-        "left": "",
-        "default": "",
-        "right": ""
-      }
-    },
-    "bulma/hero": {
-      "description": "",
-      "attributes": {
-        "type": "",
-        "size": "",
-        "gradient": ""
-      },
-      "computed": {
-        "heroClass": ""
-      },
-      "slots": {
-        "header": "",
-        "footer": "",
-        "default": ""
-      }
-    },
     "bulma/columns": {
-      "description": "",
+      "category": "Columns",
+      "description": "A container of columns.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Columns"]],
+      "template": ["bulma/columns"],
       "attributes": {
-        "gap": "",
-        "multiline": "",
-        "verticalAlign": "",
-        "centered": "",
-        "mobile": ""
-      },
-      "computed": {
-        "columnsClass": ""
-      },
-      "slots": {
-        "default": ""
+        "gap": {
+          "label": "Gap",
+          "description": "The size of the gap between columns.",
+          "default": "3"
+        },
+        "multiline": {
+          "label": "Wrap?",
+          "description": "If columns should wrap if they go beyond 12 columns wide.",
+          "default": "No"
+        },
+        "verticalCenter": {
+          "label": "Center Vertically",
+          "description": "If the columns should be vertically aligned in the row.",
+          "default": "No"
+        },
+        "centered": {
+          "label": "Center Horizontally",
+          "description": "Center the columns if possible.",
+          "default": "No"
+        },
+        "mobile": {
+          "label": "Columns on Mobile",
+          "description": "If columns should work on mobile too, as opposed to wrapping the columns.",
+          "default": "No"
+        }
       }
     },
+
+    "bulma/breadcrumb": {
+      "category": "Components",
+      "description": "A simple breadcrumb component to improve your navigation experience.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Breadcrumb"]],
+      "template": ["bulma/breadcrumb", { "crumbs": [] }],
+      "attributes": {
+        "crumbs": {
+          "label": "Crumbs",
+          "description": "The crumbs to display."
+        },
+        "getIcon": {
+          "label": "Crumb Icon",
+          "description": "Gets an icon from a crumb to display, if any.",
+          "default": "None",
+          "type": "#icon",
+          "callable": {
+            "crumb": "The current crumb.",
+            "crumbIndex": "The index of the current crumb"
+          }
+        },
+        "getText": {
+          "label": "Crumb Text",
+          "description": "Gets the text to display",
+          "default": "No",
+          "callable": {
+            "crumb": "The current crumb.",
+            "crumbIndex": "The index of the current crumb"
+          }
+        },
+        "getHref": {
+          "label": "Crumb URL",
+          "description": "Gets the URL to go to when the user clicks on this crumb.",
+          "default": "No",
+          "callable": {
+            "crumb": "The current crumb.",
+            "crumbIndex": "The index of the current crumb"
+          }
+        },
+        "separator": {
+          "label": "Separator",
+          "description": "The visual to use to separate crumbs.",
+          "default": "/"
+        },
+        "align": {
+          "label": "Alignment",
+          "description": "How the crumbs are aligned horizontally.",
+          "default": "Left"
+        },
+        "size": {
+          "label": "Size",
+          "description": "The size of the breadcrumb.",
+          "default": "Left"
+        }
+      }
+    },
+
+    "bulma/card": {
+      "category": "Components",
+      "description": "An all-around flexible and composable component.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Card"]],
+      "template": ["bulma/card"],
+      "attributes": {
+        "header": {
+          "label": "Header",
+          "description": "The header of the card."
+        },
+        "headerIcon": {
+          "label": "Header Icon",
+          "description": "The icon to display in the header.",
+          "default": "None",
+          "type": "#icon"
+        },
+        "headerIconHref": {
+          "label": "Header Icon URL",
+          "description": "The URL to go to if the user clicks on the Header Icon",
+          "default": "None"
+        },
+        "footerLinks": {
+          "label": "Footer Links",
+          "description": "If the items in the footer are clickable links/buttons.",
+          "default": "No"
+        },
+        "image": {
+          "label": "Image",
+          "description": "The image to display at the top of the card.",
+          "default": "None",
+          "type": "#image"
+        }
+      },
+      "events": {
+        "headerIconClick": {
+          "label": "On Header Icon Click",
+          "description": "An event triggered when the user clicks on the header icon.",
+          "scope": "#base-event"
+        },
+        "footerItemClick": {
+          "label": "On Footer Item Click",
+          "description": "An event triggered when the user clicks on a footer item.",
+          "scope": "#base-event"
+        }
+      },
+      "slots": {
+        "header": {
+          "label": "Header",
+          "description": "The components to place in the header of the card."
+        },
+        "default": {
+          "label": "Body",
+          "description": "The components to place in the body of the card."
+        },
+        "image": {
+          "label": "Image",
+          "description": "The image to place in the card."
+        },
+        "footerItems": {
+          "label": "Footer Item",
+          "description": "A collectionof footer items in the footer of the card."
+        }
+      }
+    },
+
+    "bulma/dropdown": {
+      "category": "Components",
+      "description": "An interactive dropdown menu for discoverable content.",
+      "preview": ["bulma/dropdown", { "text": "Dropdown" }],
+      "template": ["bulma/dropdown"],
+      "attributes": {
+        "triggerMode": {
+          "label": "Trigger",
+          "description": "What triggers how the dropdown opens & closes.",
+          "default": "Toggle"
+        },
+        "text": {
+          "label": "Text",
+          "description": "The text in the dropdown."
+        },
+        "icon": {
+          "label": "Icon",
+          "description": "An icon to use in the dropdown.",
+          "type": "#icon"
+        },
+        "open": {
+          "label": "Open",
+          "description": "Controls when the dropdown is open."
+        },
+        "dropUp": {
+          "label": "Up",
+          "description": "If the dropdown menu should display above the dropdown."
+        },
+        "rightAligned": {
+          "label": "Right Aligned",
+          "description": "If the dropdown menu should align to the right side."
+        },
+        "items": {
+          "label": "Items",
+          "description": "The dropdown items to display, assuming the Items slot is not specified.",
+          "type": ["#dropdown-item"]
+        }
+      },
+      "events": {
+        "open": {
+          "label": "On Open",
+          "description": "An event triggered when the dropdown is opened.",
+          "scope": "#base-event"
+        },
+        "close": {
+          "label": "On Close",
+          "description": "An event triggered when the dropdown is closed.",
+          "scope": "#base-event"
+        },
+        "itemClick": {
+          "label": "On Item Click",
+          "description": "An event triggered when the dropdown is closed.",
+          "scope": {
+            "item": "#dropdown-item"
+          }
+        }
+      },
+      "slots": {
+        "trigger": {
+          "label": "Trigger",
+          "description": "The components which trigger the dropdown to open.",
+          "type": {
+            "text": "The text passed to the dropdown."
+          }
+        },
+        "default": {
+          "label": "Items",
+          "description": "The components to place in the dropdown menu."
+        }
+      }
+    },
+
+    "bulma/menu": {
+      "category": "Components",
+      "description": "A simple menu, for any type of vertical navigation.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Menu"]],
+      "template": ["bulma/menu", { "menu": [] }],
+      "attributes": {
+        "menu": {
+          "label": "Menu",
+          "description": "The groups of items to display in the menu."
+        },
+        "value": {
+          "label": "Current",
+          "description": "The current value that determines which menu item is displayed as active."
+        },
+        "getLabel": {
+          "label": "Get Menu Group Label",
+          "description": "Gets the label from a Menu Group",
+          "callable": {
+            "menuGroup": "The menu group to get a label from."
+          }
+        },
+        "getItems": {
+          "label": "Get Items",
+          "description": "Gets items from a Menu Group",
+          "callable": {
+            "menuGroup": "The menu group to get a label from."
+          }
+        },
+        "getItemText": {
+          "label": "Get Item Text",
+          "description": "Gets the text from a Menu Item",
+          "callable": {
+            "item": "The menu item to get the text from."
+          }
+        },
+        "getItemValue": {
+          "label": "Get Item Value",
+          "description": "Gets the value from a Menu Item",
+          "callable": {
+            "item": "The menu item to get the value from."
+          }
+        },
+        "getSubItems": {
+          "label": "Get Item Sub-items",
+          "description": "Gets sub-items from a Menu Group Item",
+          "callable": {
+            "menuGroup": "The menu group to get a label from."
+          }
+        },
+        "getSubItemText": {
+          "label": "Get Sub-item Text",
+          "description": "Gets the text from a Menu Sub-item",
+          "callable": {
+            "item": "The menu sub-item to get the text from."
+          }
+        },
+        "getSubItemValue": {
+          "label": "Get Sub-item Value",
+          "description": "Gets the value from a Menu Sub-item",
+          "callable": {
+            "item": "The menu sub-item to get the value from."
+          }
+        }
+      },
+      "events": {
+        "update": {
+          "label": "On Item Click",
+          "description": "An event triggered when a menu item is clicked.",
+          "scope": {
+            "item": "The item/sub-item that was clicked",
+            "itemValue": "The value that was clicked"
+          }
+        }
+      },
+      "slots": {
+        "menuLabel": {
+          "label": "Menu Group Label",
+          "description": "The components which display a label for a menu group.",
+          "type": {
+            "menuGroup": "The menu group."
+          }
+        },
+        "menuItem": {
+          "label": "Menu Item",
+          "description": "The components which display a label for a menu item.",
+          "type": {
+            "item": "The menu item."
+          }
+        },
+        "menuSubItem": {
+          "label": "Menu Sub-item",
+          "description": "The components which display a label for a menu sub-item.",
+          "type": {
+            "subItem": "The menu sub-item."
+          }
+        }
+      }
+    },
+
+    "bulma/message": {
+      "category": "Components",
+      "description": "Colored message blocks, to emphasize part of your page.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Message"]],
+      "template": ["bulma/message"],
+      "attributes": {
+        "header": {
+          "label": "Header",
+          "description": "The header text of the message."
+        },
+        "deletable": {
+          "label": "Can Delete?",
+          "description": "If the message has a delete button in the top right.",
+          "default": "No"
+        },
+        "size": {
+          "label": "Size",
+          "description": "The size of the message."
+        },
+        "color": {
+          "label": "Color",
+          "description": "The color of the message."
+        }
+      },
+      "events": {
+        "deleted": {
+          "label": "On Delete",
+          "description": "An event triggered when the delete is clicked.",
+          "scope": "#base-event"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Message",
+          "description": "The components to display in the message."
+        }
+      }
+    },
+
+    "bulma/modal": {
+      "category": "Components",
+      "description": "A classic modal overlay, in which you can include any content you want.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Modal"]],
+      "template": ["bulma/modal"],
+      "attributes": {
+        "open": {
+          "label": "Open",
+          "description": "If the modal should be open."
+        },
+        "hideClose": {
+          "label": "Hide Close Button?",
+          "description": "If the modal has a delete button in the top right.",
+          "default": "No"
+        },
+        "closeSize": {
+          "label": "Size",
+          "description": "The size of the close button."
+        },
+        "closeOnBackdrop": {
+          "label": "Close on Backdrop Click",
+          "description": "If the modal should trigger the close event if the backdrop is clicked.",
+          "default": "No"
+        },
+        "clipped": {
+          "label": "Clipped",
+          "description": "If the content in the modal is clipped.",
+          "default": "No"
+        },
+        "card": {
+          "label": "Card",
+          "description": "If the modal is a card with a header, body, and footer.",
+          "default": "No"
+        },
+        "title": {
+          "label": "Card Title",
+          "description": "The title of the card modal."
+        }
+      },
+      "events": {
+        "close": {
+          "label": "On Close",
+          "description": "An event triggered when the close button is clicked.",
+          "scope": "#base-event"
+        },
+        "backdrop": {
+          "label": "On Backdrop Click",
+          "description": "An event triggered when the backdrop is clicked.",
+          "scope": "#base-event"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Body",
+          "description": "The body of the modal."
+        },
+        "title": {
+          "label": "Title",
+          "description": "The title of the modal.",
+          "scope": {
+            "title": "The title passed to the modal component."
+          }
+        },
+        "footer": {
+          "label": "Footer",
+          "description": "The footer of the modal."
+        }
+      }
+    },
+
+    "bulma/navbar": {
+      "category": "Components",
+      "description": "A responsive horizontal navbar that can support images, links, buttons, and dropdowns.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar"]],
+      "template": ["bulma/navbar"],
+      "attributes": {
+        "color": {
+          "label": "Color",
+          "description": "The color of the navbar."
+        },
+        "fixed": {
+          "label": "Fixed To",
+          "description": "Where the navbar is fixed to, if any.",
+          "default": "No"
+        },
+        "transparent": {
+          "label": "Transparent",
+          "description": "Seamlessly integrate the navbar in any visual context.",
+          "default": "No"
+        },
+        "extraSpace": {
+          "label": "Extra Space?",
+          "description": "Adds extra space to the navbar.",
+          "default": "No"
+        },
+        "main": {
+          "label": "Main Navigation?",
+          "description": "If the navbar is the main navigation bar.",
+          "default": "No"
+        }
+      },
+      "events": {
+        "close": {
+          "label": "On Close",
+          "description": "An event triggered when the close button is clicked.",
+          "scope": "#base-event"
+        },
+        "backdrop": {
+          "label": "On Backdrop Click",
+          "description": "An event triggered when the backdrop is clicked.",
+          "scope": "#base-event"
+        }
+      },
+      "slots": {
+        "left": {
+          "label": "Left",
+          "description": "The navbar items that go on the left and are moved to a dropdown menu for small screens."
+        },
+        "right": {
+          "label": "Right",
+          "description": "The navbar items that go on the right and are moved to a dropdown menu for small screens."
+        },
+        "brand": {
+          "label": "Brand",
+          "description": "The navbar items that go on the left and are always visible."
+        }
+      }
+    },
+
+    "bulma/navbar-divider": {
+      "category": "Components",
+      "description": "A divider for the navbar.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar Divider"]],
+      "template": ["bulma/navbar-divider"]
+    },
+
+    "bulma/navbar-item": {
+      "category": "Components",
+      "description": "An item for the navbar.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar Item"]],
+      "template": ["bulma/navbar-item"],
+      "attributes": {
+        "active": {
+          "label": "Active?",
+          "description": "If the navbar item should be marked as the active one.",
+          "default": "No"
+        },
+        "tab": {
+          "label": "Tab?",
+          "description": "If the navbar item should look like a tab.",
+          "default": "No"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Content",
+          "description": "The content of the navbar item."
+        }
+      },
+      "events": {
+        "click": {
+          "label": "On Click",
+          "description": "An event triggered when a navbar item is clicked."
+        }
+      }
+    },
+
+    "bulma/navbar-link": {
+      "category": "Components",
+      "description": "A link for the navbar.",
+      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar Link"]],
+      "template": ["bulma/navbar-link"],
+      "attributes": {
+        "text": {
+          "label": "Text",
+          "description": "The text of the link."
+        },
+        "options": {
+          "label": "Link Options",
+          "description": "The options for the target of the link.",
+          "type": "#link-options"
+        },
+        "tab": {
+          "label": "Tab?",
+          "description": "If the navbar link should look like a tab.",
+          "default": "No"
+        },
+        "active": {
+          "label": "Active?",
+          "description": "If the navbar link should be marked as the active one.",
+          "default": "No"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Content",
+          "description": "The content of the navbar link.",
+          "scope": {
+            "text": "The text passed to the navbar link."
+          }
+        }
+      },
+      "events": {
+        "click": {
+          "label": "On Click",
+          "description": "An event triggered when a navbar link is clicked."
+        }
+      }
+    },
+
+
 
 
 
@@ -124,17 +663,23 @@
     "__EXAMPLE__": {
       "category": "",
       "description": "",
+      "preview": [],
+      "template": [],
+      "example": [],
       "attributes": {
         "[attr]": {
-          "description": "",
-          "default": "",
+          "label": "The label to display for this attribute.",
+          "description": "A textual description of this attribute.",
+          "default": "A textual description of the default value/behavior.",
+          "type": "A description of the expected type, an object, or an array",
           "callable": {
-            "[var]": ""
+            "[var]": "A variable in the callable attribute."
           }
         }
       },
       "events": {
         "[event]": {
+          "label": "",
           "description": "",
           "scope": {
             "[var]": ""
@@ -143,6 +688,7 @@
       },
       "slots": {
         "[slot]": {
+          "label": "",
           "description": "",
           "scope": {
             "[var]": ""

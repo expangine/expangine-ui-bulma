@@ -12,7 +12,10 @@ export const Media = addComponent<never, never, MediaSlots>({
   slots: {
     left: Types.object(),
     right: Types.object(),
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) => 
     ['article', { class: 'media' }, {}, [

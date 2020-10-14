@@ -63,9 +63,12 @@ export const Field = addComponent<FieldAttributes, never, FieldSlots, never, Fie
   },
   slots: {
     label: Types.object({ label: Types.text() }),
-    default: Types.object({
-      fieldState: FieldState,
-    }),
+    default: {
+      scope: Types.object({
+        fieldState: FieldState,
+      }),
+      required: true,
+    },
     message: Types.object({ message: Types.text() }),
   },
   render: (c) => 

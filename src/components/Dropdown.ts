@@ -4,7 +4,7 @@ import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconClasses, IconClassesObject, IconObject, IconRender, IconRenderObject, IconType } from '../elements';
 import { ifConst } from '../util';
-import { BaseEventType } from '../Types';
+import { BaseEventType, LinkOptions } from '../Types';
 
 
 export interface DropdownAttributes
@@ -44,7 +44,7 @@ export const DropdownTriggerEvents = Types.enumForText([
 export const DropdownItem = Types.object({
   text: Types.optional(Types.text()),
   html: Types.optional(Types.bool()),
-  href: Types.optional(Types.text()),
+  options: Types.optional(LinkOptions),
   divider: Types.optional(Types.bool()),
   active: Types.optional(Types.bool()),
   leftIcon: Types.optional(IconObject),
@@ -244,12 +244,27 @@ export const Dropdown = addComponent<DropdownAttributes, DropdownEvents, Dropdow
                 [Exprs.get('item', 'divider'), [
                   ['hr', { class: 'dropdown-divider' }]
                 ]],
-                [Exprs.get('item', 'href'), [
+                [Exprs.get('item', 'options', 'href'), [
                   ['a', { 
-                    href: Exprs.get('item', 'href'), 
                     class: Exprs.tuple(
                       'dropdown-item',
                       ifConst(['item', 'active'], 'is-active'),
+                    ),
+                    href: Exprs.get('item', 'options', 'href'),
+                    download: Exprs.if(
+                      Exprs.get('item', 'options', 'download')
+                    ).than(
+                      Exprs.true()
+                    ),
+                    rel: Exprs.if(
+                      Exprs.get('item', 'options', 'external')
+                    ).than(
+                      Exprs.const('noreferrer noopener')
+                    ),
+                    target: Exprs.if(
+                      Exprs.get('item', 'options', 'tab')
+                    ).than(
+                      Exprs.const('_blank')
                     ),
                   }, {}, getItemTemplate()]
                 ]]

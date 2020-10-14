@@ -12,12 +12,12 @@ describe('components/dropdown', () =>
   {
     const d = {
       items: [
-        { href: '#', text: 'Dropdown item' },
+        { options: { href: '#' }, text: 'Dropdown item' },
         { text: 'Other dropdown item' },
-        { href: '#', text: 'Active dropdown item', active: true },
-        { href: '#', text: 'Other dropdown item' },
+        { options: { href: '#' }, text: 'Active dropdown item', active: true },
+        { options: { href: '#' }, text: 'Other dropdown item' },
         { divider: true },
-        { href: '#', text: 'With a divider' },
+        { options: { href: '#' }, text: 'With a divider' },
       ],
     };
     const c = mount(d, createComponent(Dropdown, {
@@ -38,20 +38,20 @@ describe('components/dropdown', () =>
         </div>
         <div class="dropdown-menu" role="menu">
           <div class="dropdown-content">
-            <a href="#" class="dropdown-item">
+            <a class="dropdown-item" href="#">
               Dropdown item
             </a>
             <div class="dropdown-item">
               <p>Other dropdown item</p>
             </div>
-            <a href="#" class="dropdown-item is-active">
+            <a class="dropdown-item is-active" href="#">
               Active dropdown item
             </a>
-            <a href="#" class="dropdown-item">
+            <a class="dropdown-item" href="#">
               Other dropdown item
             </a>
             <hr class="dropdown-divider">
-            <a href="#" class="dropdown-item">
+            <a class="dropdown-item" href="#">
               With a divider
             </a>
           </div>
@@ -68,7 +68,7 @@ describe('components/dropdown', () =>
         { divider: true },
         { html: true, text: 'You simply need to use a <code>&lt;div&gt;</code> instead.' },
         { divider: true },
-        { href: '#', text: 'This is a link' },
+        { options: { href: '#' }, text: 'This is a link' },
       ],
     };
     const c = mount(d, createComponent(Dropdown, {
@@ -97,7 +97,7 @@ describe('components/dropdown', () =>
               <p><span>You simply need to use a <code>&lt;div&gt;</code> instead.</span></p>
             </div>
             <hr class="dropdown-divider">
-            <a href="#" class="dropdown-item">
+            <a class="dropdown-item" href="#">
               This is a link
             </a>
           </div>

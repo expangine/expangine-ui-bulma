@@ -1,5 +1,5 @@
 export interface NavbarLogoAttributes {
-    href: string;
+    options: any;
     src: string;
     height: number;
     alt: string;

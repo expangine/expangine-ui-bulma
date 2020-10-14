@@ -3,7 +3,7 @@ export interface BreadcrumbAttributes {
     crumbs: any[];
     getIcon: IconType;
     getText: string;
-    getHref: string;
+    getOptions: string;
     separator: string;
     align: string;
     size: string;
@@ -13,6 +13,7 @@ export interface BreadcrumbEvents {
 }
 export interface BreadcrumbComputed {
     classes: string;
+    crumbsMapped: any[];
 }
 export declare type BreadcrumbSlots = 'default';
 export declare const BreadcrumbSeparator: import("expangine-runtime").EnumType;

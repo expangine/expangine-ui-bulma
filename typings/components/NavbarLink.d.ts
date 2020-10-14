@@ -1,6 +1,6 @@
 export interface NavbarLinkAttributes {
     text: string;
-    href: string;
+    options: any;
     tab: boolean;
     active: boolean;
 }

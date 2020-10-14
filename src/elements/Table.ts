@@ -167,7 +167,7 @@ const RenderTable = (c: ComponentInstance<TableAttributes, never, TableSlots, ne
         ['tr', {}, {}, [
           createFor(Exprs.get('columns'), [
             ['th', { class: Exprs.get('column', 'align') }, {}, [
-              createSlot({ name: 'header', scope: {
+              createSlot({ name: 'footer', scope: {
                 column: Exprs.get('column'),
                 columnIndex: Exprs.get('columnIndex'),
               }}),

@@ -1,4 +1,4 @@
-import { Exprs } from 'expangine-runtime';
+import { Exprs, Types } from 'expangine-runtime';
 import { createSlot } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
@@ -15,6 +15,12 @@ export const Content = addComponent<ContentAttributes>({
   name: 'content',
   attributes: {
     size: Size,
+  },
+  slots: {
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) =>
     ['div', {

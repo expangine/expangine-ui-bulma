@@ -27,6 +27,15 @@ export const Tags = addComponent<TagsAttributes, never, never, never, TagsComput
       ifConst(['attached'], 'has-addons'),
     ),
   },
+  slots: {
+    default: {
+      type: Types.object(),
+      required: true,
+      only: [
+        `${COLLECTION}/tag`,
+      ],
+    },
+  },
   render: (c) =>
     ['div', {
       class: Exprs.get('classes'),

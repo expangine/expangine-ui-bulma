@@ -66,9 +66,12 @@ export const Control = addComponent<ControlAttributes, never, ControlSlots, neve
     ),
   },
   slots: {
-    default: Types.object({
-      fieldState: FieldState,
-    }),
+    default: {
+      scope: Types.object({
+        fieldState: FieldState,
+      }),
+      required: true,
+    },
   },
   render: (c) =>
     ['div', { class: Exprs.get('controlClass') }, {}, [

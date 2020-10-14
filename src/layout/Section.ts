@@ -19,7 +19,10 @@ export const Section = addComponent<SectionAttributes, never, SectionSlots>({
     size: Size,
   },
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) =>
     ['section', {

@@ -1,1 +1,1 @@
-export declare const Box: import("expangine-ui").Component<never, never, never, never, never>;
+export declare const Box: import("expangine-ui").Component<never, never, "default", never, never>;

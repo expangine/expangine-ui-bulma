@@ -21,7 +21,10 @@ export const Color = addComponent({
     backgroundMode: ColorMode,
   },
   slots: {
-    default: Types.object(),
+    default: {
+      scope: Types.object(),
+      required: true,
+    },
   },
   render: (c) => 
     ['div', {
