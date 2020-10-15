@@ -1,6 +1,7 @@
+import { LinkOptions } from "../helpers/Link";
 export interface NavbarLinkAttributes {
     text: string;
-    options: any;
+    options: LinkOptions;
     tab: boolean;
     active: boolean;
 }

@@ -1,5 +1,6 @@
+import { LinkOptions } from "../helpers/Link";
 export interface NavbarLogoAttributes {
-    options: any;
+    options: LinkOptions;
     src: string;
     height: number;
     alt: string;

@@ -34,7 +34,9 @@
   "buildOnSave": false,
   "ts-node": {
     "compilerOptions": {
-      "target": "es5",
+      "esModuleInterop": true,
+      "resolveJsonModule": true,
+      "allowSyntheticDefaultImports": true,
       "module": "commonjs",
     }
   }

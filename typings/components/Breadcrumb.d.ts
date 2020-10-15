@@ -1,9 +1,10 @@
 import { IconType } from '../elements/Icon';
+import { LinkOptions } from "../helpers/Link";
 export interface BreadcrumbAttributes {
     crumbs: any[];
     getIcon: IconType;
     getText: string;
-    getOptions: string;
+    getOptions: LinkOptions;
     separator: string;
     align: string;
     size: string;

@@ -6,6 +6,7 @@ export interface DropdownAttributes {
     triggerMode: string;
     dropUp: boolean;
     rightAligned: boolean;
+    fullWidth: boolean;
     items: any[];
 }
 export interface DropdownComputed {

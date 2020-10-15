@@ -16,6 +16,7 @@ export interface DropdownAttributes
   triggerMode: string;
   dropUp: boolean;
   rightAligned: boolean;
+  fullWidth: boolean;
   items: any[];
 }
 
@@ -71,6 +72,7 @@ export const Dropdown = addComponent<DropdownAttributes, DropdownEvents, Dropdow
       }),
     },
     open: Types.bool(),
+    fullWidth: Types.bool(),
     dropUp: Types.bool(),
     rightAligned: Types.bool(),
     items: Types.list(DropdownItem),
@@ -78,6 +80,7 @@ export const Dropdown = addComponent<DropdownAttributes, DropdownEvents, Dropdow
   computed: {
     classes: Exprs.tuple(
       'dropdown',
+      ifConst(['fullWidth'], 'is-fullwidth'),
       ifConst(['open'], 'is-active'),
       ifConst(['rightAligned'], 'is-right'),
       ifConst(['dropUp'], 'is-up'),

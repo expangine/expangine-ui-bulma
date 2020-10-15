@@ -30,8 +30,9 @@
       "ratio": "The image ratio to use."
     },
     "base-event": {
-      "stop": "If the click event should stop other components from receiving a click event.",
-      "prevent": "If the client event should stop the default behavior of the browser."
+      "nativeEvent": "The browser event triggered.",
+      "stop": "If the event should stop other components from receiving the event.",
+      "prevent": "If the event should stop the default behavior of the browser."
     },
     "dropdown-item": {
       "text": "The text to display in the dropdown item.",
@@ -47,15 +48,27 @@
       "tab": "If the URL should open in a new tab.",
       "download": "If the target should be downloaded when clicked.",
       "external": "If the URL could be external and should be blocked from accessing data on this page."
+    },
+    "crumb-scope": {
+      "crumb": "The current crumb.",
+      "crumbIndex": "The index of the current crumb"
     }
   },
   "components": {
-
     "bulma/column": {
       "category": "Columns",
+      "label": "Column",
       "description": "A column that goes in a Columns container.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Column"]],
-      "template": ["bulma/column"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Column"
+        }
+      ],
+      "template": [
+        "bulma/column"
+      ],
       "attributes": {
         "width": {
           "label": "Width",
@@ -77,14 +90,28 @@
           "description": "The breakpoint for when the column is narrow or not.",
           "default": "None"
         }
+      },
+      "slots": {
+        "default": {
+          "label": "Content",
+          "description": "The components that go in the column."
+        }
       }
     },
-
     "bulma/columns": {
       "category": "Columns",
+      "label": "Columns",
       "description": "A container of columns.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Columns"]],
-      "template": ["bulma/columns"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Columns"
+        }
+      ],
+      "template": [
+        "bulma/columns"
+      ],
       "attributes": {
         "gap": {
           "label": "Gap",
@@ -111,46 +138,56 @@
           "description": "If columns should work on mobile too, as opposed to wrapping the columns.",
           "default": "No"
         }
+      },
+      "slots": {
+        "default": {
+          "label": "Columns",
+          "description": "The columns in this column container."
+        }
       }
     },
-
     "bulma/breadcrumb": {
       "category": "Components",
+      "label": "Breadcrumb",
       "description": "A simple breadcrumb component to improve your navigation experience.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Breadcrumb"]],
-      "template": ["bulma/breadcrumb", { "crumbs": [] }],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Breadcrumb"
+        }
+      ],
+      "template": [
+        "bulma/breadcrumb",
+        {
+          "crumbs": []
+        }
+      ],
       "attributes": {
         "crumbs": {
           "label": "Crumbs",
-          "description": "The crumbs to display."
-        },
-        "getIcon": {
-          "label": "Crumb Icon",
-          "description": "Gets an icon from a crumb to display, if any.",
-          "default": "None",
-          "type": "#icon",
-          "callable": {
-            "crumb": "The current crumb.",
-            "crumbIndex": "The index of the current crumb"
-          }
+          "description": "The crumbs to display.",
+          "type": "None"
         },
         "getText": {
           "label": "Crumb Text",
           "description": "Gets the text to display",
           "default": "No",
-          "callable": {
-            "crumb": "The current crumb.",
-            "crumbIndex": "The index of the current crumb"
-          }
+          "callable": "#crumb-scope"
         },
-        "getHref": {
-          "label": "Crumb URL",
-          "description": "Gets the URL to go to when the user clicks on this crumb.",
-          "default": "No",
-          "callable": {
-            "crumb": "The current crumb.",
-            "crumbIndex": "The index of the current crumb"
-          }
+        "getIcon": {
+          "label": "Crumb Icon",
+          "description": "Gets an icon from a crumb to display, if any.",
+          "default": "None",
+          "callable": "#crumb-scope",
+          "type": "#icon"
+        },
+        "getOptions": {
+          "label": "Crumb Options",
+          "description": "Gets link options for a crumb.",
+          "default": "None",
+          "callable": "#crumb-scope",
+          "type": "#link-options"
         },
         "separator": {
           "label": "Separator",
@@ -167,18 +204,42 @@
           "description": "The size of the breadcrumb.",
           "default": "Left"
         }
+      },
+      "slots": {
+        "default": {
+          "label": "Crumb Text",
+          "description": "The content to place for a crumb.",
+          "scope": "#crumb-scope",
+          "default": "The results from Crumb Text"
+        }
+      },
+      "events": {
+        "click": {
+          "label": "On Click",
+          "description": "An event triggered when a user clicks on a crumb.",
+          "scope": "#crumb-scope"
+        }
       }
     },
-
     "bulma/card": {
       "category": "Components",
+      "label": "Card",
       "description": "An all-around flexible and composable component.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Card"]],
-      "template": ["bulma/card"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Card"
+        }
+      ],
+      "template": [
+        "bulma/card"
+      ],
       "attributes": {
         "header": {
           "label": "Header",
-          "description": "The header of the card."
+          "description": "The header of the card.",
+          "default": "None"
         },
         "headerIcon": {
           "label": "Header Icon",
@@ -203,6 +264,28 @@
           "type": "#image"
         }
       },
+      "slots": {
+        "header": {
+          "label": "Header",
+          "description": "The components to place in the header of the card.",
+          "default": "The text passed to Header"
+        },
+        "default": {
+          "label": "Body",
+          "description": "The components to place in the body of the card.",
+          "default": "None"
+        },
+        "image": {
+          "label": "Image",
+          "description": "The image to place in the card.",
+          "default": "None"
+        },
+        "footerItems": {
+          "label": "Footer Item",
+          "description": "A collectionof footer items in the footer of the card.",
+          "default": "None"
+        }
+      },
       "events": {
         "headerIconClick": {
           "label": "On Header Icon Click",
@@ -214,32 +297,21 @@
           "description": "An event triggered when the user clicks on a footer item.",
           "scope": "#base-event"
         }
-      },
-      "slots": {
-        "header": {
-          "label": "Header",
-          "description": "The components to place in the header of the card."
-        },
-        "default": {
-          "label": "Body",
-          "description": "The components to place in the body of the card."
-        },
-        "image": {
-          "label": "Image",
-          "description": "The image to place in the card."
-        },
-        "footerItems": {
-          "label": "Footer Item",
-          "description": "A collectionof footer items in the footer of the card."
-        }
       }
     },
-
     "bulma/dropdown": {
       "category": "Components",
+      "label": "Dropdown",
       "description": "An interactive dropdown menu for discoverable content.",
-      "preview": ["bulma/dropdown", { "text": "Dropdown" }],
-      "template": ["bulma/dropdown"],
+      "preview": [
+        "bulma/dropdown",
+        {
+          "text": "Dropdown"
+        }
+      ],
+      "template": [
+        "bulma/dropdown"
+      ],
       "attributes": {
         "triggerMode": {
           "label": "Trigger",
@@ -248,29 +320,54 @@
         },
         "text": {
           "label": "Text",
-          "description": "The text in the dropdown."
+          "description": "The text in the dropdown.",
+          "default": "None"
         },
         "icon": {
           "label": "Icon",
           "description": "An icon to use in the dropdown.",
+          "default": "Angle Down",
           "type": "#icon"
         },
         "open": {
           "label": "Open",
-          "description": "Controls when the dropdown is open."
+          "description": "Controls when the dropdown is open.",
+          "default": "No"
+        },
+        "fullWidth": {
+          "label": "Full Width",
+          "description": "If the dropdown should be as wide as possible.",
+          "default": "No"
         },
         "dropUp": {
           "label": "Up",
-          "description": "If the dropdown menu should display above the dropdown."
+          "description": "If the dropdown menu should display above the dropdown.",
+          "default": "No"
         },
         "rightAligned": {
           "label": "Right Aligned",
-          "description": "If the dropdown menu should align to the right side."
+          "description": "If the dropdown menu should align to the right side.",
+          "default": "No"
         },
         "items": {
           "label": "Items",
           "description": "The dropdown items to display, assuming the Items slot is not specified.",
-          "type": ["#dropdown-item"]
+          "default": "None",
+          "type": "#dropdown-item"
+        }
+      },
+      "slots": {
+        "trigger": {
+          "label": "Trigger",
+          "description": "The components which trigger the dropdown to open.",
+          "scope": {
+            "text": "The text passed to the dropdown."
+          }
+        },
+        "default": {
+          "label": "Items",
+          "description": "The components to place in the dropdown menu.",
+          "default": "None"
         }
       },
       "events": {
@@ -288,56 +385,72 @@
           "label": "On Item Click",
           "description": "An event triggered when the dropdown is closed.",
           "scope": {
+            "nativeEvent": "The browser event triggered.",
+            "stop": "If the event should stop other components from receiving the event.",
+            "prevent": "If the event should stop the default behavior of the browser.",
             "item": "#dropdown-item"
           }
         }
-      },
-      "slots": {
-        "trigger": {
-          "label": "Trigger",
-          "description": "The components which trigger the dropdown to open.",
-          "type": {
-            "text": "The text passed to the dropdown."
-          }
-        },
-        "default": {
-          "label": "Items",
-          "description": "The components to place in the dropdown menu."
-        }
       }
     },
-
     "bulma/menu": {
       "category": "Components",
+      "label": "Menu",
       "description": "A simple menu, for any type of vertical navigation.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Menu"]],
-      "template": ["bulma/menu", { "menu": [] }],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Menu"
+        }
+      ],
+      "template": [
+        "bulma/menu",
+        {
+          "menu": []
+        }
+      ],
       "attributes": {
-        "menu": {
-          "label": "Menu",
-          "description": "The groups of items to display in the menu."
-        },
         "value": {
           "label": "Current",
-          "description": "The current value that determines which menu item is displayed as active."
+          "description": "The current value that determines which menu item is displayed as active.",
+          "default": "None"
         },
-        "getLabel": {
-          "label": "Get Menu Group Label",
-          "description": "Gets the label from a Menu Group",
-          "callable": {
-            "menuGroup": "The menu group to get a label from."
-          }
+        "menu": {
+          "label": "Menu",
+          "description": "The groups of items to display in the menu.",
+          "type": "Any"
         },
         "getItems": {
           "label": "Get Items",
           "description": "Gets items from a Menu Group",
+          "default": "menuGroup -> items",
+          "callable": {
+            "menuGroup": "The menu group to get a label from."
+          },
+          "type": "Any"
+        },
+        "getLabel": {
+          "label": "Get Menu Group Label",
+          "description": "Gets the label from a Menu Group",
+          "default": "menuGroup -> label",
           "callable": {
             "menuGroup": "The menu group to get a label from."
           }
         },
+        "getSubItems": {
+          "label": "Get Item Sub-items",
+          "description": "Gets sub-items from a Menu Group Item",
+          "default": "item -> items",
+          "callable": {
+            "item": "MISSING"
+          },
+          "type": "MISSING"
+        },
         "getItemText": {
           "label": "Get Item Text",
           "description": "Gets the text from a Menu Item",
+          "default": "item -> label",
           "callable": {
             "item": "The menu item to get the text from."
           }
@@ -345,29 +458,60 @@
         "getItemValue": {
           "label": "Get Item Value",
           "description": "Gets the value from a Menu Item",
+          "default": "item -> label",
           "callable": {
             "item": "The menu item to get the value from."
-          }
-        },
-        "getSubItems": {
-          "label": "Get Item Sub-items",
-          "description": "Gets sub-items from a Menu Group Item",
-          "callable": {
-            "menuGroup": "The menu group to get a label from."
           }
         },
         "getSubItemText": {
           "label": "Get Sub-item Text",
           "description": "Gets the text from a Menu Sub-item",
+          "default": "subItem -> label",
           "callable": {
-            "item": "The menu sub-item to get the text from."
+            "subItem": "MISSING"
           }
         },
         "getSubItemValue": {
           "label": "Get Sub-item Value",
           "description": "Gets the value from a Menu Sub-item",
+          "default": "subItem -> label",
           "callable": {
-            "item": "The menu sub-item to get the value from."
+            "subItem": "MISSING"
+          }
+        }
+      },
+      "slots": {
+        "menuLabel": {
+          "label": "Menu Group Label",
+          "description": "The components which display a label for a menu group.",
+          "scope": {
+            "menuGroup": "MISSING"
+          },
+          "default": "MISSING",
+          "type": {
+            "menuGroup": "The menu group."
+          }
+        },
+        "menuItem": {
+          "label": "Menu Item",
+          "description": "The components which display a label for a menu item.",
+          "scope": {
+            "item": "MISSING"
+          },
+          "default": "MISSING",
+          "type": {
+            "item": "The menu item."
+          }
+        },
+        "menuSubItem": {
+          "label": "Menu Sub-item",
+          "description": "The components which display a label for a menu sub-item.",
+          "scope": {
+            "subItem": "MISSING"
+          },
+          "default": "MISSING",
+          "type": {
+            "subItem": "The menu sub-item."
           }
         }
       },
@@ -380,41 +524,27 @@
             "itemValue": "The value that was clicked"
           }
         }
-      },
-      "slots": {
-        "menuLabel": {
-          "label": "Menu Group Label",
-          "description": "The components which display a label for a menu group.",
-          "type": {
-            "menuGroup": "The menu group."
-          }
-        },
-        "menuItem": {
-          "label": "Menu Item",
-          "description": "The components which display a label for a menu item.",
-          "type": {
-            "item": "The menu item."
-          }
-        },
-        "menuSubItem": {
-          "label": "Menu Sub-item",
-          "description": "The components which display a label for a menu sub-item.",
-          "type": {
-            "subItem": "The menu sub-item."
-          }
-        }
       }
     },
-
     "bulma/message": {
       "category": "Components",
+      "label": "Message",
       "description": "Colored message blocks, to emphasize part of your page.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Message"]],
-      "template": ["bulma/message"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Message"
+        }
+      ],
+      "template": [
+        "bulma/message"
+      ],
       "attributes": {
         "header": {
           "label": "Header",
-          "description": "The header text of the message."
+          "description": "The header text of the message.",
+          "default": "MISSING"
         },
         "deletable": {
           "label": "Can Delete?",
@@ -423,11 +553,19 @@
         },
         "size": {
           "label": "Size",
-          "description": "The size of the message."
+          "description": "The size of the message.",
+          "default": "MISSING"
         },
         "color": {
           "label": "Color",
-          "description": "The color of the message."
+          "description": "The color of the message.",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Message",
+          "description": "The components to display in the message."
         }
       },
       "events": {
@@ -436,20 +574,22 @@
           "description": "An event triggered when the delete is clicked.",
           "scope": "#base-event"
         }
-      },
-      "slots": {
-        "default": {
-          "label": "Message",
-          "description": "The components to display in the message."
-        }
       }
     },
-
     "bulma/modal": {
       "category": "Components",
+      "label": "MISSING",
       "description": "A classic modal overlay, in which you can include any content you want.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Modal"]],
-      "template": ["bulma/modal"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Modal"
+        }
+      ],
+      "template": [
+        "bulma/modal"
+      ],
       "attributes": {
         "open": {
           "label": "Open",
@@ -462,7 +602,8 @@
         },
         "closeSize": {
           "label": "Size",
-          "description": "The size of the close button."
+          "description": "The size of the close button.",
+          "default": "MISSING"
         },
         "closeOnBackdrop": {
           "label": "Close on Backdrop Click",
@@ -481,7 +622,27 @@
         },
         "title": {
           "label": "Card Title",
-          "description": "The title of the card modal."
+          "description": "The title of the card modal.",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Body",
+          "description": "The body of the modal."
+        },
+        "footer": {
+          "label": "Footer",
+          "description": "The footer of the modal.",
+          "default": "MISSING"
+        },
+        "title": {
+          "label": "Title",
+          "description": "The title of the modal.",
+          "scope": {
+            "title": "The title passed to the modal component."
+          },
+          "default": "MISSING"
         }
       },
       "events": {
@@ -495,35 +656,27 @@
           "description": "An event triggered when the backdrop is clicked.",
           "scope": "#base-event"
         }
-      },
-      "slots": {
-        "default": {
-          "label": "Body",
-          "description": "The body of the modal."
-        },
-        "title": {
-          "label": "Title",
-          "description": "The title of the modal.",
-          "scope": {
-            "title": "The title passed to the modal component."
-          }
-        },
-        "footer": {
-          "label": "Footer",
-          "description": "The footer of the modal."
-        }
       }
     },
-
     "bulma/navbar": {
       "category": "Components",
+      "label": "Navbar",
       "description": "A responsive horizontal navbar that can support images, links, buttons, and dropdowns.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar"]],
-      "template": ["bulma/navbar"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Navbar"
+        }
+      ],
+      "template": [
+        "bulma/navbar"
+      ],
       "attributes": {
         "color": {
           "label": "Color",
-          "description": "The color of the navbar."
+          "description": "The color of the navbar.",
+          "default": "MISSING"
         },
         "fixed": {
           "label": "Fixed To",
@@ -546,6 +699,23 @@
           "default": "No"
         }
       },
+      "slots": {
+        "left": {
+          "label": "Left",
+          "description": "The navbar items that go on the left and are moved to a dropdown menu for small screens.",
+          "default": "MISSING"
+        },
+        "right": {
+          "label": "Right",
+          "description": "The navbar items that go on the right and are moved to a dropdown menu for small screens.",
+          "default": "MISSING"
+        },
+        "brand": {
+          "label": "Brand",
+          "description": "The navbar items that go on the left and are always visible.",
+          "default": "MISSING"
+        }
+      },
       "events": {
         "close": {
           "label": "On Close",
@@ -557,74 +727,92 @@
           "description": "An event triggered when the backdrop is clicked.",
           "scope": "#base-event"
         }
-      },
-      "slots": {
-        "left": {
-          "label": "Left",
-          "description": "The navbar items that go on the left and are moved to a dropdown menu for small screens."
-        },
-        "right": {
-          "label": "Right",
-          "description": "The navbar items that go on the right and are moved to a dropdown menu for small screens."
-        },
-        "brand": {
-          "label": "Brand",
-          "description": "The navbar items that go on the left and are always visible."
-        }
       }
     },
-
     "bulma/navbar-divider": {
       "category": "Components",
+      "label": "MISSING",
       "description": "A divider for the navbar.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar Divider"]],
-      "template": ["bulma/navbar-divider"]
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Navbar Divider"
+        }
+      ],
+      "template": [
+        "bulma/navbar-divider"
+      ]
     },
-
     "bulma/navbar-item": {
       "category": "Components",
+      "label": "MISSING",
       "description": "An item for the navbar.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar Item"]],
-      "template": ["bulma/navbar-item"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Navbar Item"
+        }
+      ],
+      "template": [
+        "bulma/navbar-item"
+      ],
       "attributes": {
-        "active": {
-          "label": "Active?",
-          "description": "If the navbar item should be marked as the active one.",
-          "default": "No"
-        },
         "tab": {
           "label": "Tab?",
           "description": "If the navbar item should look like a tab.",
+          "default": "No"
+        },
+        "active": {
+          "label": "Active?",
+          "description": "If the navbar item should be marked as the active one.",
           "default": "No"
         }
       },
       "slots": {
         "default": {
           "label": "Content",
-          "description": "The content of the navbar item."
+          "description": "The content of the navbar item.",
+          "default": "MISSING"
         }
       },
       "events": {
         "click": {
           "label": "On Click",
-          "description": "An event triggered when a navbar item is clicked."
+          "description": "An event triggered when a navbar item is clicked.",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
         }
       }
     },
-
     "bulma/navbar-link": {
       "category": "Components",
+      "label": "MISSING",
       "description": "A link for the navbar.",
-      "preview": ["bulma/button", { "fullWidth": true }, {}, ["Navbar Link"]],
-      "template": ["bulma/navbar-link"],
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "Navbar Link"
+        }
+      ],
+      "template": [
+        "bulma/navbar-link"
+      ],
       "attributes": {
         "text": {
           "label": "Text",
-          "description": "The text of the link."
+          "description": "The text of the link.",
+          "default": "MISSING"
         },
         "options": {
           "label": "Link Options",
           "description": "The options for the target of the link.",
+          "default": "MISSING",
           "type": "#link-options"
         },
         "tab": {
@@ -644,55 +832,2300 @@
           "description": "The content of the navbar link.",
           "scope": {
             "text": "The text passed to the navbar link."
-          }
+          },
+          "default": "MISSING"
         }
       },
       "events": {
         "click": {
           "label": "On Click",
-          "description": "An event triggered when a navbar link is clicked."
+          "description": "An event triggered when a navbar link is clicked.",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
         }
       }
     },
-
-
-
-
-
-
-    "__EXAMPLE__": {
-      "category": "",
-      "description": "",
-      "preview": [],
-      "template": [],
-      "example": [],
-      "attributes": {
-        "[attr]": {
-          "label": "The label to display for this attribute.",
-          "description": "A textual description of this attribute.",
-          "default": "A textual description of the default value/behavior.",
-          "type": "A description of the expected type, an object, or an array",
-          "callable": {
-            "[var]": "A variable in the callable attribute."
-          }
+    "bulma/field": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "field"
         }
-      },
-      "events": {
-        "[event]": {
-          "label": "",
-          "description": "",
-          "scope": {
-            "[var]": ""
-          }
+      ],
+      "template": [
+        "bulma/field"
+      ],
+      "attributes": {
+        "name": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "label": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "message": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "grouped": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "status": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
         }
       },
       "slots": {
-        "[slot]": {
-          "label": "",
-          "description": "",
+        "label": {
+          "label": "MISSING",
+          "description": "MISSING",
           "scope": {
-            "[var]": ""
+            "label": "MISSING"
+          },
+          "default": "MISSING"
+        },
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "fieldState": "MISSING"
           }
+        },
+        "message": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "message": "MISSING"
+          },
+          "default": "MISSING"
+        }
+      }
+    },
+    "bulma/icon": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "icon"
+        }
+      ],
+      "template": [
+        "bulma/icon"
+      ],
+      "attributes": {
+        "icon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "fieldState": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        }
+      }
+    },
+    "bulma/control": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "control"
+        }
+      ],
+      "template": [
+        "bulma/control"
+      ],
+      "attributes": {
+        "status": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "leftIcon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "rightIcon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "fieldState": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "loading": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "fieldState": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/input": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "input"
+        }
+      ],
+      "template": [
+        "bulma/input"
+      ],
+      "attributes": {
+        "type": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "status": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "placeholder": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "autocomplete": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rounded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "disabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "readonly": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "updateOn": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "input": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "change": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "keydown": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "blur": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/textarea": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "textarea"
+        }
+      ],
+      "template": [
+        "bulma/textarea"
+      ],
+      "attributes": {
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rows": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "status": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "autocomplete": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "placeholder": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rounded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "disabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "readonly": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "fixedSize": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "updateOn": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "input": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "change": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "keydown": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "blur": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        },
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/select": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "select"
+        }
+      ],
+      "template": [
+        "bulma/select"
+      ],
+      "attributes": {
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "options": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "getValue": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "option": "MISSING"
+          },
+          "type": "MISSING"
+        },
+        "getText": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "option": "MISSING"
+          }
+        },
+        "status": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "emptyText": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "placeholder": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "multiple": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "multipleSize": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rounded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "disabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "readonly": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "loading": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "option": "MISSING"
+          },
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING",
+            "values": "MISSING",
+            "option": "MISSING",
+            "options": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/checkbox": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "checkbox"
+        }
+      ],
+      "template": [
+        "bulma/checkbox"
+      ],
+      "attributes": {
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "label": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "checkedValue": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "uncheckedValue": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "disabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/radio": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "radio"
+        }
+      ],
+      "template": [
+        "bulma/radio"
+      ],
+      "attributes": {
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "checkedValue": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "label": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "name": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "disabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "value": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/file": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "file"
+        }
+      ],
+      "template": [
+        "bulma/file"
+      ],
+      "attributes": {
+        "label": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "color": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "icon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "alignment": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "name": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "showFileNames": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "multiple": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "accept": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "fullWidth": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "boxed": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "name": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING",
+            "file": "MISSING",
+            "files": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/container": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "container"
+        }
+      ],
+      "template": [
+        "bulma/container"
+      ],
+      "attributes": {
+        "type": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/footer": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "footer"
+        }
+      ],
+      "template": [
+        "bulma/footer"
+      ],
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/hero": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "hero"
+        }
+      ],
+      "template": [
+        "bulma/hero"
+      ],
+      "attributes": {
+        "color": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "gradient": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "header": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "footer": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/level": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "level"
+        }
+      ],
+      "template": [
+        "bulma/level"
+      ],
+      "attributes": {
+        "centered": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "mobile": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "left": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "right": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      }
+    },
+    "bulma/media": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "media"
+        }
+      ],
+      "template": [
+        "bulma/media"
+      ],
+      "slots": {
+        "left": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "right": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/section": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "section"
+        }
+      ],
+      "template": [
+        "bulma/section"
+      ],
+      "attributes": {
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/block": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "block"
+        }
+      ],
+      "template": [
+        "bulma/block"
+      ],
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/box": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "box"
+        }
+      ],
+      "template": [
+        "bulma/box"
+      ],
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/button": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "button"
+        }
+      ],
+      "template": [
+        "bulma/button"
+      ],
+      "attributes": {
+        "type": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "color": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "leftIcon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "rightIcon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "title": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "href": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "light": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "fullWidth": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "outlined": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "inverted": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rounded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "loading": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "disabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "selected": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "text": "MISSING"
+          },
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "click": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/buttons": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "buttons"
+        }
+      ],
+      "template": [
+        "bulma/buttons"
+      ],
+      "attributes": {
+        "attached": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "alignment": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/content": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "content"
+        }
+      ],
+      "template": [
+        "bulma/content"
+      ],
+      "attributes": {
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/delete": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "delete"
+        }
+      ],
+      "template": [
+        "bulma/delete"
+      ],
+      "attributes": {
+        "src": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "alt": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rounded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "squareSize": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "ratio": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "click": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/notification": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "notification"
+        }
+      ],
+      "template": [
+        "bulma/notification"
+      ],
+      "attributes": {
+        "message": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "color": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "light": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "deletable": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "deleteSize": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "message": "MISSING"
+          },
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "deleted": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/progress": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "progress"
+        }
+      ],
+      "template": [
+        "bulma/progress"
+      ],
+      "attributes": {
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "max": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "color": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "indeterminate": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      }
+    },
+    "bulma/table": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "table"
+        }
+      ],
+      "template": [
+        "bulma/table"
+      ],
+      "attributes": {
+        "rows": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "columns": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "getRowKey": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "row": "MISSING",
+            "rowIndex": "MISSING"
+          },
+          "type": "MISSING"
+        },
+        "isSelected": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "row": "MISSING"
+          }
+        },
+        "hideHeader": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "bordered": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "striped": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "narrow": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "hoverable": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "fullWidth": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "scrollable": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "header": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "column": "MISSING",
+            "columnIndex": "MISSING"
+          },
+          "default": "MISSING"
+        },
+        "footer": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "column": "MISSING",
+            "columnIndex": "MISSING"
+          },
+          "default": "MISSING"
+        }
+      }
+    },
+    "bulma/tag": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "tag"
+        }
+      ],
+      "template": [
+        "bulma/tag"
+      ],
+      "attributes": {
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "color": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rounded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "light": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "deleteTag": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "deletable": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "deleteSize": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "deleted": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        },
+        "click": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/tags": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "tags"
+        }
+      ],
+      "template": [
+        "bulma/tags"
+      ],
+      "attributes": {
+        "attached": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/title": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "title"
+        }
+      ],
+      "template": [
+        "bulma/title"
+      ],
+      "attributes": {
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "sub": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      }
+    },
+    "bulma/navbar-logo": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "navbar-logo"
+        }
+      ],
+      "template": [
+        "bulma/navbar-logo"
+      ],
+      "attributes": {
+        "options": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "src": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "alt": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "height": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "click": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/navbar-menu": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "navbar-menu"
+        }
+      ],
+      "template": [
+        "bulma/navbar-menu"
+      ],
+      "attributes": {
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "href": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "active": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "arrowless": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "hoverable": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "right": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "dropUp": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "boxed": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "text": "MISSING"
+          },
+          "default": "MISSING"
+        },
+        "items": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "click": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/pagination": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "pagination"
+        }
+      ],
+      "template": [
+        "bulma/pagination"
+      ],
+      "attributes": {
+        "current": {
+          "label": "MISSING",
+          "description": "MISSING"
+        },
+        "total": {
+          "label": "MISSING",
+          "description": "MISSING"
+        },
+        "around": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "align": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "rounded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "zeroBased": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "previousLabel": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "nextLabel": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "page": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/panel": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "panel"
+        }
+      ],
+      "template": [
+        "bulma/panel"
+      ],
+      "attributes": {
+        "color": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "heading": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "heading": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "heading": "MISSING"
+          },
+          "default": "MISSING"
+        },
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/panel-block": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "panel-block"
+        }
+      ],
+      "template": [
+        "bulma/panel-block"
+      ],
+      "attributes": {
+        "active": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      }
+    },
+    "bulma/panel-item": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "panel-item"
+        }
+      ],
+      "template": [
+        "bulma/panel-item"
+      ],
+      "attributes": {
+        "active": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "icon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "click": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "nativeEvent": "MISSING",
+            "stop": "MISSING",
+            "prevent": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/panel-tabs": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "panel-tabs"
+        }
+      ],
+      "template": [
+        "bulma/panel-tabs"
+      ],
+      "attributes": {
+        "active": {
+          "label": "MISSING",
+          "description": "MISSING"
+        },
+        "tabs": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        }
+      },
+      "events": {
+        "change": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "tab": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/tab": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "tab"
+        }
+      ],
+      "template": [
+        "bulma/tab"
+      ],
+      "attributes": {
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "icon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        },
+        "active": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "type": "MISSING"
+        }
+      },
+      "events": {
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "tabValue": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/tabs": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "tabs"
+        }
+      ],
+      "template": [
+        "bulma/tabs"
+      ],
+      "attributes": {
+        "value": {
+          "label": "MISSING",
+          "description": "MISSING"
+        },
+        "tabs": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "type": "MISSING"
+        },
+        "getText": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "tab": "MISSING",
+            "tabIndex": "MISSING"
+          }
+        },
+        "getIcon": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "tab": "MISSING",
+            "tabIndex": "MISSING"
+          },
+          "type": "MISSING"
+        },
+        "getValue": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "tab": "MISSING",
+            "tabIndex": "MISSING"
+          }
+        },
+        "align": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "type": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "fullWidth": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "events": {
+        "update": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "scope": {
+            "tab": "MISSING",
+            "tabIndex": "MISSING",
+            "tabValue": "MISSING"
+          }
+        }
+      }
+    },
+    "bulma/color": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "color"
+        }
+      ],
+      "template": [
+        "bulma/color"
+      ],
+      "attributes": {
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "textMode": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "background": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "backgroundMode": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/spacing": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "spacing"
+        }
+      ],
+      "template": [
+        "bulma/spacing"
+      ],
+      "attributes": {
+        "padding": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "paddingTop": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "paddingBottom": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "paddingLeft": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "paddingRight": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "margin": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "marginTop": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "marginBottom": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "marginLeft": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "marginRight": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/typography": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "typography"
+        }
+      ],
+      "template": [
+        "bulma/typography"
+      ],
+      "attributes": {
+        "size": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "sizeMobile": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "sizeTablet": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "sizeDesktop": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "sizeWidescreen": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "sizeFullhd": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "align": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "transform": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "family": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
+        }
+      }
+    },
+    "bulma/visibility": {
+      "category": "MISSING",
+      "label": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "visibility"
+        }
+      ],
+      "template": [
+        "bulma/visibility"
+      ],
+      "attributes": {
+        "hidden": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "hiddenBreakpoint": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "invisible": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "screenReaderOnly": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING"
         }
       }
     }
