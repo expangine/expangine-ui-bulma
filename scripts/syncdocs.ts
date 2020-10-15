@@ -51,6 +51,25 @@ for (const id in BulmaRegistry) {
         return options;
       }),
     } : {}),
+    // events
+    ...(comp.events ? {
+      events: objectMap(comp.events, (eventInput) => {
+        const event = isFunction(eventInput)
+          ? eventInput({})
+          : eventInput;
+        
+        const options: any = {
+          label: "MISSING",
+          description: "MISSING",
+        };
+
+        if (!isEmpty(event.options.props)) {
+          options.scope = objectMap(event.options.props, (prop) => "MISSING");
+        }
+        
+        return options;
+      })
+    } : {}),
     // slots
     ...(comp.slots ? {
       slots: objectMap(comp.slots, (slotInput) => {
@@ -73,25 +92,6 @@ for (const id in BulmaRegistry) {
           options.default = "MISSING";
         }
 
-        return options;
-      })
-    } : {}),
-    // events
-    ...(comp.events ? {
-      events: objectMap(comp.events, (eventInput) => {
-        const event = isFunction(eventInput)
-          ? eventInput({})
-          : eventInput;
-        
-        const options: any = {
-          label: "MISSING",
-          description: "MISSING",
-        };
-
-        if (!isEmpty(event.options.props)) {
-          options.scope = objectMap(event.options.props, (prop) => "MISSING");
-        }
-        
         return options;
       })
     } : {}),
