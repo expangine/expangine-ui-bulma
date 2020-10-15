@@ -4,7 +4,7 @@ import { addComponent } from '../ComponentRegistry';
 import { Flip, Rotate, Side, Size, Status } from '../Types';
 import { COLLECTION } from '../constants';
 import { FieldState, FieldStateType } from '../form/Field';
-import { GetOverride } from '../util';
+import { getOverride } from '../util';
 
 
 export interface IconType
@@ -67,27 +67,27 @@ export const IconClassesObject = (attr: string[], overrides?: Record<string, Exp
   ({
     span: Exprs.tuple(
       iconClass,
-      GetOverride([...attr, 'size'], 'size', overrides),
-      GetOverride([...attr, 'side'], 'side', overrides),
+      getOverride([...attr, 'size'], 'size', overrides),
+      getOverride([...attr, 'side'], 'side', overrides),
       Exprs.if(
-        GetOverride([...attr, 'status'], 'status', overrides)
+        getOverride([...attr, 'status'], 'status', overrides)
       ).than(
-        Exprs.template('has-text-{status}', { status: GetOverride([...attr, 'status'], 'status', overrides) }),
+        Exprs.template('has-text-{status}', { status: getOverride([...attr, 'status'], 'status', overrides) }),
       )
     ),
     i: Exprs.tuple(
-      GetOverride([...attr, 'style'], 'style', overrides),
+      getOverride([...attr, 'style'], 'style', overrides),
       Exprs.get(...attr, 'name'),
-      Exprs.if(GetOverride([...attr, 'spins'], 'spins', overrides)).than(Exprs.const('fa-spinner')),
-      Exprs.if(GetOverride([...attr, 'bordered'], 'bordered', overrides)).than(Exprs.const('fa-border')),
-      Exprs.if(GetOverride([...attr, 'square'], 'square', overrides)).than(Exprs.const('fa-fw')),
+      Exprs.if(getOverride([...attr, 'spins'], 'spins', overrides)).than(Exprs.const('fa-spinner')),
+      Exprs.if(getOverride([...attr, 'bordered'], 'bordered', overrides)).than(Exprs.const('fa-border')),
+      Exprs.if(getOverride([...attr, 'square'], 'square', overrides)).than(Exprs.const('fa-fw')),
     ),
     transform: Exprs.tuple(
-      GetOverride([...attr, 'rotate'], 'rotate', overrides),
-      GetOverride([...attr, 'flip'], 'flip', overrides),
+      getOverride([...attr, 'rotate'], 'rotate', overrides),
+      getOverride([...attr, 'flip'], 'flip', overrides),
     ),
-    decorative: GetOverride([...attr, 'decorative'], 'decorative', overrides),
-    title: GetOverride([...attr, 'title'], 'title', overrides),
+    decorative: getOverride([...attr, 'decorative'], 'decorative', overrides),
+    title: getOverride([...attr, 'title'], 'title', overrides),
   });
 
 export const IconRender = (classes: string): NodeTemplate => 

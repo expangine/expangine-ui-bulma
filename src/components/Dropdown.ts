@@ -4,7 +4,8 @@ import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconClasses, IconClassesObject, IconObject, IconRender, IconRenderObject, IconType } from '../elements';
 import { ifConst } from '../util';
-import { BaseEventType, LinkOptions } from '../Types';
+import { BaseEventType } from '../Types';
+import { getLinkAttributes, LinkOptionsType } from "../helpers/Link";
 
 
 export interface DropdownAttributes
@@ -44,7 +45,7 @@ export const DropdownTriggerEvents = Types.enumForText([
 export const DropdownItem = Types.object({
   text: Types.optional(Types.text()),
   html: Types.optional(Types.bool()),
-  options: Types.optional(LinkOptions),
+  options: Types.optional(LinkOptionsType),
   divider: Types.optional(Types.bool()),
   active: Types.optional(Types.bool()),
   leftIcon: Types.optional(IconObject),
@@ -250,22 +251,7 @@ export const Dropdown = addComponent<DropdownAttributes, DropdownEvents, Dropdow
                       'dropdown-item',
                       ifConst(['item', 'active'], 'is-active'),
                     ),
-                    href: Exprs.get('item', 'options', 'href'),
-                    download: Exprs.if(
-                      Exprs.get('item', 'options', 'download')
-                    ).than(
-                      Exprs.true()
-                    ),
-                    rel: Exprs.if(
-                      Exprs.get('item', 'options', 'external')
-                    ).than(
-                      Exprs.const('noreferrer noopener')
-                    ),
-                    target: Exprs.if(
-                      Exprs.get('item', 'options', 'tab')
-                    ).than(
-                      Exprs.const('_blank')
-                    ),
+                    ...getLinkAttributes(['item', 'options']),
                   }, {}, getItemTemplate()]
                 ]]
               ], [

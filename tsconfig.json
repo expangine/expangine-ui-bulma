@@ -31,5 +31,11 @@
     "node_modules"
   ],
   "compileOnSave": false,
-  "buildOnSave": false
+  "buildOnSave": false,
+  "ts-node": {
+    "compilerOptions": {
+      "target": "es5",
+      "module": "commonjs",
+    }
+  }
 }

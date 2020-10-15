@@ -1,5 +1,5 @@
 import { AnyOps, Exprs, Types } from 'expangine-runtime';
-import { createIfs, createSlot } from 'expangine-ui';
+import { createIfs, createSlot, NodeTemplate, NodeTemplateChild } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { ifConst, ifTemplate } from '../util';
@@ -54,10 +54,7 @@ export const Button = addComponent<ButtonAttributes, ButtonEvents, ButtonSlots, 
   collection: COLLECTION,
   name: 'button',
   attributes: {
-    type: {
-      type: ButtonType,
-      default: Exprs.const('button'),
-    },
+    type: ButtonType,
     text: Types.text(),
     color: Colors,
     size: Size,
@@ -90,9 +87,10 @@ export const Button = addComponent<ButtonAttributes, ButtonEvents, ButtonSlots, 
     tagName: Exprs.switch(Exprs.get('type'), AnyOps.isEqual)
       .case('a')
         .than('a')
-      .case('button')
-        .than('button')
-      .default('input'),
+      .case('submit')
+      .case('reset')
+        .than('input')
+      .default('button'),
     inputType: Exprs.switch(Exprs.get('type'), AnyOps.isEqual)
       .case('submit')
         .than('submit')
@@ -117,8 +115,17 @@ export const Button = addComponent<ButtonAttributes, ButtonEvents, ButtonSlots, 
       text: Types.text(),
     }),
   },
-  render: (c) => 
-    [Exprs.get('tagName'), {
+  render: (c) => {
+    const ContentRender: NodeTemplateChild = 
+      c.whenSlot('default',
+        () => Exprs.get('text'), 
+        () => createSlot({ scope: { text: Exprs.get('text') } })
+      );
+    const ContentRenderSpan: NodeTemplate = ['span', {}, {}, [
+      ContentRender,
+    ]];
+
+    return [Exprs.get('tagName'), {
       class: Exprs.get('classes'),
       type: Exprs.get('inputType'),
       disabled: Exprs.get('disabled'),
@@ -130,37 +137,20 @@ export const Button = addComponent<ButtonAttributes, ButtonEvents, ButtonSlots, 
       createIfs([
         [Exprs.and(Exprs.get('leftIcon'), Exprs.get('rightIcon')), [
           IconRender('leftIconClasses'),
-          ['span', {}, {}, [
-            c.whenSlot('default',
-              () => Exprs.get('text'), 
-              () => createSlot({ scope: { text: Exprs.get('text') } })
-            ),
-          ]],
+          ContentRenderSpan,
           IconRender('rightIconClasses'),
         ]],
         [Exprs.get('leftIcon'), [
           IconRender('leftIconClasses'),
-          ['span', {}, {}, [
-            c.whenSlot('default',
-              () => Exprs.get('text'), 
-              () => createSlot({ scope: { text: Exprs.get('text') } })
-            ),
-          ]],
+          ContentRenderSpan,
         ]],
         [Exprs.get('rightIcon'), [
-          ['span', {}, {}, [
-            c.whenSlot('default',
-              () => Exprs.get('text'), 
-              () => createSlot({ scope: { text: Exprs.get('text') } })
-            ),
-          ]],
+          ContentRenderSpan,
           IconRender('rightIconClasses'),
         ]],
       ], [
-        c.whenSlot('default',
-          () => Exprs.get('text'), 
-          () => createSlot({ scope: { text: Exprs.get('text') } })
-        ),
+        ContentRender,
       ]),
-    ]]
+    ]];
+  },
 })

@@ -3,7 +3,8 @@ import { createFor, createSlot, createIfElse, createComponent } from 'expangine-
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconObject, IconType, Icon } from '../elements/Icon';
-import { Alignment, LinkOptions, Size } from '../Types';
+import { Alignment, Size } from '../Types';
+import { getLinkAttributes, LinkOptionsType, LinkOptions } from "../helpers/Link";
 
 
 export interface BreadcrumbAttributes
@@ -11,7 +12,7 @@ export interface BreadcrumbAttributes
   crumbs: any[];
   getIcon: IconType;  
   getText: string;
-  getOptions: string;
+  getOptions: LinkOptions;
   separator: string;
   align: string;
   size: string;
@@ -87,7 +88,7 @@ export const Breadcrumb = addComponent<BreadcrumbAttributes, BreadcrumbEvents, B
       callable: (a) => getListItemScope(a.crumbs),
     },
     getOptions: {
-      type: LinkOptions,
+      type: LinkOptionsType,
       callable: (a) => getListItemScope(a.crumbs),
     },
     separator: BreadcrumbSeparator,
@@ -135,25 +136,7 @@ export const Breadcrumb = addComponent<BreadcrumbAttributes, BreadcrumbEvents, B
             ),
           }, {}, [
             ['a', {
-              href: Exprs.or(
-                Exprs.get('crumb', 'options', 'href'),
-                Exprs.const('#'),
-              ),
-              download: Exprs.if(
-                Exprs.get('crumb', 'options', 'download'),
-              ).than(
-                Exprs.true()
-              ),
-              rel: Exprs.if(
-                Exprs.get('crumb', 'options', 'external')
-              ).than(
-                Exprs.const('noreferrer noopener')
-              ),
-              target: Exprs.if(
-                Exprs.get('crumb', 'options', 'tab')
-              ).than(
-                Exprs.const('_blank')
-              ),
+              ...getLinkAttributes(['crumb', 'options']),
               ariaCurrent: Exprs.if(
                 isLastCrumb
               ).than(

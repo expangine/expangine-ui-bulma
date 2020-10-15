@@ -122,10 +122,3 @@ export const BaseEventType = Types.object({
   stop: Types.bool(),
   prevent: Types.bool(),
 });
-
-export const LinkOptions = Types.object({
-  href: Types.text(),
-  tab: Types.optional(Types.bool()),
-  download: Types.optional(Types.bool()),
-  external: Types.optional(Types.bool()),
-});

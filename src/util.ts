@@ -40,7 +40,10 @@ export function ifExpr(path: string[], expr: Expression): Expression
   );
 }
 
-export const GetOverride = (path: string[], overrideName: string, overrides?: Record<string, Expression>) =>
-  overrides && overrides[overrideName]
+export function getOverride(path: string[], overrideName: string, overrides?: Record<string, Expression>)
+{
+  return overrides && overrides[overrideName]
     ? Exprs.or(overrides[overrideName], Exprs.get(...path))
     : Exprs.get(...path);
+}
+
