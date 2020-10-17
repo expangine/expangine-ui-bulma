@@ -21,6 +21,9 @@ export interface NavbarLogoEvents
 export const NavbarLogo = addComponent<NavbarLogoAttributes, NavbarLogoEvents>({
   collection: COLLECTION,
   name: 'navbar-logo',
+  targets: [
+    `${COLLECTION}/navbar`,
+  ],
   attributes: {
     options: LinkOptionsType,
     src: Types.text(),

@@ -40,6 +40,9 @@ export type NavbarMenuSlots = 'default' | 'items';
 export const NavbarMenu = addComponent<NavbarMenuAttributes, NavbarMenuEvents, NavbarMenuSlots, NavbarMenuState, NavbarMenuComputed>({
   collection: COLLECTION,
   name: 'navbar-menu',
+  targets: [
+    `${COLLECTION}/navbar`,
+  ],
   attributes: {
     text: Types.text(),
     href: Types.text(),
@@ -81,7 +84,7 @@ export const NavbarMenu = addComponent<NavbarMenuAttributes, NavbarMenuEvents, N
     }),
     items: {
       scope: Types.object(),
-      only: [
+      accepts: [
         `${COLLECTION}/navbar-item`,
         `${COLLECTION}/navbar-divider`,
         `${COLLECTION}/navbar-link`,

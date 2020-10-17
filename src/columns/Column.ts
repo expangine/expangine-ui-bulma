@@ -38,6 +38,9 @@ export const ColumnNarrowBreakpoint = Types.enumForText([
 export const Column = addComponent<ColumnAttributes, never, ColumnSlots, never, ColumnComputed>({
   collection: COLLECTION,
   name: 'column',
+  targets: [
+    `${COLLECTION}/columns`,
+  ],
   attributes: {
     width: Types.number(COLUMN_MIN, COLUMN_MAX, true),
     offset: {

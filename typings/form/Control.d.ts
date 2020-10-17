@@ -3,6 +3,7 @@ import { IconType } from '../elements/Icon';
 export interface ControlAttributes {
     status: string;
     loading: boolean;
+    expanded: boolean;
     leftIcon: IconType;
     rightIcon: IconType;
     fieldState: FieldStateType;

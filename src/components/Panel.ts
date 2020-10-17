@@ -40,7 +40,7 @@ export const Panel = addComponent<PanelAttributes, never, PanelSlots, never, Pan
       scope: Types.object(),
       required: true,
       array: true,
-      only: [
+      accepts: [
         `${COLLECTION}/panel-block`,
         `${COLLECTION}/panel-item`,
         `${COLLECTION}/panel-tabs`,

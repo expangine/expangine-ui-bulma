@@ -1,4 +1,5 @@
 export * from './Field';
+export * from './Fieldset';
 export * from './Control';
 export * from './Input';
 export * from './Textarea';

@@ -31,7 +31,7 @@ export const Tags = addComponent<TagsAttributes, never, never, never, TagsComput
     default: {
       type: Types.object(),
       required: true,
-      only: [
+      accepts: [
         `${COLLECTION}/tag`,
       ],
     },

@@ -1,8 +1,16 @@
 import { Types } from 'expangine-runtime';
 
 export const Size = Types.enumForText([
-  ['', 'Default'],
+  ['Default', ''],
   ['Small', 'is-small'],
+  ['Medium', 'is-medium'],
+  ['Large', 'is-large'],
+]);
+
+export const LabelAlignment = Types.enumForText([
+  ['Default', ''],
+  ['Small', 'is-small'],
+  ['Normal (input & button)', 'is-normal'],
   ['Medium', 'is-medium'],
   ['Large', 'is-large'],
 ]);

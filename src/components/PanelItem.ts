@@ -30,6 +30,9 @@ export type PanelItemSlots = 'default';
 export const PanelItem = addComponent<PanelItemAttributes, PanelItemEvents, PanelItemSlots, never, PanelItemComputed>({
   collection: COLLECTION,
   name: 'panel-item',
+  targets: [
+    `${COLLECTION}/panel`,
+  ],
   attributes: {
     active: Types.bool(),
     text: Types.text(),

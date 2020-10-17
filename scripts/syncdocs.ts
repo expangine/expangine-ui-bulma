@@ -3,16 +3,17 @@
 import { writeFileSync } from 'fs';
 import { BulmaRegistry } from '../src';
 import Docs from '../docs/index.json';
-import { isEmpty, isFunction, isObject, ObjectType, Type } from 'expangine-runtime';
+import { isEmpty, isFunction, isObject, isString, ObjectType, Type } from 'expangine-runtime';
 
+const MISSING = "MISSING";
 
 for (const id in BulmaRegistry) {
   const comp = BulmaRegistry[id];
   const existing = Docs.components[id];
   const updated = {
-    category: "MISSING",
-    label: "MISSING",
-    description: "MISSING",
+    label: comp.name,
+    category: MISSING,
+    description: MISSING,
     preview: ["bulma/button", { fullWidth: true, text: comp.name }],
     template: [`${comp.collection}/${comp.name}`],
     // attributes
@@ -26,12 +27,15 @@ for (const id in BulmaRegistry) {
           : attr.type;
 
         const options: any = {
-          label: "MISSING",
-          description: "MISSING",
+          label: MISSING,
+          description: MISSING,
         };
 
+        if (!type.isSimple()) {
+          options.type = MISSING;
+        }
         if (!attr.required) {
-          options.default = "MISSING";
+          options.default = MISSING;
         }
         if (attr.callable) {
           const callable = isFunction(attr.callable)
@@ -39,13 +43,10 @@ for (const id in BulmaRegistry) {
             : attr.callable;
 
           if (callable instanceof ObjectType) {
-            options.callable = objectMap(callable.options.props, (prop) => "MISSING");
+            options.callable = objectMap(callable.options.props, (prop) => MISSING);
           } else {
-            options.callable = "MISSING";
+            options.callable = MISSING;
           }
-        }
-        if (!type.isSimple()) {
-          options.type = "MISSING";
         }
         
         return options;
@@ -59,12 +60,12 @@ for (const id in BulmaRegistry) {
           : eventInput;
         
         const options: any = {
-          label: "MISSING",
-          description: "MISSING",
+          label: MISSING,
+          description: MISSING,
         };
 
         if (!isEmpty(event.options.props)) {
-          options.scope = objectMap(event.options.props, (prop) => "MISSING");
+          options.scope = objectMap(event.options.props, (prop) => MISSING);
         }
         
         return options;
@@ -81,15 +82,15 @@ for (const id in BulmaRegistry) {
           : slot.scope;
         
         const options: any = {
-          label: "MISSING",
-          description: "MISSING",
+          label: MISSING,
+          description: MISSING,
         };
 
-        if (scope instanceof ObjectType && !isEmpty(scope.options.props)) {
-          options.scope = objectMap(scope.options.props, (prop) => "MISSING");
-        }
         if (!slot.required) {
-          options.default = "MISSING";
+          options.default = MISSING;
+        }
+        if (scope instanceof ObjectType && !isEmpty(scope.options.props)) {
+          options.scope = objectMap(scope.options.props, (prop) => MISSING);
         }
 
         return options;
@@ -104,7 +105,19 @@ for (const id in BulmaRegistry) {
   }
 }
 
-writeFileSync('./docs/index-updated.json', JSON.stringify(Docs, undefined, '  '));
+writeFileSync('./docs/index.json', JSON.stringify(Docs, undefined, '  '));
+
+const counts = {
+  missing: 0,
+  given: 0,
+};
+
+count(Docs, counts);
+
+const { given, missing } = counts;
+const coverage = ((given / (given + missing)) * 100).toFixed(1);
+
+console.log(`Coverage: ${coverage}%, Missing: ${missing}, Documented: ${given}`);
 
 function objectMap<K extends string, S, T>(source: Record<K, S>, map: (source: S) => T): Record<K, T>
 {
@@ -131,4 +144,22 @@ function merge(target: any, template: any)
   }
 
   return target;
+}
+
+function count(source: any, counter: { missing: number, given: number })
+{
+  if (isObject(source))
+  {
+    for (const prop in source)
+    {
+      if (isString(source[prop]))
+      {
+        source[prop] === MISSING ? counter.missing++ : counter.given++;
+      }
+      else
+      {
+        count(source[prop], counter);
+      }
+    }
+  }
 }

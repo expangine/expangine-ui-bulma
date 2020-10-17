@@ -64,7 +64,7 @@ export const Columns = addComponent<ColumnsAttributes, never, ColumnsSlots, neve
       scope: Types.object(),
       array: true,
       required: true,
-      only: [
+      accepts: [
         `${COLLECTION}/column`
       ],
     },

@@ -1,4 +1,5 @@
 export declare const Size: import("expangine-runtime").EnumType;
+export declare const LabelAlignment: import("expangine-runtime").EnumType;
 export declare const Status: import("expangine-runtime").EnumType;
 export declare const Colors: import("expangine-runtime").EnumType;
 export declare const Flip: import("expangine-runtime").EnumType;

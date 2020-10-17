@@ -1,6 +1,13 @@
 {
   "name": "Bulma",
   "description": "Bulma is a modern & responsive framework",
+  "dependencies": {
+    "js": [],
+    "css": [
+      "bulma/css/bulma.css"
+    ]
+  },
+  "settings": {},
   "category": {
     "Helpers": "Apply helper components, in order to alter their style",
     "Columns": "The power of Flexbox in a simple interface",
@@ -56,8 +63,8 @@
   },
   "components": {
     "bulma/column": {
-      "category": "Columns",
       "label": "Column",
+      "category": "Columns",
       "description": "A column that goes in a Columns container.",
       "preview": [
         "bulma/button",
@@ -99,8 +106,8 @@
       }
     },
     "bulma/columns": {
-      "category": "Columns",
       "label": "Columns",
+      "category": "Columns",
       "description": "A container of columns.",
       "preview": [
         "bulma/button",
@@ -147,8 +154,8 @@
       }
     },
     "bulma/breadcrumb": {
-      "category": "Components",
       "label": "Breadcrumb",
+      "category": "Components",
       "description": "A simple breadcrumb component to improve your navigation experience.",
       "preview": [
         "bulma/button",
@@ -178,16 +185,16 @@
         "getIcon": {
           "label": "Crumb Icon",
           "description": "Gets an icon from a crumb to display, if any.",
+          "type": "#icon",
           "default": "None",
-          "callable": "#crumb-scope",
-          "type": "#icon"
+          "callable": "#crumb-scope"
         },
         "getOptions": {
           "label": "Crumb Options",
           "description": "Gets link options for a crumb.",
+          "type": "#link-options",
           "default": "None",
-          "callable": "#crumb-scope",
-          "type": "#link-options"
+          "callable": "#crumb-scope"
         },
         "separator": {
           "label": "Separator",
@@ -205,25 +212,25 @@
           "default": "Left"
         }
       },
-      "slots": {
-        "default": {
-          "label": "Crumb Text",
-          "description": "The content to place for a crumb.",
-          "scope": "#crumb-scope",
-          "default": "The results from Crumb Text"
-        }
-      },
       "events": {
         "click": {
           "label": "On Click",
           "description": "An event triggered when a user clicks on a crumb.",
           "scope": "#crumb-scope"
         }
+      },
+      "slots": {
+        "default": {
+          "label": "Crumb Text",
+          "description": "The content to place for a crumb.",
+          "default": "The results from Crumb Text",
+          "scope": "#crumb-scope"
+        }
       }
     },
     "bulma/card": {
-      "category": "Components",
       "label": "Card",
+      "category": "Components",
       "description": "An all-around flexible and composable component.",
       "preview": [
         "bulma/button",
@@ -244,8 +251,8 @@
         "headerIcon": {
           "label": "Header Icon",
           "description": "The icon to display in the header.",
-          "default": "None",
-          "type": "#icon"
+          "type": "#icon",
+          "default": "None"
         },
         "headerIconHref": {
           "label": "Header Icon URL",
@@ -260,8 +267,20 @@
         "image": {
           "label": "Image",
           "description": "The image to display at the top of the card.",
-          "default": "None",
-          "type": "#image"
+          "type": "#image",
+          "default": "None"
+        }
+      },
+      "events": {
+        "headerIconClick": {
+          "label": "On Header Icon Click",
+          "description": "An event triggered when the user clicks on the header icon.",
+          "scope": "#base-event"
+        },
+        "footerItemClick": {
+          "label": "On Footer Item Click",
+          "description": "An event triggered when the user clicks on a footer item.",
+          "scope": "#base-event"
         }
       },
       "slots": {
@@ -285,23 +304,11 @@
           "description": "A collectionof footer items in the footer of the card.",
           "default": "None"
         }
-      },
-      "events": {
-        "headerIconClick": {
-          "label": "On Header Icon Click",
-          "description": "An event triggered when the user clicks on the header icon.",
-          "scope": "#base-event"
-        },
-        "footerItemClick": {
-          "label": "On Footer Item Click",
-          "description": "An event triggered when the user clicks on a footer item.",
-          "scope": "#base-event"
-        }
       }
     },
     "bulma/dropdown": {
-      "category": "Components",
       "label": "Dropdown",
+      "category": "Components",
       "description": "An interactive dropdown menu for discoverable content.",
       "preview": [
         "bulma/dropdown",
@@ -326,8 +333,8 @@
         "icon": {
           "label": "Icon",
           "description": "An icon to use in the dropdown.",
-          "default": "Angle Down",
-          "type": "#icon"
+          "type": "#icon",
+          "default": "Angle Down"
         },
         "open": {
           "label": "Open",
@@ -352,21 +359,7 @@
         "items": {
           "label": "Items",
           "description": "The dropdown items to display, assuming the Items slot is not specified.",
-          "default": "None",
-          "type": "#dropdown-item"
-        }
-      },
-      "slots": {
-        "trigger": {
-          "label": "Trigger",
-          "description": "The components which trigger the dropdown to open.",
-          "scope": {
-            "text": "The text passed to the dropdown."
-          }
-        },
-        "default": {
-          "label": "Items",
-          "description": "The components to place in the dropdown menu.",
+          "type": "#dropdown-item",
           "default": "None"
         }
       },
@@ -391,11 +384,26 @@
             "item": "#dropdown-item"
           }
         }
+      },
+      "slots": {
+        "trigger": {
+          "label": "Trigger",
+          "description": "The components which trigger the dropdown to open.",
+          "default": "Button",
+          "scope": {
+            "text": "The text passed to the dropdown."
+          }
+        },
+        "default": {
+          "label": "Items",
+          "description": "The components to place in the dropdown menu.",
+          "default": "None"
+        }
       }
     },
     "bulma/menu": {
-      "category": "Components",
       "label": "Menu",
+      "category": "Components",
       "description": "A simple menu, for any type of vertical navigation.",
       "preview": [
         "bulma/button",
@@ -424,11 +432,11 @@
         "getItems": {
           "label": "Get Items",
           "description": "Gets items from a Menu Group",
+          "type": "Any",
           "default": "menuGroup -> items",
           "callable": {
             "menuGroup": "The menu group to get a label from."
-          },
-          "type": "Any"
+          }
         },
         "getLabel": {
           "label": "Get Menu Group Label",
@@ -441,11 +449,11 @@
         "getSubItems": {
           "label": "Get Item Sub-items",
           "description": "Gets sub-items from a Menu Group Item",
+          "type": "Any",
           "default": "item -> items",
           "callable": {
-            "item": "MISSING"
-          },
-          "type": "MISSING"
+            "item": "The menu item to get sub-items from."
+          }
         },
         "getItemText": {
           "label": "Get Item Text",
@@ -468,7 +476,7 @@
           "description": "Gets the text from a Menu Sub-item",
           "default": "subItem -> label",
           "callable": {
-            "subItem": "MISSING"
+            "subItem": "The sub-item to get the text from."
           }
         },
         "getSubItemValue": {
@@ -476,42 +484,7 @@
           "description": "Gets the value from a Menu Sub-item",
           "default": "subItem -> label",
           "callable": {
-            "subItem": "MISSING"
-          }
-        }
-      },
-      "slots": {
-        "menuLabel": {
-          "label": "Menu Group Label",
-          "description": "The components which display a label for a menu group.",
-          "scope": {
-            "menuGroup": "MISSING"
-          },
-          "default": "MISSING",
-          "type": {
-            "menuGroup": "The menu group."
-          }
-        },
-        "menuItem": {
-          "label": "Menu Item",
-          "description": "The components which display a label for a menu item.",
-          "scope": {
-            "item": "MISSING"
-          },
-          "default": "MISSING",
-          "type": {
-            "item": "The menu item."
-          }
-        },
-        "menuSubItem": {
-          "label": "Menu Sub-item",
-          "description": "The components which display a label for a menu sub-item.",
-          "scope": {
-            "subItem": "MISSING"
-          },
-          "default": "MISSING",
-          "type": {
-            "subItem": "The menu sub-item."
+            "subItem": "The sub-item to get the value from."
           }
         }
       },
@@ -524,11 +497,46 @@
             "itemValue": "The value that was clicked"
           }
         }
+      },
+      "slots": {
+        "menuLabel": {
+          "label": "Menu Group Label",
+          "description": "The components which display a label for a menu group.",
+          "default": "The text returned by Get Menu Group Label",
+          "scope": {
+            "menuGroup": "The Menu Group to display a label for."
+          },
+          "type": {
+            "menuGroup": "The menu group."
+          }
+        },
+        "menuItem": {
+          "label": "Menu Item",
+          "description": "The components which display a label for a menu item.",
+          "default": "The text returned by Get Item Text",
+          "scope": {
+            "item": "The Menu Item to display."
+          },
+          "type": {
+            "item": "The menu item."
+          }
+        },
+        "menuSubItem": {
+          "label": "Menu Sub-item",
+          "description": "The components which display a label for a menu sub-item.",
+          "default": "The text returned by Get Sub-item Text",
+          "scope": {
+            "subItem": "The Menu Sub-item to display."
+          },
+          "type": {
+            "subItem": "The menu sub-item."
+          }
+        }
       }
     },
     "bulma/message": {
-      "category": "Components",
       "label": "Message",
+      "category": "Components",
       "description": "Colored message blocks, to emphasize part of your page.",
       "preview": [
         "bulma/button",
@@ -544,7 +552,7 @@
         "header": {
           "label": "Header",
           "description": "The header text of the message.",
-          "default": "MISSING"
+          "default": "None"
         },
         "deletable": {
           "label": "Can Delete?",
@@ -554,18 +562,12 @@
         "size": {
           "label": "Size",
           "description": "The size of the message.",
-          "default": "MISSING"
+          "default": "Default"
         },
         "color": {
           "label": "Color",
           "description": "The color of the message.",
-          "default": "MISSING"
-        }
-      },
-      "slots": {
-        "default": {
-          "label": "Message",
-          "description": "The components to display in the message."
+          "default": "None"
         }
       },
       "events": {
@@ -574,11 +576,17 @@
           "description": "An event triggered when the delete is clicked.",
           "scope": "#base-event"
         }
+      },
+      "slots": {
+        "default": {
+          "label": "Message",
+          "description": "The components to display in the message."
+        }
       }
     },
     "bulma/modal": {
+      "label": "Modal",
       "category": "Components",
-      "label": "MISSING",
       "description": "A classic modal overlay, in which you can include any content you want.",
       "preview": [
         "bulma/button",
@@ -603,7 +611,7 @@
         "closeSize": {
           "label": "Size",
           "description": "The size of the close button.",
-          "default": "MISSING"
+          "default": "Default"
         },
         "closeOnBackdrop": {
           "label": "Close on Backdrop Click",
@@ -623,26 +631,7 @@
         "title": {
           "label": "Card Title",
           "description": "The title of the card modal.",
-          "default": "MISSING"
-        }
-      },
-      "slots": {
-        "default": {
-          "label": "Body",
-          "description": "The body of the modal."
-        },
-        "footer": {
-          "label": "Footer",
-          "description": "The footer of the modal.",
-          "default": "MISSING"
-        },
-        "title": {
-          "label": "Title",
-          "description": "The title of the modal.",
-          "scope": {
-            "title": "The title passed to the modal component."
-          },
-          "default": "MISSING"
+          "default": "None"
         }
       },
       "events": {
@@ -656,11 +645,30 @@
           "description": "An event triggered when the backdrop is clicked.",
           "scope": "#base-event"
         }
+      },
+      "slots": {
+        "default": {
+          "label": "Body",
+          "description": "The body of the modal."
+        },
+        "footer": {
+          "label": "Footer",
+          "description": "The footer of the modal.",
+          "default": "None"
+        },
+        "title": {
+          "label": "Title",
+          "description": "The title of the modal.",
+          "default": "The title passed to the modal component.",
+          "scope": {
+            "title": "The title passed to the modal component."
+          }
+        }
       }
     },
     "bulma/navbar": {
-      "category": "Components",
       "label": "Navbar",
+      "category": "Components",
       "description": "A responsive horizontal navbar that can support images, links, buttons, and dropdowns.",
       "preview": [
         "bulma/button",
@@ -676,7 +684,7 @@
         "color": {
           "label": "Color",
           "description": "The color of the navbar.",
-          "default": "MISSING"
+          "default": "None"
         },
         "fixed": {
           "label": "Fixed To",
@@ -703,17 +711,17 @@
         "left": {
           "label": "Left",
           "description": "The navbar items that go on the left and are moved to a dropdown menu for small screens.",
-          "default": "MISSING"
+          "default": "Empty"
         },
         "right": {
           "label": "Right",
           "description": "The navbar items that go on the right and are moved to a dropdown menu for small screens.",
-          "default": "MISSING"
+          "default": "Empty"
         },
         "brand": {
           "label": "Brand",
           "description": "The navbar items that go on the left and are always visible.",
-          "default": "MISSING"
+          "default": "Empty"
         }
       },
       "events": {
@@ -730,8 +738,8 @@
       }
     },
     "bulma/navbar-divider": {
+      "label": "Navbar Divider",
       "category": "Components",
-      "label": "MISSING",
       "description": "A divider for the navbar.",
       "preview": [
         "bulma/button",
@@ -745,8 +753,8 @@
       ]
     },
     "bulma/navbar-item": {
+      "label": "Navbar Item",
       "category": "Components",
-      "label": "MISSING",
       "description": "An item for the navbar.",
       "preview": [
         "bulma/button",
@@ -770,28 +778,24 @@
           "default": "No"
         }
       },
-      "slots": {
-        "default": {
-          "label": "Content",
-          "description": "The content of the navbar item.",
-          "default": "MISSING"
-        }
-      },
       "events": {
         "click": {
           "label": "On Click",
           "description": "An event triggered when a navbar item is clicked.",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING"
-          }
+          "scope": "#base-event"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Content",
+          "description": "The content of the navbar item.",
+          "default": "Empty"
         }
       }
     },
     "bulma/navbar-link": {
+      "label": "Navbar Link",
       "category": "Components",
-      "label": "MISSING",
       "description": "A link for the navbar.",
       "preview": [
         "bulma/button",
@@ -807,13 +811,13 @@
         "text": {
           "label": "Text",
           "description": "The text of the link.",
-          "default": "MISSING"
+          "default": "None"
         },
         "options": {
           "label": "Link Options",
           "description": "The options for the target of the link.",
-          "default": "MISSING",
-          "type": "#link-options"
+          "type": "#link-options",
+          "default": "None"
         },
         "tab": {
           "label": "Tab?",
@@ -826,103 +830,114 @@
           "default": "No"
         }
       },
-      "slots": {
-        "default": {
-          "label": "Content",
-          "description": "The content of the navbar link.",
-          "scope": {
-            "text": "The text passed to the navbar link."
-          },
-          "default": "MISSING"
-        }
-      },
       "events": {
         "click": {
           "label": "On Click",
           "description": "An event triggered when a navbar link is clicked.",
+          "scope": "#base-event"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "Content",
+          "description": "The content of the navbar link.",
+          "default": "Empty",
           "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING"
+            "text": "The text passed to the navbar link."
           }
         }
       }
     },
     "bulma/field": {
-      "category": "MISSING",
-      "label": "MISSING",
-      "description": "MISSING",
+      "label": "Field",
+      "category": "Form",
+      "description": "A container for controls or horizontal fields.",
       "preview": [
         "bulma/button",
         {
           "fullWidth": true,
-          "text": "field"
+          "text": "Field"
         }
       ],
       "template": [
         "bulma/field"
       ],
       "attributes": {
-        "name": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
-        },
         "label": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Label",
+          "description": "The text to display as the label.",
+          "default": "None"
         },
         "message": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Message",
+          "description": "The message to display at the bottom of the field.",
+          "default": "None"
         },
         "grouped": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Group Controls",
+          "description": "If the multiple controls should be grouped loosely together.",
+          "default": "No"
+        },
+        "groupedAlign": {
+          "label": "Group Control Alignment",
+          "description": "How the grouped controls should be horizontally aligned.",
+          "default": "Left"
+        },
+        "groupedWrap": {
+          "label": "Group Control Wrapping",
+          "description": "If the grouped controls should wrap to multiple rows.",
+          "default": "No"
+        },
+        "horizontal": {
+          "label": "Horizontal",
+          "description": "If the field should display horizontally, with the label on the left instead of above the controls.",
+          "default": "No"
         },
         "status": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Status",
+          "description": "The status of message, and the status passed down to the controls.",
+          "default": "None"
         },
         "size": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Size",
+          "description": "The size to pass down to the controls.",
+          "default": "Default"
+        },
+        "horizontalLabelAlignment": {
+          "label": "Horizontal Label Alignment",
+          "description": "The size of the controls on the right which is used to align the label for a horizontal field.",
+          "default": "Default"
         }
       },
       "slots": {
         "label": {
-          "label": "MISSING",
-          "description": "MISSING",
+          "label": "Label",
+          "description": "The label",
+          "default": "MISSING",
           "scope": {
             "label": "MISSING"
-          },
-          "default": "MISSING"
+          }
         },
         "default": {
-          "label": "MISSING",
-          "description": "MISSING",
+          "label": "Controls",
+          "description": "The controls",
           "scope": {
-            "fieldState": "MISSING"
+            "fieldState": "A state to pass down to the controls."
           }
         },
         "message": {
           "label": "MISSING",
           "description": "MISSING",
+          "default": "MISSING",
           "scope": {
             "message": "MISSING"
-          },
-          "default": "MISSING"
+          }
         }
       }
     },
     "bulma/icon": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -943,14 +958,14 @@
         "fieldState": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         }
       }
     },
     "bulma/control": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -971,20 +986,25 @@
         "leftIcon": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "rightIcon": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "fieldState": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
+        },
+        "expanded": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
         },
         "loading": {
           "label": "MISSING",
@@ -1003,8 +1023,8 @@
       }
     },
     "bulma/input": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1122,8 +1142,8 @@
       }
     },
     "bulma/textarea": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1246,8 +1266,8 @@
       }
     },
     "bulma/select": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1273,11 +1293,11 @@
         "getValue": {
           "label": "MISSING",
           "description": "MISSING",
+          "type": "MISSING",
           "default": "MISSING",
           "callable": {
             "option": "MISSING"
-          },
-          "type": "MISSING"
+          }
         },
         "getText": {
           "label": "MISSING",
@@ -1338,16 +1358,6 @@
           "default": "MISSING"
         }
       },
-      "slots": {
-        "text": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "option": "MISSING"
-          },
-          "default": "MISSING"
-        }
-      },
       "events": {
         "update": {
           "label": "MISSING",
@@ -1362,11 +1372,21 @@
             "options": "MISSING"
           }
         }
+      },
+      "slots": {
+        "text": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "scope": {
+            "option": "MISSING"
+          }
+        }
       }
     },
     "bulma/checkbox": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1392,23 +1412,16 @@
         "checkedValue": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "uncheckedValue": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "disabled": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
-        }
-      },
-      "slots": {
-        "default": {
           "label": "MISSING",
           "description": "MISSING",
           "default": "MISSING"
@@ -1425,11 +1438,18 @@
             "value": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
       }
     },
     "bulma/radio": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1468,13 +1488,6 @@
           "default": "MISSING"
         }
       },
-      "slots": {
-        "default": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
-        }
-      },
       "events": {
         "update": {
           "label": "MISSING",
@@ -1486,11 +1499,18 @@
             "value": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
       }
     },
     "bulma/file": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1521,8 +1541,8 @@
         "icon": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "alignment": {
           "label": "MISSING",
@@ -1560,18 +1580,6 @@
           "default": "MISSING"
         }
       },
-      "slots": {
-        "default": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
-        },
-        "name": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
-        }
-      },
       "events": {
         "update": {
           "label": "MISSING",
@@ -1584,11 +1592,23 @@
             "files": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        },
+        "name": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
       }
     },
     "bulma/container": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1615,8 +1635,8 @@
       }
     },
     "bulma/footer": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1636,8 +1656,8 @@
       }
     },
     "bulma/hero": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1684,8 +1704,8 @@
       }
     },
     "bulma/level": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1728,8 +1748,8 @@
       }
     },
     "bulma/media": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1759,8 +1779,8 @@
       }
     },
     "bulma/section": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1787,8 +1807,8 @@
       }
     },
     "bulma/block": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1808,8 +1828,8 @@
       }
     },
     "bulma/box": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1829,8 +1849,8 @@
       }
     },
     "bulma/button": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1866,14 +1886,14 @@
         "leftIcon": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "rightIcon": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "title": {
           "label": "MISSING",
@@ -1926,16 +1946,6 @@
           "default": "MISSING"
         }
       },
-      "slots": {
-        "default": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "text": "MISSING"
-          },
-          "default": "MISSING"
-        }
-      },
       "events": {
         "click": {
           "label": "MISSING",
@@ -1946,11 +1956,21 @@
             "prevent": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "scope": {
+            "text": "MISSING"
+          }
+        }
       }
     },
     "bulma/buttons": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -1982,8 +2002,8 @@
       }
     },
     "bulma/content": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2010,8 +2030,8 @@
       }
     },
     "bulma/delete": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2063,8 +2083,8 @@
       }
     },
     "bulma/notification": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2103,16 +2123,6 @@
           "default": "MISSING"
         }
       },
-      "slots": {
-        "default": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "message": "MISSING"
-          },
-          "default": "MISSING"
-        }
-      },
       "events": {
         "deleted": {
           "label": "MISSING",
@@ -2123,11 +2133,21 @@
             "prevent": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "scope": {
+            "message": "MISSING"
+          }
+        }
       }
     },
     "bulma/progress": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2168,8 +2188,8 @@
       }
     },
     "bulma/table": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2195,12 +2215,12 @@
         "getRowKey": {
           "label": "MISSING",
           "description": "MISSING",
+          "type": "MISSING",
           "default": "MISSING",
           "callable": {
             "row": "MISSING",
             "rowIndex": "MISSING"
-          },
-          "type": "MISSING"
+          }
         },
         "isSelected": {
           "label": "MISSING",
@@ -2250,26 +2270,26 @@
         "header": {
           "label": "MISSING",
           "description": "MISSING",
+          "default": "MISSING",
           "scope": {
             "column": "MISSING",
             "columnIndex": "MISSING"
-          },
-          "default": "MISSING"
+          }
         },
         "footer": {
           "label": "MISSING",
           "description": "MISSING",
+          "default": "MISSING",
           "scope": {
             "column": "MISSING",
             "columnIndex": "MISSING"
-          },
-          "default": "MISSING"
+          }
         }
       }
     },
     "bulma/tag": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2323,13 +2343,6 @@
           "default": "MISSING"
         }
       },
-      "slots": {
-        "default": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
-        }
-      },
       "events": {
         "deleted": {
           "label": "MISSING",
@@ -2349,11 +2362,18 @@
             "prevent": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
       }
     },
     "bulma/tags": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2380,8 +2400,8 @@
       }
     },
     "bulma/title": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2412,8 +2432,8 @@
       }
     },
     "bulma/navbar-logo": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2429,8 +2449,8 @@
         "options": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "src": {
           "label": "MISSING",
@@ -2461,8 +2481,8 @@
       }
     },
     "bulma/navbar-menu": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2516,21 +2536,6 @@
           "default": "MISSING"
         }
       },
-      "slots": {
-        "default": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "text": "MISSING"
-          },
-          "default": "MISSING"
-        },
-        "items": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
-        }
-      },
       "events": {
         "click": {
           "label": "MISSING",
@@ -2541,11 +2546,26 @@
             "prevent": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "scope": {
+            "text": "MISSING"
+          }
+        },
+        "items": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
       }
     },
     "bulma/pagination": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2613,8 +2633,8 @@
       }
     },
     "bulma/panel": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2642,10 +2662,10 @@
         "heading": {
           "label": "MISSING",
           "description": "MISSING",
+          "default": "MISSING",
           "scope": {
             "heading": "MISSING"
-          },
-          "default": "MISSING"
+          }
         },
         "default": {
           "label": "MISSING",
@@ -2654,8 +2674,8 @@
       }
     },
     "bulma/panel-block": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2683,8 +2703,8 @@
       }
     },
     "bulma/panel-item": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2710,14 +2730,7 @@
         "icon": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
-        }
-      },
-      "slots": {
-        "default": {
-          "label": "MISSING",
-          "description": "MISSING",
+          "type": "MISSING",
           "default": "MISSING"
         }
       },
@@ -2731,11 +2744,18 @@
             "prevent": "MISSING"
           }
         }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
       }
     },
     "bulma/panel-tabs": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2769,8 +2789,8 @@
       }
     },
     "bulma/tab": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2791,20 +2811,20 @@
         "icon": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "value": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         },
         "active": {
           "label": "MISSING",
           "description": "MISSING",
-          "default": "MISSING",
-          "type": "MISSING"
+          "type": "MISSING",
+          "default": "MISSING"
         }
       },
       "events": {
@@ -2818,8 +2838,8 @@
       }
     },
     "bulma/tabs": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2853,12 +2873,12 @@
         "getIcon": {
           "label": "MISSING",
           "description": "MISSING",
+          "type": "MISSING",
           "default": "MISSING",
           "callable": {
             "tab": "MISSING",
             "tabIndex": "MISSING"
-          },
-          "type": "MISSING"
+          }
         },
         "getValue": {
           "label": "MISSING",
@@ -2903,8 +2923,8 @@
       }
     },
     "bulma/color": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -2946,8 +2966,8 @@
       }
     },
     "bulma/spacing": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -3019,8 +3039,8 @@
       }
     },
     "bulma/typography": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -3087,8 +3107,8 @@
       }
     },
     "bulma/visibility": {
-      "category": "MISSING",
       "label": "MISSING",
+      "category": "MISSING",
       "description": "MISSING",
       "preview": [
         "bulma/button",
@@ -3126,6 +3146,35 @@
         "default": {
           "label": "MISSING",
           "description": "MISSING"
+        }
+      }
+    },
+    "bulma/fieldset": {
+      "label": "fieldset",
+      "category": "MISSING",
+      "description": "MISSING",
+      "preview": [
+        "bulma/button",
+        {
+          "fullWidth": true,
+          "text": "fieldset"
+        }
+      ],
+      "template": [
+        "bulma/fieldset"
+      ],
+      "attributes": {
+        "disabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
+        }
+      },
+      "slots": {
+        "default": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING"
         }
       }
     }

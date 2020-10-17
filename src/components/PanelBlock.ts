@@ -20,6 +20,9 @@ export type PanelBlockSlots = 'default';
 export const PanelBlock = addComponent<PanelBlockAttributes, never, PanelBlockSlots, never, PanelBlockComputed>({
   collection: COLLECTION,
   name: 'panel-block',
+  targets: [
+    `${COLLECTION}/panel`,
+  ],
   attributes: {
     active: Types.bool(),
   },

@@ -14,6 +14,8 @@ export interface ContainerComputed
   containerClass: string;
 }
 
+export type ContainerSlots = 'default';
+
 export const ContainerType = Types.enumForText([
   ['Default', ''],
   ['Fluid', 'is-fluid'],
@@ -21,7 +23,7 @@ export const ContainerType = Types.enumForText([
   ['Full HD', 'is-fullhd'],
 ]);
 
-export const Container = addComponent<ContainerAttributes, never, never, never, ContainerComputed>({
+export const Container = addComponent<ContainerAttributes, never, ContainerSlots, never, ContainerComputed>({
   collection: COLLECTION,
   name: 'container',
   attributes: {

@@ -18,6 +18,9 @@ export interface PanelTabsEvents
 export const PanelTabs = addComponent<PanelTabsAttributes, PanelTabsEvents>({
   collection: COLLECTION,
   name: 'panel-tabs',
+  targets: [
+    `${COLLECTION}/panel`,
+  ],
   attributes: {
     active: {
       type: Types.text(),

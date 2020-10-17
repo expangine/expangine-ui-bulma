@@ -22,6 +22,10 @@ export type NavbarItemSlots = 'default';
 export const NavbarItem = addComponent<NavbarItemAttributes, NavbarItemClick, NavbarItemSlots>({
   collection: COLLECTION,
   name: 'navbar-item',
+  targets: [
+    `${COLLECTION}/navbar`,
+    `${COLLECTION}/navbar-menu`,
+  ],
   attributes: {
     tab: Types.bool(),
     active: Types.bool(),

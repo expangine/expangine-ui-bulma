@@ -12,6 +12,7 @@ export interface ControlAttributes
 { 
   status: string;
   loading: boolean;
+  expanded: boolean;
   leftIcon: IconType;
   rightIcon: IconType;
   fieldState: FieldStateType;
@@ -29,6 +30,9 @@ export interface ControlComputed
 export const Control = addComponent<ControlAttributes, never, ControlSlots, never, ControlComputed>({
   collection: COLLECTION,
   name: 'control',
+  targets: [
+    `${COLLECTION}/field`,
+  ],
   attributes: {
     status: Status,
     leftIcon: IconObject,
@@ -37,6 +41,7 @@ export const Control = addComponent<ControlAttributes, never, ControlSlots, neve
       type: FieldState,
       default: Exprs.get('fieldState'),
     },
+    expanded: Types.bool(),
     loading: Types.bool(),
   },
   computed: {
@@ -45,6 +50,7 @@ export const Control = addComponent<ControlAttributes, never, ControlSlots, neve
       ifConst(['leftIcon'], 'has-icons-left'),
       ifConst(['rightIcon'], 'has-icons-right'),
       ifConst(['loading'], 'is-loading'),
+      ifConst(['expanded'], 'is-expanded'),
     ),
     leftIconClasses: Exprs.if(
       Exprs.get('leftIcon'),
@@ -71,6 +77,15 @@ export const Control = addComponent<ControlAttributes, never, ControlSlots, neve
         fieldState: FieldState,
       }),
       required: true,
+      accepts: [
+        `${COLLECTION}/button`,
+        `${COLLECTION}/select`,
+        `${COLLECTION}/input`,
+        `${COLLECTION}/radio`,
+        `${COLLECTION}/checkbox`,
+        `${COLLECTION}/file`,
+        `${COLLECTION}/icon`,
+      ],
     },
   },
   render: (c) =>

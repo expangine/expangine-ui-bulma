@@ -76,17 +76,17 @@ export const Navbar = addComponent<NavbarAttributes, never, NavbarSlots, NavbarS
     left: {
       scope: Types.object(),
       array: true,
-      only: NavbarSlotOnly,
+      accepts: NavbarSlotOnly,
     },
     right: {
       scope: Types.object(),
       array: true,
-      only: NavbarSlotOnly,
+      accepts: NavbarSlotOnly,
     },
     brand: {
       scope: Types.object(),
       array: true,
-      only: NavbarSlotOnly,
+      accepts: NavbarSlotOnly,
     },
   },
   render: (c) =>

@@ -25,6 +25,10 @@ export type NavbarLinkSlots = 'default';
 export const NavbarLink = addComponent<NavbarLinkAttributes, NavbarLinkEvents, NavbarLinkSlots>({
   collection: COLLECTION,
   name: 'navbar-link',
+  targets: [
+    `${COLLECTION}/navbar`,
+    `${COLLECTION}/navbar-menu`,
+  ],
   attributes: {
     text: Types.text(),
     options: LinkOptionsType,
