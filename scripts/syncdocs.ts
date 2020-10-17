@@ -114,10 +114,12 @@ const counts = {
 
 count(Docs, counts);
 
+const PERCENT_MAX = 100;
 const { given, missing } = counts;
-const coverage = ((given / (given + missing)) * 100).toFixed(1);
+const total = given + missing;
+const coverage = ((given / total) * PERCENT_MAX).toFixed(1);
 
-console.log(`Coverage: ${coverage}%, Missing: ${missing}, Documented: ${given}`);
+console.log(`Coverage: ${coverage}%, Missing: ${missing}, Documented: ${given}, Total: ${total}`);
 
 function objectMap<K extends string, S, T>(source: Record<K, S>, map: (source: S) => T): Record<K, T>
 {

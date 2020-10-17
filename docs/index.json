@@ -59,6 +59,10 @@
     "crumb-scope": {
       "crumb": "The current crumb.",
       "crumbIndex": "The index of the current crumb"
+    },
+    "field-state": {
+      "status": "The status of the field.",
+      "size": "The size of the components in the field."
     }
   },
   "components": {
@@ -912,66 +916,69 @@
       "slots": {
         "label": {
           "label": "Label",
-          "description": "The label",
-          "default": "MISSING",
+          "description": "The content to put in the field label.",
+          "default": "The Label passed to the field.",
           "scope": {
-            "label": "MISSING"
+            "label": "The Label passed to the field."
           }
         },
         "default": {
           "label": "Controls",
-          "description": "The controls",
+          "description": "The controls for the field.",
           "scope": {
             "fieldState": "A state to pass down to the controls."
           }
         },
         "message": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING",
+          "label": "Message",
+          "description": "The message to display in the field.",
+          "default": "The Message passed to the field.",
           "scope": {
-            "message": "MISSING"
+            "message": "The Message passed to the field."
           }
         }
       }
     },
     "bulma/icon": {
-      "label": "MISSING",
-      "category": "MISSING",
-      "description": "MISSING",
+      "label": "Icon",
+      "category": "Elements",
+      "description": "An icon!",
       "preview": [
         "bulma/button",
         {
           "fullWidth": true,
-          "text": "icon"
+          "text": "Icon"
         }
       ],
       "template": [
-        "bulma/icon"
+        "bulma/icon",
+        {
+          "icon": {}
+        }
       ],
       "attributes": {
         "icon": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "type": "MISSING"
+          "label": "Icon",
+          "description": "The icon to display.",
+          "type": "#icon"
         },
         "fieldState": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "type": "MISSING",
-          "default": "MISSING"
+          "label": "Field State",
+          "description": "If this icon is in a Field, this is the Field State passed from the Field.",
+          "type": "#field-state",
+          "default": "None"
         }
       }
     },
     "bulma/control": {
-      "label": "MISSING",
-      "category": "MISSING",
-      "description": "MISSING",
+      "label": "Control",
+      "category": "Form",
+      "description": "A container for inputs, buttons, and icons for a form.",
       "preview": [
         "bulma/button",
         {
           "fullWidth": true,
-          "text": "control"
+          "text": "Control"
         }
       ],
       "template": [
@@ -979,58 +986,58 @@
       ],
       "attributes": {
         "status": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Status",
+          "description": "The status of the control.",
+          "default": "None"
         },
         "leftIcon": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "type": "MISSING",
-          "default": "MISSING"
+          "label": "Left Icon",
+          "description": "The icon to place on the left side of the control.",
+          "type": "#icon",
+          "default": "None"
         },
         "rightIcon": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "type": "MISSING",
-          "default": "MISSING"
+          "label": "Right Icon",
+          "description": "The icon to place on the right side of the control.",
+          "type": "#icon",
+          "default": "None"
         },
         "fieldState": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "type": "MISSING",
-          "default": "MISSING"
+          "label": "Field State",
+          "description": "The state of the parent field.",
+          "type": "#field-state",
+          "default": "The Field State from the parent Field."
         },
         "expanded": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Expand",
+          "description": "Expands the control to take up all available space.",
+          "default": "No"
         },
         "loading": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Loading",
+          "description": "If the control should indicate a loading status.",
+          "default": "No"
         }
       },
       "slots": {
         "default": {
-          "label": "MISSING",
-          "description": "MISSING",
+          "label": "Inputs",
+          "description": "The inputs, buttons, or icons to display in the Control.",
           "scope": {
-            "fieldState": "MISSING"
+            "fieldState": "The Field State passed down from the Field."
           }
         }
       }
     },
     "bulma/input": {
-      "label": "MISSING",
-      "category": "MISSING",
-      "description": "MISSING",
+      "label": "Input",
+      "category": "Form",
+      "description": "The text input and its variations.",
       "preview": [
         "bulma/button",
         {
           "fullWidth": true,
-          "text": "input"
+          "text": "Input"
         }
       ],
       "template": [
@@ -1038,54 +1045,54 @@
       ],
       "attributes": {
         "type": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Type",
+          "description": "The input type.",
+          "default": "Text"
         },
         "value": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Value",
+          "description": "The current value.",
+          "default": "None"
         },
         "status": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Status",
+          "description": "The status of the input.",
+          "default": "None"
         },
         "size": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Size",
+          "description": "The size of the input.",
+          "default": "Default"
         },
         "placeholder": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Placeholder",
+          "description": "A placeholder to display in an empty input.",
+          "default": "None"
         },
         "autocomplete": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Autocomplete",
+          "description": "If & how the input should autocomplete values.",
+          "default": "None"
         },
         "rounded": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Rounded",
+          "description": "If the input should have rounded corners.",
+          "default": "No"
         },
         "disabled": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Disabled",
+          "description": "If the input should be disabled.",
+          "default": "No"
         },
         "readonly": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Read Only",
+          "description": "If the input should be readonly,",
+          "default": "No"
         },
         "updateOn": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Update On",
+          "description": "Which input event should trigger an update event.",
+          "default": "Input"
         }
       },
       "events": {
