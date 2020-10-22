@@ -139,9 +139,7 @@ const RenderTable = (c: ComponentInstance<TableAttributes, never, TableSlots, ne
       createFor(Exprs.get('rows'), [
         ['tr', {
           class: Exprs.object({
-            'is-selected': c.call('isSelected', {
-              row: Exprs.get('row'),
-            }),
+            'is-selected': c.getAttributeExpression('isSelected'),
           })
         }, {}, [
           createFor(Exprs.get('columns'), [
@@ -156,10 +154,7 @@ const RenderTable = (c: ComponentInstance<TableAttributes, never, TableSlots, ne
       ], { 
         item: 'row', 
         index: 'rowIndex', 
-        key: c.call('getRowKey', {
-          row: Exprs.get('row'),
-          rowIndex: Exprs.get('rowIndex'),
-        })
+        key: c.getAttributeExpression('getRowKey'),
       }),
     ]],
     c.whenSlot('footer', () => '', () => 

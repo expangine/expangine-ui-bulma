@@ -26,7 +26,7 @@
     "docs": "typedoc -p . --readme README.md --theme minimal --mode file --target 'es5' --excludeNotExported --excludePrivate --ignoreCompilerErrors --exclude \"**/test/**/*.*\" --out ../expangine-runtime-live-pages/docs src/ && cp -R examples ../expangine-runtime-live-pages/ && cp -R umd ../expangine-runtime-live-pages/",
     "test:watch": "npm test -- --watch",
     "test:coverage": "npm test -- --coverage",
-    "test:only-changed": "npm test -- --bail --onlyChanged",
+    "test:changed": "npm test -- --bail --onlyChanged",
     "verify": "npm test",
     "cz": "git-cz",
     "release:npm": "npm publish",

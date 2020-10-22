@@ -1,5 +1,5 @@
-import { AnyOps, Exprs, ListOps, ListType, Type, Types } from 'expangine-runtime';
-import { createFor, createIf, createSlot } from 'expangine-ui';
+import { AnyOps, Expression, Exprs, ListOps, ListType, ObjectType, Type, Types } from 'expangine-runtime';
+import { createFor, createIf, createIfElse, createSlot, NodeTemplate, TypeProvider } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { Status, Size } from '../Types';
@@ -14,6 +14,10 @@ export interface SelectAttributes
   options: any[];
   getValue: any;
   getText: any;
+  getDisabled: any;
+  getGroup: any; 
+  getSortBy: number;
+  getSortByGroup: number;
   emptyText: string;
   multiple: boolean;
   multipleSize: number;
@@ -36,7 +40,10 @@ export type SelectSlots = 'text';
 export interface SelectComputed
 {
   classes: string;
-  optionsMap: Map<any, string>;
+  optionsMapped: any[];
+  optionsSorted: any[];
+  optionsGrouped: any[];
+  optionsGroupedSorted: any[];
 }
 
 export interface SelectUpdateEvent
@@ -44,22 +51,29 @@ export interface SelectUpdateEvent
   nativeEvent: any;
   stop: boolean;
   prevent: boolean;
-  value: string;
+  value: any;
+  values: any[];
   option: any;
+  options: any[];
 }
 
-const Any = Types.any();
-const ListAny = Types.list(Any);
+const ValueType = Types.text();
+const ListValue = Types.list(ValueType);
 
 const getListType = (type?: Type): Type => 
   type instanceof ListType
     ? type
-    : ListAny;
+    : ListValue;
 
 const getListItemType = (type?: Type): Type =>
   type instanceof ListType
     ? type.options.item
-    : Any;
+    : ValueType;
+
+const getListItemScope: TypeProvider<{ options: any[] }, ObjectType> = 
+  (a) => Types.object({
+    option: getListItemType(a.options),
+  });
 
 export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, never, SelectComputed>({
   collection: COLLECTION,
@@ -70,7 +84,7 @@ export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, 
         ? a.multiple
           ? Types.many(a.getValue, Types.list(a.getValue))
           : a.getValue
-        : a.value || Types.any(),
+        : a.value || ValueType,
       required: true,
     },
     options: {
@@ -82,15 +96,39 @@ export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, 
         ? a.getValue
         : getListItemType(a.options),
       default: Exprs.get('option'),
-      callable: (a) => Types.object({
-        option: getListItemType(a.options),
-      }),
+      callable: getListItemScope,
     },
     getText: {
       type: Types.text(),
-      default: Exprs.get('option', 'text'),
+      default: Exprs.get('option'),
+      callable: getListItemScope,
+    },
+    getDisabled: {
+      type: Types.bool(),
+      callable: getListItemScope,
+    },
+    getGroup: {
+      type: Types.text(),
+      callable: getListItemScope,
+    },
+    getSortBy: {
+      type: Types.number(),
       callable: (a) => Types.object({
-        option: getListItemType(a.options),
+        a: getListItemType(a.options),
+        b: getListItemType(a.options),
+      }),
+    },
+    getSortByGroup: {
+      type: Types.number(),
+      callable: (a) => Types.object({
+        a: Types.object({
+          by: Types.text(),
+          group: getListType(a.options),
+        }),
+        b: Types.object({
+          by: Types.text(),
+          group: getListType(a.options),
+        }),
       }),
     },
     status: Status,
@@ -113,32 +151,109 @@ export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, 
       ifConst(['rounded'], 'is-rounded'),
       ifConst(['fixedSize'], 'has-fixed-size'),
     ),
-    optionsMap: Exprs.op(ListOps.toMap, {
+    optionsMapped: (c) => Exprs.op(ListOps.map, {
       list: Exprs.get('options'),
-      getValue: Exprs.get('index'),
-      getKey: Exprs.get('item'),
+      transform: Exprs.object({
+        data: Exprs.get('option'),
+        index: Exprs.get('optionIndex'),
+        value: c.getAttributeExpression('getValue'),
+        group: c.getAttributeExpression('getGroup'),
+        disabled: c.getAttributeExpression('getDisabled'),
+        text: c.getAttributeExpression('getText'),
+      }),
+    }, {
+      item: 'option',
+      index: 'optionIndex',
     }),
+    optionsSorted: (c) => c.hasCallable('getSortBy')
+      ? Exprs.op(ListOps.sort, {
+          list: Exprs.get('optionsMapped'),
+          compare: c.call('getSortBy', {
+            a: Exprs.get('value', 'data'),
+            b: Exprs.get('test', 'data'),
+          }),
+        })
+      : Exprs.get('optionsMapped'),
+    optionsGrouped: (c) => c.hasCallable('getGroup')
+      ? Exprs.op(ListOps.group, {
+          list: Exprs.get('optionsSorted'),
+          by: c.call('getGroup', {
+            option: Exprs.get('sortedOption', 'data'),
+          }),
+        }, {
+          item: 'sortedOption',
+        })
+      : Exprs.noop(),
+    optionsGroupedSorted: (c) => c.hasCallable('getSortByGroup')
+      ? Exprs.op(ListOps.sort, {
+          list: Exprs.get('optionsGrouped'),
+          compare: c.getAttributeExpression('getSortByGroup'),
+        }, {
+          value: 'a',
+          test: 'b'
+        })
+      : Exprs.get('optionsGrouped'),
   },
   slots: {
-    text: (a) => Types.object({
-      option: getListItemType(a.options),
-    }),
+    text: getListItemScope,
   },
   events: {
     update: (a) => Types.object({
       nativeEvent: Types.any(),
       stop: Types.bool(),
       prevent: Types.bool(),
-      value: a.getValue || Types.any(),
+      value: a.getValue || ValueType,
       values: a.getValue 
         ? Types.list(a.getValue)
-        : Types.list(Types.any()),
+        : ListValue,
       option: getListItemType(a.options),
       options: getListType(a.options),
     }),
   },
-  render: (c) => 
-    ['div', {
+  render: (c) => {
+    const RenderOption: NodeTemplate = 
+      ['option', { 
+        value: Exprs.get('opt', 'index'),
+        disabled: Exprs.get('opt', 'disabled'),
+        selected: Exprs.if(
+          Exprs.op(ListOps.isValid, {
+            value: Exprs.get('value'),
+          })
+        ).than( 
+          Exprs.op(ListOps.contains, {
+            list: Exprs.get('value'),
+            item: Exprs.get('opt', 'value'),
+            isEqual: Exprs.op(AnyOps.isEqual, {
+              value: Exprs.get('valueItem'),
+              test: Exprs.get('optValue'),
+            })
+          }, {
+            value: 'valueItem',
+            test: 'optValue'
+          })
+        ).else(
+          Exprs.op(AnyOps.isEqual, {
+            value: Exprs.get('value'),
+            test: Exprs.get('opt', 'value'),
+          })
+        ),
+      }, {}, [
+        c.whenSlot('text', 
+          () => Exprs.get('opt', 'text'),
+          () => createSlot({ name: 'text', scope: { 
+            option: Exprs.get('opt', 'data') 
+          }})
+        )
+      ]];
+    const RenderOptions = (list: Expression) =>
+      createFor(list, [
+        RenderOption,
+      ], {
+        item: 'opt',
+        index: 'optIndex',
+      });
+
+    return ['div', {
       class: Exprs.get('classes'),
     }, {}, [
       ['select', {
@@ -148,16 +263,17 @@ export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, 
         readOnly: Exprs.get('readonly'),
       }, {
         change: (e: any) => {
-          const givenOptions = c.scope.get('options', [] as never, true);
-          const getValue = c.callable('getValue');
-
+          const givenOptions = c.scope.get('optionsMapped', [] as never, true);
+          
           const select = e.nativeEvent.target as HTMLSelectElement;
           const selectOptions: HTMLOptionElement[] = Array.prototype.slice.call(select.selectedOptions);
-          const options: any[] = selectOptions
+          const optionsMapped: any[] = selectOptions
             .map((option) => option.value ? givenOptions[parseInt(option.value)] : null)
             .filter((x) => Boolean(x));
-          const values = options
-            .map((option) => getValue({ option }));
+          const options = optionsMapped
+            .map((mapped) => mapped.data);
+          const values = optionsMapped
+            .map((mapped) => mapped.value);
 
           e.value = values[0];
           e.values = values;
@@ -172,39 +288,23 @@ export const Select = addComponent<SelectAttributes, SelectEvents, SelectSlots, 
             Exprs.get('emptyText'),
           ]],
         ]),
-        createFor(Exprs.get('options'), [
-          ['option', { 
-            value: Exprs.get('optionIndex'),
-            selected: Exprs.if(
-              Exprs.op(ListOps.isValid, {
-                value: Exprs.get('value'),
-              })
-            ).than( 
-              Exprs.op(ListOps.contains, {
-                list: Exprs.get('value'),
-                item: c.call('getValue', {
-                  option: Exprs.get('option')
-                }),
-                isEqual: Exprs.op(AnyOps.isEqual, {
-                  value: Exprs.get('value'),
-                  test: Exprs.get('test'),
-                })
-              })
-            ).else(
-              Exprs.op(AnyOps.isEqual, {
-                value: Exprs.get('value'),
-                test: c.call('getValue', {
-                  option: Exprs.get('option')
-                }),
-              })
-            ),
-          }, {}, [
-            c.whenSlot('text', 
-              () => c.call('getText', { option: Exprs.get('option') }),
-              () => createSlot({ name: 'text', scope: { option: Exprs.get('option') } })
-            )
-          ]],
-        ], { item: 'option', index: 'optionIndex' }),
+        c.hasCallable('getGroup')
+          ? createFor(Exprs.get('optionsGroupedSorted'), [
+              createIfElse(Exprs.get('grouped', 'by'), [
+                ['optgroup', {
+                  label: Exprs.get('grouped', 'by'),
+                }, {}, [
+                  RenderOptions(Exprs.get('grouped', 'group')),
+                ]],
+              ], [
+                RenderOptions(Exprs.get('grouped', 'group')),
+              ]),
+            ], {
+              item: 'grouped',
+              index: 'groupedIndex',
+            })
+          : RenderOptions(Exprs.get('optionsSorted')),
       ]],
-    ]],
+    ]];
+  },
 });

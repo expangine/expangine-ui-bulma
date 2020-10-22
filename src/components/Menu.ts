@@ -143,24 +143,18 @@ export const Menu = addComponent<MenuAttributes, MenuEvents, MenuSlots>({
     }),
   },
   render: (c) => {
-    type GetExpr = () => Expression;
     type GetScope = () => Record<string, Expression>;
 
+    const Noop = Exprs.noop();
     const MenuGroupScope = () => ({ menuGroup: Exprs.get('menuGroup') });
     const MenuItemScope = () => ({ item: Exprs.get('item') });
     const MenuSubItemScope = () => ({ subItem: Exprs.get('subItem') });
-    const getLabel = () => c.call('getLabel', MenuGroupScope());
-    const getItems = () => c.call('getItems', MenuGroupScope());
-    const getItemValue = () => c.call('getItemValue', MenuItemScope());
-    const getItemText = () => c.call('getItemText', MenuItemScope());
-    const getSubItems = () => c.call('getSubItems', MenuItemScope());
-    const getSubItemValue = () => c.call('getSubItemValue', MenuSubItemScope());
-    const getSubItemText = () => c.call('getSubItemText', MenuSubItemScope());
-    const getItemLink = (item: string, slot: MenuSlots, value: GetExpr, text: GetExpr, scope: GetScope): NodeTemplate => 
+
+    const getItemLink = (item: string, slot: MenuSlots, value: Expression | false, text: Expression | false, scope: GetScope): NodeTemplate => 
       ['a', {
         class: Exprs.object({
           'is-active': Exprs.op(AnyOps.isEqual, {
-            value: value(),
+            value,
             test: Exprs.get('value'),
           }),
         }),
@@ -169,11 +163,11 @@ export const Menu = addComponent<MenuAttributes, MenuEvents, MenuSlots>({
           .get('emit', 'update')
           .set(Exprs.object({
             item: Exprs.get(item),
-            itemValue: value(),
+            itemValue: value,
           })),
       }, [
         c.whenSlot(slot, 
-          () => text(), 
+          () => text || '',
           () => createSlot({ name: slot, scope: scope() })
         ),
       ]];
@@ -183,9 +177,9 @@ export const Menu = addComponent<MenuAttributes, MenuEvents, MenuSlots>({
     }, {}, [
       createFor(Exprs.get('menu'), [
         c.whenSlot('menuLabel', 
-          () => createIf(getLabel(), [
+          () => createIf(c.getAttributeExpression('getLabel', Noop), [
               ['p', { class: 'menu-label' }, {}, [
-                getLabel(),
+                c.getAttributeExpression('getLabel', Noop),
               ]]
             ]), 
           () => ['p', { class: 'menu-label' }, {}, [
@@ -193,19 +187,19 @@ export const Menu = addComponent<MenuAttributes, MenuEvents, MenuSlots>({
           ]],
         ),
         createIf(Exprs.op(ListOps.isNotEmpty, {
-          list: getItems(),
+          list: c.getAttributeExpression('getItems', Noop),
         }), [
           ['ul', { class: 'menu-list' }, {}, [
-            createFor(getItems(), [
+            createFor(c.getAttributeExpression('getItems', Noop), [
               ['li', {}, {}, [
                 createIfElse(Exprs.op(ListOps.isNotEmpty, {
-                  list: getSubItems(),
+                  list: c.getAttributeExpression('getSubItems', Noop),
                 }), [
-                  getItemLink('item', 'menuItem', getItemValue, getItemText, MenuItemScope),
+                  getItemLink('item', 'menuItem', c.getAttributeExpression('getItemValue', Noop), c.getAttributeExpression('getItemText', Noop), MenuItemScope),
                   ['ul', {}, {}, [
-                    createFor(getSubItems(), [
+                    createFor(c.getAttributeExpression('getSubItems', Noop), [
                       ['li', {}, {}, [
-                        getItemLink('subItem', 'menuSubItem', getSubItemValue, getSubItemText, MenuSubItemScope),
+                        getItemLink('subItem', 'menuSubItem', c.getAttributeExpression('getSubItemValue', Noop), c.getAttributeExpression('getSubItemText', Noop), MenuSubItemScope),
                       ]],
                     ], {
                       item: 'subItem',
@@ -213,7 +207,7 @@ export const Menu = addComponent<MenuAttributes, MenuEvents, MenuSlots>({
                     }),
                   ]],
                 ], [
-                  getItemLink('item', 'menuItem', getItemValue, getItemText, MenuItemScope),
+                  getItemLink('item', 'menuItem', c.getAttributeExpression('getItemValue', Noop), c.getAttributeExpression('getItemText', Noop), MenuItemScope),
                 ]),
               ]],
             ], {

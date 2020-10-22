@@ -41,6 +41,21 @@
       "stop": "If the event should stop other components from receiving the event.",
       "prevent": "If the event should stop the default behavior of the browser."
     },
+    "value-event": {
+      "nativeEvent": "The browser event triggered.",
+      "stop": "If the event should stop other components from receiving the event.",
+      "prevent": "If the event should stop the default behavior of the browser.",
+      "value": "The new value"
+    },
+    "select-event": {
+      "nativeEvent": "The browser event triggered.",
+      "stop": "If the event should stop other components from receiving the event.",
+      "prevent": "If the event should stop the default behavior of the browser.",
+      "value": "The new value.",
+      "values": "The new values, if multiple can be selected.",
+      "option": "The option selected.",
+      "options": "The options selected, if multiple can be selected."
+    },
     "dropdown-item": {
       "text": "The text to display in the dropdown item.",
       "html": "HTML to display in the dropdwn item.",
@@ -1097,66 +1112,41 @@
       },
       "events": {
         "input": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Input",
+          "description": "An event triggered when the user changes the text input value.",
+          "scope": "#value-event"
         },
         "change": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Change",
+          "description": "An event triggered when the user has changed the value.",
+          "scope": "#value-event"
         },
         "keydown": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Keydown",
+          "description": "An event triggered when the user presses a key down. The user can cancel the keydown event by setting prevent to true.",
+          "scope": "#value-event"
         },
         "blur": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Blur",
+          "description": "An event triggered when the user is no longer focused on the input.",
+          "scope": "#value-event"
         },
         "update": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Update",
+          "description": "An event triggered when the input is updated based on the Update On attribute.",
+          "scope": "#value-event"
         }
       }
     },
     "bulma/textarea": {
-      "label": "MISSING",
-      "category": "MISSING",
-      "description": "MISSING",
+      "label": "Textarea",
+      "category": "Form",
+      "description": "The multiline textarea and its variations",
       "preview": [
         "bulma/button",
         {
           "fullWidth": true,
-          "text": "textarea"
+          "text": "Textarea"
         }
       ],
       "template": [
@@ -1164,118 +1154,93 @@
       ],
       "attributes": {
         "value": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Value",
+          "description": "The current value.",
+          "default": "None"
         },
         "rows": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Rows",
+          "description": "How many rows of text in this textarea.",
+          "default": "4"
         },
         "status": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Status",
+          "description": "The status of the textarea.",
+          "default": "None"
         },
         "size": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Size",
+          "description": "The size of the textarea.",
+          "default": "Default"
         },
         "autocomplete": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Autocomplete",
+          "description": "If & how the textarea should autocomplete values.",
+          "default": "None"
         },
         "placeholder": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Placeholder",
+          "description": "A placeholder to display in an empty textarea.",
+          "default": "None"
         },
         "rounded": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Rounded",
+          "description": "If the textarea should have rounded corners.",
+          "default": "No"
         },
         "disabled": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Disabled",
+          "description": "If the textarea should be disabled.",
+          "default": "No"
         },
         "readonly": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Read Only",
+          "description": "If the textarea should be readonly,",
+          "default": "No"
         },
         "fixedSize": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Fixed Size",
+          "description": "Whether the user can resize the textarea or not.",
+          "default": "No"
         },
         "updateOn": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "default": "MISSING"
+          "label": "Update On",
+          "description": "Which textarea event should trigger an update event.",
+          "default": "Input"
         }
       },
       "events": {
         "input": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Input",
+          "description": "An event triggered when the user changes the text textarea value.",
+          "scope": "#value-event"
         },
         "change": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Change",
+          "description": "An event triggered when the user has changed the value.",
+          "scope": "#value-event"
         },
         "keydown": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Keydown",
+          "description": "An event triggered when the user presses a key down. The user can cancel the keydown event by setting prevent to true.",
+          "scope": "#value-event"
         },
         "blur": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Blur",
+          "description": "An event triggered when the user is no longer focused on the textarea.",
+          "scope": "#value-event"
         },
         "update": {
-          "label": "MISSING",
-          "description": "MISSING",
-          "scope": {
-            "nativeEvent": "MISSING",
-            "stop": "MISSING",
-            "prevent": "MISSING",
-            "value": "MISSING"
-          }
+          "label": "On Update",
+          "description": "An event triggered when the textarea is updated based on the Update On attribute.",
+          "scope": "#value-event"
         }
       }
     },
     "bulma/select": {
-      "label": "MISSING",
-      "category": "MISSING",
-      "description": "MISSING",
+      "label": "Select",
+      "category": "Form",
+      "description": "A dropdown input where you can select one or more options.",
       "preview": [
         "bulma/button",
         {
@@ -1293,18 +1258,18 @@
           "type": "MISSING"
         },
         "options": {
-          "label": "MISSING",
-          "description": "MISSING",
+          "label": "Options",
+          "description": "The list of options.",
           "type": "MISSING"
         },
         "getValue": {
           "label": "MISSING",
           "description": "MISSING",
-          "type": "MISSING",
           "default": "MISSING",
           "callable": {
             "option": "MISSING"
-          }
+          },
+          "type": "MISSING"
         },
         "getText": {
           "label": "MISSING",
@@ -1312,6 +1277,40 @@
           "default": "MISSING",
           "callable": {
             "option": "MISSING"
+          }
+        },
+        "getDisabled": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "option": "MISSING"
+          }
+        },
+        "getGroup": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "option": "MISSING"
+          }
+        },
+        "getSortBy": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "a": "MISSING",
+            "b": "MISSING"
+          }
+        },
+        "getSortByGroup": {
+          "label": "MISSING",
+          "description": "MISSING",
+          "default": "MISSING",
+          "callable": {
+            "a": "MISSING",
+            "b": "MISSING"
           }
         },
         "status": {

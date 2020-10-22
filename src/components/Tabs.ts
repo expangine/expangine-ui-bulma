@@ -1,5 +1,5 @@
 import { Exprs, ListType, ObjectType, Type, Types } from 'expangine-runtime';
-import { createComponent, createFor } from 'expangine-ui';
+import { createComponent, createFor, TypeProvider } from 'expangine-ui';
 import { addComponent } from '../ComponentRegistry';
 import { COLLECTION } from '../constants';
 import { IconObject } from '../elements';
@@ -56,9 +56,9 @@ const getListItemType = (type?: Type): Type =>
     ? type.options.item
     : DefaultTab;
 
-const getTabScope = (type?: Type): ObjectType =>
+const getTabScope: TypeProvider<{ tabs: any }, ObjectType> = (a) =>
   Types.object({
-    tab: getListItemType(type),
+    tab: getListItemType(a.tabs),
     tabIndex: Index,
   });
   
@@ -78,16 +78,16 @@ export const Tabs = addComponent<TabsAttributes, TabsEvents, never, never, TabsC
     getText: {
       type: Types.text(),
       default: Exprs.get('tab'),
-      callable: (a) => getTabScope(a.tabs),
+      callable: getTabScope,
     },
     getIcon: {
       type: IconObject,
-      callable: (a) => getTabScope(a.tabs),
+      callable: getTabScope,
     },
     getValue: {
       type: (a) => a.getValue || getListItemType(a.tabs),
       default: Exprs.get('tab'),
-      callable: (a) => getTabScope(a.tabs),
+      callable: getTabScope,
     },
     align: Alignment,
     size: Size,
@@ -111,20 +111,15 @@ export const Tabs = addComponent<TabsAttributes, TabsEvents, never, never, TabsC
     }),
   },
   render: (c) => {
-    const TabScope = {
-      tab: Exprs.get('tab'),
-      tabIndex: Exprs.get('tabIndex'),
-    };
-
     return ['div', { 
       class: Exprs.get('classes'),
     }, {}, [
       ['ul', {}, {}, [
         createFor(Exprs.get('tabs'), [
           createComponent(Tab, {
-            text: c.call('getText', TabScope),
-            icon: c.call('getIcon', TabScope),
-            value: c.call('getValue', TabScope),
+            text: c.getAttributeExpression('getText'),
+            icon: c.getAttributeExpression('getIcon'),
+            value: c.getAttributeExpression('getValue'),
             active: Exprs.get('value'),
           }, {
             update: Exprs

@@ -3,6 +3,10 @@ export interface SelectAttributes {
     options: any[];
     getValue: any;
     getText: any;
+    getDisabled: any;
+    getGroup: any;
+    getSortBy: number;
+    getSortByGroup: number;
     emptyText: string;
     multiple: boolean;
     multipleSize: number;
@@ -20,13 +24,18 @@ export interface SelectEvents {
 export declare type SelectSlots = 'text';
 export interface SelectComputed {
     classes: string;
-    optionsMap: Map<any, string>;
+    optionsMapped: any[];
+    optionsSorted: any[];
+    optionsGrouped: any[];
+    optionsGroupedSorted: any[];
 }
 export interface SelectUpdateEvent {
     nativeEvent: any;
     stop: boolean;
     prevent: boolean;
-    value: string;
+    value: any;
+    values: any[];
     option: any;
+    options: any[];
 }
 export declare const Select: import("expangine-ui").Component<SelectAttributes, SelectEvents, "text", never, SelectComputed>;
